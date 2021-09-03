@@ -648,11 +648,14 @@ else:
 
 ```{code-cell} ipython3
 time = 22
-def 24to12(time):
+#function used to convert from 24 hours to 12 hour time
+def twenty_four_to_twelve(time):
     if time > 12:
         print(time - 12, 'PM')
     elif time < 12:
         print(time, 'AM')
+
+twenty_four_to_twelve(time)
 ```
 
 ```{code-cell} ipython3

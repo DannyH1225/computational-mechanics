@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Creating a quadratic fit on random data &#8212; Computational Mechanics</title>
+    <title>Working in your Fork on GitHub.com &#8212; Computational Mechanics</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -44,8 +44,6 @@
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -55,8 +53,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Extra Material: Direct stiffness method for Finite Element analysis (FEA)" href="../projects/extra-FEA_material.html" />
-    <link rel="prev" title="Quick How-to documents" href="README.html" />
+    <link rel="next" title="Computational Mechanics 01 - Getting Started" href="../module_01/README.html" />
+    <link rel="prev" title="Syllabus - Computational Mechanics" href="../syllabus.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -99,8 +97,8 @@
    Syllabus - Computational Mechanics
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="update-github.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Working in your  Fork on GitHub.com
   </a>
  </li>
@@ -284,13 +282,13 @@
    </i>
   </label>
   <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="update-github.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Working in your  Fork on GitHub.com
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="polyfit.html">
      Creating a quadratic fit on random data
     </a>
    </li>
@@ -340,12 +338,9 @@
 
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
-        <a class="dropdown-buttons"
-            href="../_sources/how-to/polyfit.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
+        
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/how-to/polyfit.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/how-to/update-github.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -365,7 +360,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/cooperrc/computational-mechanics/issues/new?title=Issue%20on%20page%20%2Fhow-to/polyfit.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/cooperrc/computational-mechanics/issues/new?title=Issue%20on%20page%20%2Fhow-to/update-github.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -381,34 +376,44 @@
 
             <!-- Launch buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/cooperrc/computational-mechanics/master?urlpath=tree/how-to/polyfit.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        <a class="jupyterhub-button" href="https://compmech.uconn.edu/hub/user-redirect/git-pull?repo=https://github.com/cooperrc/computational-mechanics&urlpath=tree/computational-mechanics/how-to/polyfit.md&branch=master"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
-                data-placement="left"><img class="jupyterhub-button-logo"
-                    src="../_static/images/logo_jupyterhub.svg"
-                    alt="Interact on JupyterHub">JupyterHub</button></a>
-        
-        
-        
-    </div>
-</div>
-
         </div>
 
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fork-the-computational-mechanics-repository">
+   1. fork the computational-mechanics repository
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#clone-your-forked-repository-to-your-jupyter-server">
+   2. clone your forked repository to your Jupyter server
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#keep-your-fork-updated-with-a-fetch-upstream-on-github-com">
+   3. keep your fork updated with a ‘fetch upstream’ on github.com
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#do-your-work-then-commit-your-changes">
+   4. do your work then commit your changes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#push-your-changes-to-github-com">
+   5. push your changes to github.com
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -417,55 +422,75 @@
         
               <div>
                 
-  <div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">default_rng</span>
+  <div class="section" id="working-in-your-fork-image-fork-on-github-com">
+<h1>Working in your <img alt="fork image" src="../_images/fork.png" /> Fork on GitHub.com<a class="headerlink" href="#working-in-your-fork-image-fork-on-github-com" title="Permalink to this headline">¶</a></h1>
+<p>This is a short document on keeping track of your work on GitHub. There
+five steps:</p>
+<ol class="simple">
+<li><p>fork the
+<a class="reference external" href="https://github.com/cooperrc/computational-mechanics">computational-mechanics</a>
+repository</p></li>
+<li><p>clone your forked repository to your Jupyter server</p></li>
+<li><p>keep your fork updated with a ‘fetch upstream’ on github.com</p></li>
+<li><p>do your work then commit your changes</p></li>
+<li><p>push your changes to github.com</p></li>
+</ol>
+<p><strong>Steps 1 and 2 only have to be performed once.</strong></p>
+<p><strong>Only do steps 3, 4, and 5 to keep your work up-to-date.</strong></p>
+<div class="section" id="fork-the-computational-mechanics-repository">
+<h2>1. fork the <a class="reference external" href="https://github.com/cooperrc/computational-mechanics">computational-mechanics</a> repository<a class="headerlink" href="#fork-the-computational-mechanics-repository" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>go to https://github.com/cooperrc/computational-mechanics</p></li>
+<li><p>log in to github.com with your GitHub user name</p></li>
+<li><p>click “fork” in the upper-right corner of the website</p></li>
+</ol>
+</div>
+<div class="section" id="clone-your-forked-repository-to-your-jupyter-server">
+<h2>2. clone your forked repository to your Jupyter server<a class="headerlink" href="#clone-your-forked-repository-to-your-jupyter-server" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>go to https://compmech.uconn.edu</p></li>
+<li><p>log in with your netid and password</p></li>
+<li><p>Click “New” -&gt; “Terminal”</p></li>
+<li><p>type these commands, but replace <code class="docutils literal notranslate"><span class="pre">your-user-name</span></code> with your GitHub user name</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">work</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">your</span><span class="o">-</span><span class="n">user</span><span class="o">-</span><span class="n">name</span><span class="o">/</span><span class="n">computational</span><span class="o">-</span><span class="n">mechanics</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>You now have a copy of your fork on your Jupyter server</p>
+</div>
+<div class="section" id="keep-your-fork-updated-with-a-fetch-upstream-on-github-com">
+<h2>3. keep your fork updated with a ‘fetch upstream’ on github.com<a class="headerlink" href="#keep-your-fork-updated-with-a-fetch-upstream-on-github-com" title="Permalink to this headline">¶</a></h2>
+<p>When changes are made to the main code, you’ll want to update your files
+in your fork. Do this in 2 steps:</p>
+<ol class="simple">
+<li><p>go to <code class="docutils literal notranslate"><span class="pre">https://github.com/your-user-name/computational-mechanics</span></code>
+replacing <code class="docutils literal notranslate"><span class="pre">your-user-name</span></code> with your GitHub user name</p></li>
+<li><p>Click the button “Fetch upstream” <img alt="fetch upstream button" src="../_images/fetch-upstream.png" /></p></li>
+</ol>
+</div>
+<div class="section" id="do-your-work-then-commit-your-changes">
+<h2>4. do your work then commit your changes<a class="headerlink" href="#do-your-work-then-commit-your-changes" title="Permalink to this headline">¶</a></h2>
+<p>After you have made changes e.g. you finished the first notebook’s
+problems, you’ll want to “commit” those changes to git. Then, push them
+to github.com</p>
+<ol class="simple">
+<li><p>Save any work with the <img alt="save button" src="../_images/save-icon.png" /></p></li>
+<li><p>On the main <a class="reference external" href="https://compmech.uconn.edu">compmech site</a> Click “New” -&gt; “Terminal”</p></li>
+<li><p>type these commands</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">work</span><span class="o">/</span><span class="n">computational</span><span class="o">-</span><span class="n">mechanics</span>
+<span class="n">git</span> <span class="n">pull</span> <span class="n">origin</span> <span class="n">master</span>
+<span class="n">git</span> <span class="n">add</span> <span class="o">.</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s1">&#39;my latest work message&#39;</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="creating-a-quadratic-fit-on-random-data">
-<h1>Creating a quadratic fit on random data<a class="headerlink" href="#creating-a-quadratic-fit-on-random-data" title="Permalink to this headline">¶</a></h1>
-<p>In this notebook, you will</p>
-<ul class="simple">
-<li><p>build a variable of fabricated falling heights, <code class="docutils literal notranslate"><span class="pre">y</span></code> = <span class="math notranslate nohighlight">\(\frac{g}{2}t^2 + error\)</span></p></li>
-<li><p>find the best-fit quadratic function with <code class="docutils literal notranslate"><span class="pre">np.polyfit</span></code></p></li>
-<li><p>plot the data and fit using <code class="docutils literal notranslate"><span class="pre">poly1d</span></code></p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">default_rng</span><span class="p">()</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="mf">9.81</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="mi">4</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<div class="section" id="push-your-changes-to-github-com">
+<h2>5. push your changes to github.com<a class="headerlink" href="#push-your-changes-to-github-com" title="Permalink to this headline">¶</a></h2>
+<p>Then, to <strong>push the changes to github.com</strong> type this command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">master</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f4f5fac3910&gt;]
-</pre></div>
-</div>
-<img alt="../_images/polyfit_2_1.png" src="../_images/polyfit_2_1.png" />
-</div>
-</div>
-<p>Above, the fabricated falling data is shown for 5 seconds. The error is introduced as uniformly random numbers from -2 - 2 as <code class="docutils literal notranslate"><span class="pre">(rng.random(len(x)</span> <span class="pre">-</span> <span class="pre">0.5)*4</span></code>.</p>
-<p>Next, you build the polynomial fit with <code class="docutils literal notranslate"><span class="pre">np.polyfit</span></code>. Finally, plug the polynomial constants into the <code class="docutils literal notranslate"><span class="pre">np.poly1d</span></code> function to created a function for <span class="math notranslate nohighlight">\(y_{fit}(x)\)</span> = <code class="docutils literal notranslate"><span class="pre">pp(x)</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">pp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">poly1d</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pp</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;quadratic fit&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/polyfit_4_0.png" src="../_images/polyfit_4_0.png" />
 </div>
 </div>
 </div>
@@ -500,19 +525,19 @@
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="README.html" title="previous page">
+        <a class="left-prev" href="../syllabus.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Quick How-to documents</p>
+                <p class="prevnext-title">Syllabus - Computational Mechanics</p>
             </div>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="../projects/extra-FEA_material.html" title="next page">
+        <a class="right-next" href="../module_01/README.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Extra Material: Direct stiffness method for Finite Element analysis (FEA)</p>
+                <p class="prevnext-title">Computational Mechanics 01 - Getting Started</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

@@ -23,7 +23,7 @@ print(std_abv)
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m/tmp/ipykernel_1994/1603082696.py[0m in [0;36m<module>[0;34m[0m
+[0;32m/tmp/ipykernel_2078/1603082696.py[0m in [0;36m<module>[0;34m[0m
 [0;32m----> 1[0;31m [0mstd_abv[0m [0;34m=[0m [0mnp[0m[0;34m.[0m[0msqrt[0m[0;34m([0m[0mvar_abv[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 [0m[1;32m      2[0m [0mprint[0m[0;34m([0m[0mstd_abv[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 

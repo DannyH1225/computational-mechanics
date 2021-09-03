@@ -633,7 +633,7 @@ else:
 ```
 
 ```{code-cell} ipython3
-x=1
+x=1 #changed string into int
 y=20
 
 if x<y and y==20:

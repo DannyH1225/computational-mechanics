@@ -122,7 +122,7 @@ def factorial_function(input_value):
     
     factorial_output=1 # define 0! = 1
     for factor in range(1,input_value+1):
-        factorial_output*=factor; # mutliply factorial_output by 1*2*3*...*N (factor)
+        factorial_output*=factor; # multiply factorial_output by 1*2*3*...*N (factor)
     return factorial_output
          
 ```

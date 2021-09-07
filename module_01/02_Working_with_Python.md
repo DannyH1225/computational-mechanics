@@ -789,6 +789,7 @@ of the two indices from 0 to 9 e.g. A_99[3,2]=6 and A_99[4,4]=16.
     c. Calculate the standard deviation of `A_99`
 
 ```{code-cell} ipython3
+%%time
 rows = 10
 columns = 10
 A_99 = [[0 for i in range(rows)] for j in range(columns)]
@@ -797,6 +798,8 @@ A_99 = [[0 for i in range(rows)] for j in range(columns)]
 for i in range(rows):
     for j in range(columns):
         A_99[i][j]= i*j
+
+print('A_99:', A_99)
 
 #part b
 mean = np.sum(A_99) / (rows * columns)
@@ -820,7 +823,21 @@ print('Standard deviation is:', st_dv)
     d. create a filled contour plot of X, Y, A_99 [contourf plot documentation](https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.contourf.html)
 
 ```{code-cell} ipython3
+%%time
+X,Y=np.meshgrid(np.arange(0,10),np.arange(0,10))
 
+A_99 = X * Y 
+print(A_99)
+
+mean_2 = np.sum(A_99)/100 #part b
+
+print(mean_2)
+
+st_dv_2 = np.std(A_99) #part c
+
+print(st_dv_2)
+
+plt.contourf(A_99)
 ```
 
 4. The following linear interpolation function has an error. It is supposed to return y(x) given the the two points $p_1=[x_1,~y_1]$ and $p_2=[x_2,~y_2]$. Currently, it just returns and error.
@@ -835,6 +852,24 @@ def linInterp(x,p1,p2):
     slope = (p2[2]-p1[2])/(p2[1]-p1[1])
     
     return p1[2]+slope*(x - p1[1])
+```
+
+```{code-cell} ipython3
+def linInterp(x,p1,p2):
+    '''linear interplation function
+    return y(x) given the two endpoints 
+    p1=np.array([x1,y1])
+    and
+    p2=np.array([x2,y2])'''
+    slope = (p2[1]-p1[1])/(p2[0]-p1[0])
+
+    return p1[1]+slope*(x - p1[0])
+
+p1 = [2,3]
+p2 = [5,4]
+x = 4
+
+linInterp(x,p1,p2)
 ```
 
 ```{code-cell} ipython3

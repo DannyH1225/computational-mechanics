@@ -667,7 +667,6 @@ plt.xlabel('Year')
 plt.ylabel('Population')
 print(pop_numerical)
 print(pop_analytical)
-years
 ```
 
 __d.__ As the number of time steps increases, the Euler approximation approaches the analytical solution, not the measured data. The best-case scenario is that the Euler solution is the same as the analytical solution.
@@ -705,29 +704,43 @@ taylor_approx = exptaylor(1, 2)
 print('Taylor approximation=', taylor_approx)
 print('Numpy e^1=', np.exp(1))
 
-error = (taylor_approx - np.exp(1))*100
-print(f'Relative error= {error}%')
+error = (taylor_approx - np.exp(1))/ np.exp(1)
+print(f'Relative error= {error}')
 ```
 
 ```{code-cell} ipython3
 %%time
 exptaylor(1, 2)
-#time for second order Taylor series
+#time for second order Taylor series; part b
 ```
 
 ```{code-cell} ipython3
 %%time
 exptaylor(1, 10)
-#time for a tenth order Taylor series
+#time for a tenth order Taylor series; part b
 ```
 
 ```{code-cell} ipython3
-#slope from second order to tenth order Taylor series
+%%time
+exptaylor(1, 10000)
+```
 
-slope = (14.8e-6 - 10.7e-6) / (10 - 2)
+Since it takes about 12 seconds to run a 10000 order Taylor series it should take about 10 times longer to run a 100000 order Taylor series. This means the estimated time should be about 120 seconds.
 
-time_100k = slope * 100000
-print(f'Approximate time for 100000 order Taylor series {time_100k} seconds')
+```{code-cell} ipython3
+#part c
+n = np.arange(1, 100000, 500) # create an array from 1 to 10^4 with N values
+N = len(n)
+error = np.zeros(N, dtype = np.float32)    # initialize an N-valued array of relative errors
+taylor = np.zeros(N, dtype = np.float32)
+for i in range(0,N):
+    taylor[i] = exptaylor(1, n[i]) # Taylor series solutions
+    error[i] = np.sum(abs(taylor[i]- np.exp(1))/ np.exp(1)) / (N+1) #calculate relative error
+    
+plt.loglog(n, error,'o')
+plt.xlabel('number of orders N')
+plt.ylabel('relative error')
+plt.title('Truncation and roundoff error \naccumulation in log-log plot');
 ```
 
 ```{code-cell} ipython3

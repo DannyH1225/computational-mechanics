@@ -837,7 +837,7 @@ st_dv_2 = np.std(A_99) #part c
 
 print(st_dv_2)
 
-plt.contourf(A_99)
+plt.contourf(A_99) #part d
 ```
 
 4. The following linear interpolation function has an error. It is supposed to return y(x) given the the two points $p_1=[x_1,~y_1]$ and $p_2=[x_2,~y_2]$. Currently, it just returns and error.

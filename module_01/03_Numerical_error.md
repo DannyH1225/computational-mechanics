@@ -642,10 +642,22 @@ print('population =', pop)
 ```
 
 ```{code-cell} ipython3
+#part a
 print('average population changes 1900-1950, 1950-2000, 2000-2020')
 print((pop[1:] - pop[0:-1])/(year[1:] - year[0:-1]))
 print('average growth of 1900 - 2020')
 print(np.mean((pop[1:] - pop[0:-1])/(year[1:] - year[0:-1])))
+```
+
+```{code-cell} ipython3
+avg_growth = (pop[1:] - pop[0:-1])/(year[1:] - year[0:-1])                                   
+avg_kg = np.zeros_like(avg_growth)
+for i in range(len(avg_growth)):
+    avg_kg[i] = avg_growth[i] / pop[i+1]
+
+print('Average growth rate from 1900-1950:', avg_kg[0] )
+print('Average growth rate from 1950-2000:', avg_kg[1] )
+print('Average growth rate from 2000-2020:', avg_kg[2] )
 ```
 
 ```{code-cell} ipython3
@@ -725,24 +737,20 @@ exptaylor(1, 10)
 exptaylor(1, 10000)
 ```
 
-Since it takes about 12 seconds to run a 10000 order Taylor series it should take about 10 times longer to run a 100000 order Taylor series. This means the estimated time should be about 120 seconds.
+Since it takes about 28 seconds to run a 10000 order Taylor series it should take about 10 times longer to run a 100000 order Taylor series. This means the estimated time should be about 2800 seconds.
 
 ```{code-cell} ipython3
 #part c
-n = np.arange(1, 100000, 500) # create an array from 1 to 10^4 with N values
+n = np.arange(1, 1000) # create an array from 1 to 10^4 with N values
 N = len(n)
-error = np.zeros(N, dtype = np.float32)    # initialize an N-valued array of relative errors
-taylor = np.zeros(N, dtype = np.float32)
+error = np.zeros(N)    # initialize an N-valued array of relative errors
+taylor = np.zeros(N)
 for i in range(0,N):
     taylor[i] = exptaylor(1, n[i]) # Taylor series solutions
-    error[i] = np.sum(abs(taylor[i]- np.exp(1))/ np.exp(1)) / (N+1) #calculate relative error
+    error[i] = abs(taylor[i]- np.exp(1))/ np.exp(1) #calculate relative error
     
 plt.loglog(n, error,'o')
 plt.xlabel('number of orders N')
 plt.ylabel('relative error')
 plt.title('Truncation and roundoff error \naccumulation in log-log plot');
-```
-
-```{code-cell} ipython3
-
 ```

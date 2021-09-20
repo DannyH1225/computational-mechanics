@@ -49,6 +49,12 @@ print(f'K={K} per hour')
 
 ```{code-cell} ipython3
 def K(T_i, T_f, T_a, dt):
+    '''Function that accepts the temperature at two times, ambient temperature, and the time elapsed to return 𝐾
+    T_i = Initial temperature
+    T_f = Final temperature
+    T_a = Ambient temperature
+    Governing equation: dT/dt = -K(T-T_a)
+    '''
     dT_dt = (T_f - T_i) / dt
     K = - dT_dt / (T_f - T_a)
     return K
@@ -96,7 +102,7 @@ plt.plot(t_10, T_f10_num, '-o', label= '10 time steps')
 plt.plot(t_10, T_10_ana, '-', label= 'analytical 10 steps')
 plt.title('Cooling for First 5 Hours')
 plt.xlabel('time (hr)')
-plt.ylabel('Temp \N{DEGREE SIGN} F')
+plt.ylabel('Temp \N{DEGREE SIGN}F')
 plt.legend();
 ```
 
@@ -105,13 +111,30 @@ plt.plot(t_50, T_f50_num, '-o', label= '50 time steps')
 plt.plot(t_50, T_50_ana, '-', label= 'analytical 50 steps')
 plt.title('Cooling for First 5 Hours')
 plt.xlabel('time (hr)')
-plt.ylabel('Temp \N{DEGREE SIGN} F')
+plt.ylabel('Temp \N{DEGREE SIGN}F')
 plt.legend();
 ```
 
 Part a: Looking at the both graphs, it can be shown that as the time step decreases the Euler integration approaches the analytical solution.
 
 +++
+
+Part b: The final temperature as t--> infinity is the ambient temperature.
+
+```{code-cell} ipython3
+#part C
+T_f = 74
+T_i = 85
+T_a = 65
+dt = 2
+dT_dt = (T_f - T_i)/ dt
+
+K = - dT_dt / (T_f - T_a)
+t_death = np.log((98.6 - T_a)/ (T_i - T_a)) / -K
+
+print(t_death*60)
+print('Time of death is 10:10 am')
+```
 
 4. Now that we have a working numerical model, we can look at the results if the
 ambient temperature is not constant i.e. T_a=f(t). We can use the weather to improve our estimate for time of death. Consider the following Temperature for the day in question. 
@@ -135,5 +158,45 @@ ambient temperature is not constant i.e. T_a=f(t). We can use the weather to imp
     At what time was the corpse 98.6$^{o}$F? i.e. what was the time of death?
 
 ```{code-cell} ipython3
+#part a
 
+def ambient_temp(time):
+    if 0<= time < 1:
+        temp = 5*time + 70
+        print(f'Ambient temp is {temp} \N{DEGREE SIGN}F')
+    elif -1<= time < 0:
+        temp = 5*time + 70
+        print(f'Ambient temp is {temp} \N{DEGREE SIGN} F')
+    elif -2<= time < -1:
+        temp = 5*time + 70
+        print(f'Ambient temp is {temp} \N{DEGREE SIGN} F')
+    elif -3<= time < -2:
+        temp = 5*time + 70
+        print(f'Ambient temp is {temp} \N{DEGREE SIGN} F')
+    elif -4<= time < -3:
+        temp = 5*time + 70
+        print(f'Ambient temp is {temp} \N{DEGREE SIGN} F')
+    elif -5<= time < -5:
+        print(f'Ambient temp is {temp} \N{DEGREE SIGN} F')
+    elif 1<= time < 2:
+        print(f'Ambient temp is {temp} \N{DEGREE SIGN} F')
+    elif 2<= time:
+        temp = 5*time + 70
+        print(f'Ambient temp is {temp} \N{DEGREE SIGN} F')
+        
+        
+ambient_temp(2)
+```
+
+```{code-cell} ipython3
+time = np.array([-5,-4,-3,-2,-1,0,1,2])
+ambient_temps = np.array([50,51,55,60,65,70,75,80])
+m, b = np.polyfit(time, ambient_temps, deg=1)
+
+plt.plot(time, m*time + b, '-', label = f'Line of best fit: {m:.2f}t + {b:.2f}')
+plt.plot(time, ambient_temps, 'o')
+plt.title('Ambient Temperature ')
+plt.xlabel('Time starting at 11 am(hr)')
+plt.ylabel('Temp \N{DEGREE SIGN} F')
+plt.legend();
 ```

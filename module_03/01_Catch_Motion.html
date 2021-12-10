@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catch things in motion &#8212; Computational Mechanics</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -58,7 +58,10 @@
     <link rel="next" title="Step to the future" href="02_Step_Future.html" />
     <link rel="prev" title="Computational Mechanics 03- Initial Value Problems" href="README.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -74,6 +77,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../_static/comp-mech-logo.svg" class="logo" alt="logo">
       
@@ -578,6 +585,7 @@
     src="https://www.youtube.com/embed/xQ4znShlK5A"
     frameborder="0"
     allowfullscreen
+
 ></iframe>
 </div></div>
 </div>
@@ -596,7 +604,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1885</span><span class="o">/</span><span class="mf">2183123930.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1971</span><span class="o">/</span><span class="mf">2183123930.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">imageio</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -707,6 +715,7 @@ the long-exposure image of the falling ball.</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+
 
 <span class="n">coords</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">connectId</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">mpl_connect</span><span class="p">(</span><span class="s1">&#39;button_press_event&#39;</span><span class="p">,</span> <span class="n">onclick</span><span class="p">)</span>
@@ -1060,6 +1069,7 @@ save your variables <code class="docutils literal notranslate"><span class="pre"
 <li><p>What did you get for the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> accelerations? What did your colleagues get?</p></li>
 <li><p>Do the results make sense to you? Why or why not?</p></li>
 </ul>
+<p>I got 11.04 m/s for y-accel and 1.95 m/s for x-accel. Yes, the results make sense. There is some error in the estimation of both x and y accelerations but this is expected.</p>
 </div>
 <div class="section" id="numerical-derivatives">
 <h2>Numerical derivatives<a class="headerlink" href="#numerical-derivatives" title="Permalink to this headline">¶</a></h2>
@@ -1079,7 +1089,7 @@ a(t) = \frac{dv}{dt} \approx \frac{v(t_i+\Delta t)-v(t_i)}{\Delta t}
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;../data/fallingtennisball02.txt&#39;</span>
-<span class="n">t</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">t_1</span><span class="p">,</span> <span class="n">y_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1088,7 +1098,7 @@ a(t) = \frac{dv}{dt} \approx \frac{v(t_i+\Delta t)-v(t_i)}{\Delta t}
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_1</span><span class="p">,</span><span class="n">y_1</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -1146,6 +1156,7 @@ then compute displacements, velocity, and acceleration with that slice.</p>
 <li><p>What do you see in the plot of acceleration computed from the high-resolution data?</p></li>
 <li><p>Can you explain it? What do you think is causing this?</p></li>
 </ul>
+<p>The plot shows that absolute acceleration is decresing over time. This might be explained by the ball experiencing air resistance which causes the ball to slow down when it is acceleration</p>
 </div>
 <div class="section" id="what-you-ve-learned">
 <h2>What you’ve learned<a class="headerlink" href="#what-you-ve-learned" title="Permalink to this headline">¶</a></h2>
@@ -1189,6 +1200,106 @@ d. Plot the polyfit lines for velocity and position (2 figures) with the finite 
 </div>
 </li>
 </ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a</span>
+<span class="n">my_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+<span class="p">[[</span><span class="mf">302.8746408045977</span><span class="p">,</span> <span class="mf">120.0926888564536</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">323.5642959770115</span><span class="p">,</span> <span class="mf">117.79383828174093</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">346.5528017241379</span><span class="p">,</span> <span class="mf">120.0926888564536</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">369.5413074712643</span><span class="p">,</span> <span class="mf">124.69039000587884</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">399.4263649425287</span><span class="p">,</span> <span class="mf">131.58694173001675</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">417.8171695402299</span><span class="p">,</span> <span class="mf">140.78234402886733</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">440.8056752873563</span><span class="p">,</span> <span class="mf">147.67889575300524</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">466.09303160919546</span><span class="p">,</span> <span class="mf">161.47199920128116</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">489.08153735632186</span><span class="p">,</span> <span class="mf">170.66740150013175</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">512.0700431034483</span><span class="p">,</span> <span class="mf">184.46050494840756</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">535.0585488505748</span><span class="p">,</span> <span class="mf">198.2536083966835</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">560.3459051724138</span><span class="p">,</span> <span class="mf">218.9432635690972</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">583.3344109195402</span><span class="p">,</span> <span class="mf">235.0352175920857</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">608.6217672413793</span><span class="p">,</span> <span class="mf">253.42602218978686</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">629.3114224137931</span><span class="p">,</span> <span class="mf">276.41452793691326</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">650.0010775862069</span><span class="p">,</span> <span class="mf">294.8053325346144</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">675.2884339080459</span><span class="p">,</span> <span class="mf">320.0926888564535</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">700.5757902298851</span><span class="p">,</span> <span class="mf">345.38004517829256</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">721.2654454022988</span><span class="p">,</span> <span class="mf">372.9662520748443</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">746.5528017241379</span><span class="p">,</span> <span class="mf">400.55245897139605</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">769.5413074712644</span><span class="p">,</span> <span class="mf">432.736367017373</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">794.8286637931035</span><span class="p">,</span> <span class="mf">462.6214244886374</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">817.8171695402299</span><span class="p">,</span> <span class="mf">497.10418310932704</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">840.8056752873563</span><span class="p">,</span> <span class="mf">533.8857923047294</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">863.7941810344828</span><span class="p">,</span> <span class="mf">568.368550925419</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">891.3803879310345</span><span class="p">,</span> <span class="mf">605.1501601208213</span><span class="p">]])</span>
+
+<span class="n">gap_lines</span> <span class="o">=</span> <span class="mf">53.10344827586206</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">my_coords</span><span class="p">)[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span><span class="mf">0.1</span> <span class="o">/</span> <span class="n">gap_lines</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">my_coords</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span><span class="mf">0.1</span> <span class="o">/</span> <span class="n">gap_lines</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span><span class="o">/</span><span class="mi">60</span>
+
+<span class="n">delta_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">26</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[:</span><span class="mi">25</span><span class="p">])</span>
+<span class="n">delta_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">26</span><span class="p">]</span> <span class="o">-</span> <span class="n">y</span><span class="p">[:</span><span class="mi">25</span><span class="p">])</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">vx</span> <span class="o">=</span> <span class="n">delta_x</span> <span class="o">/</span> <span class="n">dt</span>
+<span class="n">vy</span> <span class="o">=</span> <span class="n">delta_y</span> <span class="o">/</span> <span class="n">dt</span>
+
+<span class="n">first_order_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="mi">25</span><span class="p">],</span> <span class="n">vx</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">first_order_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="mi">25</span><span class="p">],</span> <span class="n">vy</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">second_order_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="mi">26</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">second_order_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1">#part b</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finite difference vx: </span><span class="si">{:.3f}</span><span class="s1"> m/s^2&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">first_order_x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finite difference vy: </span><span class="si">{:.3f}</span><span class="s1"> m/s^2&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">first_order_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part c</span>
+<span class="n">second_order_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">second_order_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Second order x-acceleration: </span><span class="si">{:.3f}</span><span class="s1"> m/s^2&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">second_order_x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Second order x-acceleration: </span><span class="si">{:.3f}</span><span class="s1"> m/s^2&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">second_order_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part d</span>
+<span class="n">poly2nd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">poly1d</span><span class="p">(</span><span class="n">first_order_y</span><span class="p">)</span>
+<span class="n">y_fit</span> <span class="o">=</span> <span class="o">-</span><span class="n">poly2nd</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="mi">25</span><span class="p">],</span><span class="o">-</span><span class="n">vy</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Finite difference&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y_fit</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;First order polyfit&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;velocity (m/s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part d</span>
+<span class="n">poly2nd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">poly1d</span><span class="p">(</span><span class="n">second_order_y</span><span class="p">)</span>
+<span class="n">y_fit</span> <span class="o">=</span> <span class="o">-</span><span class="n">poly2nd</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="o">-</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Collected Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y_fit</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Second order polyfit&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;position (m)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Part d: Looking at both graphs above, the second order polyfit line looks better. It is a better at approximating the acceleration due to gravity.</p>
 <ol>
 <li><p>Not only can you measure acceleration of objects that you track, you can look at other physical constants like <a class="reference external" href="https://en.wikipedia.org/wiki/Coefficient_of_restitution">coefficient of restitution</a>, <span class="math notranslate nohighlight">\(e\)</span> .</p>
 <p>During a collision with the ground, the coefficient of restitution is</p>
@@ -1199,6 +1310,46 @@ d. Plot the polyfit lines for velocity and position (2 figures) with the finite 
 <p>c. Calculate the <span class="math notranslate nohighlight">\(e\)</span> for each of the three collisions</p>
 </li>
 </ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;../data/fallingtennisball02.txt&#39;</span>
+<span class="n">t_1</span><span class="p">,</span> <span class="n">y_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">delta_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_1</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2500</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_1</span><span class="p">[:</span><span class="mi">2499</span><span class="p">])</span>
+<span class="n">dt_1</span> <span class="o">=</span> <span class="n">t_1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">t_1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">vy_1</span> <span class="o">=</span> <span class="n">delta_y</span> <span class="o">/</span> <span class="n">dt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_1</span><span class="p">[:</span><span class="mi">2499</span><span class="p">],</span> <span class="n">vy_1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Velocity (m/s)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part b and c</span>
+<span class="n">before_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">vy_1</span><span class="p">)</span>
+<span class="n">after_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">vy_1</span><span class="p">)</span>
+
+<span class="n">e_1</span> <span class="o">=</span> <span class="o">-</span><span class="n">after_1</span><span class="o">/</span><span class="n">before_1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coefficient of restitution for first bounce </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e_1</span><span class="p">))</span>
+
+<span class="n">before_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">vy_1</span><span class="p">[</span><span class="mi">1400</span><span class="p">:])</span>
+<span class="n">after_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">vy_1</span><span class="p">[</span><span class="mi">1400</span><span class="p">:])</span>
+
+<span class="n">e_2</span> <span class="o">=</span> <span class="o">-</span><span class="n">after_2</span><span class="o">/</span><span class="n">before_2</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coefficient of restitution for second bounce </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e_2</span><span class="p">))</span>
+
+<span class="n">before_3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">vy_1</span><span class="p">[</span><span class="mi">1900</span><span class="p">:])</span>
+<span class="n">after_3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">vy_1</span><span class="p">[</span><span class="mi">1900</span><span class="p">:])</span>
+
+<span class="n">e_3</span> <span class="o">=</span> <span class="o">-</span><span class="n">after_3</span><span class="o">/</span><span class="n">before_3</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coefficient of restitution for third bounce </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e_3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -1224,36 +1375,27 @@ d. Plot the polyfit lines for velocity and position (2 figures) with the finite 
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="README.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Computational Mechanics 03- Initial Value Problems</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="README.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Computational Mechanics 03- Initial Value Problems</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="02_Step_Future.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Step to the future</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="02_Step_Future.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Step to the future</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         
@@ -1269,8 +1411,7 @@ d. Plot the polyfit lines for velocity and position (2 figures) with the finite 
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

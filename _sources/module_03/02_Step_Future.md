@@ -5,9 +5,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.10.3
+    jupytext_version: 1.11.4
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -88,7 +88,7 @@ _Note: the direction of positive acceleration was changed to up, so that a posit
 
 ### Step through time
 
-In the code cell below, you define acceleration as a function of velocity and add two parameters `c` and `m` to define drag coefficient and mass of the object.  
+In the code cell below, you define acceleration as a function of velocity and add two parameters `c` and `m` to define drag coefficient and mass of the object.
 
 ```{code-cell} ipython3
 def a_freefall(v,c=0.25,m=60):
@@ -124,7 +124,7 @@ You are applying the equation for $v(t_i + \Delta t)$ above, and a similar equat
 
 ```{code-cell} ipython3
 N = 100 # define number of time steps
-t=np.linspace(0,12,N) # set values for time (our independent variable)
+t=np.linspace(0,13,N) # set values for time (our independent variable)
 dt=t[1]-t[0]
 x=np.zeros(len(t)) # initialize x
 v=np.zeros(len(t)) # initialize v
@@ -148,7 +148,7 @@ computed variables. Note that you use the Matplotlib
 [`subplot()`](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplot.html?highlight=matplotlib%20pyplot%20subplot#matplotlib.pyplot.subplot)
 function to get the two plots in one figure. The argument to `subplot()`
 is a set of three digits, corresponding to the number of rows, number of
-columns, and plot number in a matrix of sub-plots. 
+columns, and plot number in a matrix of sub-plots.
 
 ```{code-cell} ipython3
 # plot velocity and position over time
@@ -163,11 +163,17 @@ plt.subplot(212)
 plt.plot(t,  x, color='#008367', linestyle='-', linewidth=1) 
 plt.xlabel('Time (s)')
 plt.ylabel('$x$ (m)');
+print(t[np.isclose(x, 0, atol=1)])
+print('Error= {}'.format((12.47474747-12.4)/12.47474747*100 ))
 ```
 
 ## Exercise
 
 The initial height is 440 m, the height of the tip of the [Empire State Building](https://en.wikipedia.org/wiki/Empire_State_Building). How long would it take for the object to reach the ground from this height? How accurate is your estimation e.g. what is the error bar for your solution?
+
++++
+
+It would take about 12.4 seconds to reach the ground from this height. The error was .6%
 
 +++
 
@@ -234,7 +240,7 @@ v \\ \frac{c}{m}v^2-g
 \end{bmatrix}.
 \end{equation}
 
-Equation (9) above represents the _state_ of the system, at any given instant in time. A code design for the numerical solution that generalizes to other changing systems (or _dynamical systems_) is to write one function that computes the right-hand side of the differential equation (the derivatives of the state variables), and another function that takes a state and applies the numerical method for each time increment. The solution is then computed in one `for` statement that calls these functions. 
+Equation (9) above represents the _state_ of the system, at any given instant in time. A code design for the numerical solution that generalizes to other changing systems (or _dynamical systems_) is to write one function that computes the right-hand side of the differential equation (the derivatives of the state variables), and another function that takes a state and applies the numerical method for each time increment. The solution is then computed in one `for` statement that calls these functions.
 
 +++
 
@@ -337,7 +343,7 @@ for i in range(N-1):
     num_sol[i+1] = eulerstep(num_sol[i], freefall, dt)
 ```
 
-Did it work? Exciting! Let's plot in the same figure both the numerical solution and the experimental data. 
+Did it work? Exciting! Let's plot in the same figure both the numerical solution and the experimental data.
 
 ```{code-cell} ipython3
 fig = plt.figure(figsize=(6,4))
@@ -365,7 +371,22 @@ Create a plot of the analytical solution for y-vs-t for an object that accelerat
 
 _Hint: remember the kinematic equations for constant acceleration_ $y(t) = y(0) + \dot{y}(0)t - \frac{gt^2}{2}$
 
-+++
+```{code-cell} ipython3
+plt.figure(figsize=(8,6))
+y_ana = y[0] - 9.81/2*t**2
+
+plt.subplot(211)
+plt.plot(t, y_ana, linewidth=1)
+plt.title('Analytical Solution & \n Difference between \n Analytical and \n Experimental Data')
+plt.ylabel('y (m)')
+
+diff = y - y_ana
+
+plt.subplot(212)
+plt.plot(t, diff, linewidth=1)
+plt.xlabel('Time (s)')
+plt.ylabel('y (m)')
+```
 
 ## Air resistance
 
@@ -497,6 +518,10 @@ plt.legend();
 
 +++
 
+As time increases the error between numerical solution and experimental data increases. THe error plotted is related to truncation error.
+
++++
+
 ## What you've learned
 
 * Integrating an equation of motion numerically.
@@ -528,14 +553,51 @@ _Given:_ y(0) = 1.6 m, v(0) = 0 m/s
 
 |ball| diameter | mass|
 |---|---|---|
-|tennis| $6.54$–$6.86 \rm{cm}$ |$56.0$–$59.4 \rm{g}$|
-|lacrosse| $6.27$–$6.47 \rm{cm}$ |$140$–$147 \rm{g}$|
+|tennis| $6.54$–$6.86 \rm{cm}$|$56.0$–$59.4 \rm{g}$|
+|lacrosse| $6.27$–$6.47 \rm{cm}$|$140$–$147 \rm{g}$|
 
 Is there a difference in the two solutions? At what times do the tennis ball and lacrosse balls reach the ground? Which was first?
 
 ```{code-cell} ipython3
+y0 = y[0] # initial position
+v0 = 0    # initial velocity
+N = 600   # number of steps
 
+# initialize array
+num_sol_drag_tennis = np.zeros([N,2])
+num_sol_drag_lacross = np.zeros([N,2])
+
+# Set intial conditions
+num_sol_drag_tennis[0,0] = y0
+num_sol_drag_tennis[0,1] = v0
+
+num_sol_drag_lacross[0,0] = y0
+num_sol_drag_lacross[0,1] = v0
+
+for i in range(N-1):
+    num_sol_drag_tennis[i+1] = eulerstep(num_sol_drag_tennis[i],
+                                         lambda state: fall_drag(state, C_d=0.47,m=0.0577,R = 0.0661/2), dt)
+    num_sol_drag_lacross[i+1] = eulerstep(num_sol_drag_lacross[i],
+                                          lambda state: fall_drag(state, C_d=0.47,m=0.1435,R = 0.0637/2), dt)
+    
+fig = plt.figure(figsize=(6,4))
+plt.plot(t[:N], num_sol_drag_tennis[:,0], linewidth=2, linestyle='--', label='Tennis ball')
+plt.plot(t[:N], num_sol_drag_lacross[:,0], linewidth=2, linestyle='-', label='Lacross ball')
+
+plt.title('Free fall  \n')
+
+plt.xlabel('Time [s]')
+plt.ylabel('$y$ [m]')
+plt.legend();
+
+t_1k = t[:N]
+print(t_1k[np.isclose(num_sol_drag_tennis[:,0], 0, atol = 1e-02)])
+print(t_1k[np.isclose(num_sol_drag_lacross[:,0], 0, atol = 1e-02)])
 ```
+
+There is a difference in the two solutions. The tennis reached the ground at about 0.573 s and the lacross ball reached the ground at about 0.572 s. The lacross ball reached the ground first.
+
++++
 
 ![Projectile motion with drag](../images/projectile.png)
 
@@ -557,7 +619,7 @@ v_y \\ g - cv_y^2
 \end{bmatrix}, 
 \end{equation}
 
-where $c= \frac{1}{2} \pi R^2 \rho C_d$. 
+where $c= \frac{1}{2} \pi R^2 \rho C_d$.
 
 +++
 
@@ -565,9 +627,7 @@ where $c= \frac{1}{2} \pi R^2 \rho C_d$.
 
     $\mathbf{\dot{y}} = projectile\_drag(\mathbf{y})$
     
-    Below is the start of a function definition, be sure to update the help file. 
-    
-
+    Below is the start of a function definition, be sure to update the help file.
 
 ```{code-cell} ipython3
 def projectile_drag(state,C_d=0.47,m=0.143,R = 0.0661/2):
@@ -576,23 +636,22 @@ def projectile_drag(state,C_d=0.47,m=0.143,R = 0.0661/2):
     
     Arguments
     ----------    
-    state : array of two dependent variables [y v]^T
+    state : array of 4 dependent variables [x v_x y v_y]^T
     m : mass in kilograms default set to 0.143 kg (mass of lax ball source wiki)
     C_d : drag coefficient for a sphere default set to 0.47 (no units)
     R : radius of ball default in meters is 0.0661/2 m (tennis ball)
     Returns
     -------
-    derivs: array of four derivatives [?? ?? ?? ??]
+    derivs: array of four derivatives [v_x (-cv_x**2) v_y (g-cv_y**2)]
     '''
     
     rho = 1.22   # air density kg/m^3
     pi = np.pi
-
+    a_drag_x = -1/(2*m) * pi * R**2 * rho * C_d * (state[1])**2
+    a_drag_y = -1/(2*m) * pi * R**2 * rho * C_d * (state[3])**2
+    derivs = np.array([state[1], a_drag_x, state[3], -9.81 + a_drag_y])
+    
     return derivs
-```
-
-```{code-cell} ipython3
-
 ```
 
 3. Integrate your `projectile_drag` function using the Euler integration method. Use initial conditions from the saved data in lesson  [01_Catch_Motion](01_Catch_Motion.ipynb), there is a numpy `npz` file in the data folder if you want to check your results from lesson 1. The initial conditions in the provided npz file are
@@ -615,7 +674,45 @@ npz = np.load('../data/projectile_coords.npz')
 t3=npz['t']
 x3=npz['x']
 y3=npz['y']
+
+#initial conditions
+x_0 = 0.5610
+vx_0 = 2.6938
+y_0 = y3[0]
+vy_0 = -0.0759
+dt = t3[1] - t3[0]
+
+N = 26 #Number of steps
+
+#initialize array
+num_sol_lacross = np.zeros([N,4])
+
+num_sol_lacross[0,0] = x_0
+num_sol_lacross[0,1] = vx_0
+num_sol_lacross[0,2] = y_0
+num_sol_lacross[0,3] = vy_0
+
+for i in range(N-1):
+    num_sol_lacross[i+1] = eulerstep(num_sol_lacross[i], projectile_drag, dt)
+
+plt.plot(t3, num_sol_lacross[:,0], label='euler')
+plt.plot(t3, x3, label='experimental data')
+plt.xlabel('Time (s)')
+plt.ylabel('x (m)')
+plt.legend();
+print('There is not a noticible effect of drag on the lacrosse ball in the x-direction.')
+print('Both the Euler integration and experimental data are pretty much the same.')
 ```
+
+```{code-cell} ipython3
+plt.plot(t3, num_sol_lacross[:,2], label='euler')
+plt.plot(t3, y3, label='experimental data')
+plt.xlabel('Time (s)')
+plt.ylabel('y (m)')
+plt.legend();
+```
+
+The euler integration for y is close at the beginning but starts to diverge as time increases. There is a noticable effect of drag on the lacrosse ball as the Euler integration does not math up with the experimental data.
 
 ```{code-cell} ipython3
 

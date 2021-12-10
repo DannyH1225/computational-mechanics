@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Good Vibrations &#8212; Computational Mechanics</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -58,7 +58,10 @@
     <link rel="next" title="Computational Mechanics Boundary Values - Project 05" href="../projects/05-BVPs_project.html" />
     <link rel="prev" title="Keep it Steady" href="02_Keep_it_steady.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -74,6 +77,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../_static/comp-mech-logo.svg" class="logo" alt="logo">
       
@@ -783,6 +790,36 @@ eigenvalue 2:,	 eigenvector 2:
 <div class="section" id="exercise">
 <h3>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
 <p>Increase the stiffness of the springs, <span class="math notranslate nohighlight">\(k_1,~k_2,~and~k_3=2000~N/m.\)</span> What are the natural frequencies? The stiffness increased <span class="math notranslate nohighlight">\(\times 4,\)</span> how much did the natural frequencies change?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m1</span><span class="o">=</span><span class="n">m2</span><span class="o">=</span><span class="mf">0.1</span> <span class="c1"># 0.2 kg</span>
+<span class="n">k1</span><span class="o">=</span><span class="n">k2</span><span class="o">=</span><span class="n">k3</span><span class="o">=</span><span class="mi">2000</span> <span class="c1"># 500 N/m</span>
+
+<span class="n">M</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">m1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="n">m2</span><span class="p">]])</span>
+<span class="n">K</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">k1</span><span class="o">+</span><span class="n">k2</span><span class="p">,</span><span class="o">-</span><span class="n">k2</span><span class="p">],[</span><span class="o">-</span><span class="n">k2</span><span class="p">,</span><span class="n">k2</span><span class="o">+</span><span class="n">k3</span><span class="p">]])</span>
+
+<span class="n">e</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">M</span><span class="p">)</span>
+<span class="n">w1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">v1</span><span class="o">=</span><span class="n">v</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="nb">max</span><span class="p">(</span><span class="n">v</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">w2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">v2</span><span class="o">=</span><span class="n">v</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="nb">max</span><span class="p">(</span><span class="n">v</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;1st natural frequency is </span><span class="si">%1.2f</span><span class="s1"> Hz, </span><span class="se">\</span>
+<span class="s1">     mode shape: </span><span class="si">%1.0f</span><span class="s1">*x1(t)=</span><span class="si">%1.0f</span><span class="s1">*x2(t)&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span><span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;2nd natural frequency is </span><span class="si">%1.2f</span><span class="s1"> Hz, </span><span class="se">\</span>
+<span class="s1">    mode shape: </span><span class="si">%1.0f</span><span class="s1">*x1(t)=</span><span class="si">%1.0f</span><span class="s1">*x2(t)&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">w2</span><span class="p">,</span><span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1st natural frequency is 22.51 Hz,      mode shape: 1*x1(t)=1*x2(t)
+2nd natural frequency is 38.98 Hz,     mode shape: -1*x1(t)=1*x2(t)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The natural frequencies about doubled when the stiffness increased by 4.</p>
 </div>
 <div class="section" id="linear-algebra-mathbf-ax-b-vs-mathbf-ax-lambda-mathbf-x">
 <h3>Linear Algebra: <span class="math notranslate nohighlight">\(\mathbf{Ax=b}\)</span> vs <span class="math notranslate nohighlight">\(\mathbf{Ax}=\lambda\mathbf{x}\)</span><a class="headerlink" href="#linear-algebra-mathbf-ax-b-vs-mathbf-ax-lambda-mathbf-x" title="Permalink to this headline">¶</a></h3>
@@ -925,7 +962,7 @@ x_2\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03_Good_Vibrations_14_0.png" src="../_images/03_Good_Vibrations_14_0.png" />
+<img alt="../_images/03_Good_Vibrations_15_0.png" src="../_images/03_Good_Vibrations_15_0.png" />
 </div>
 </div>
 </div>
@@ -969,7 +1006,7 @@ x_2\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03_Good_Vibrations_17_0.png" src="../_images/03_Good_Vibrations_17_0.png" />
+<img alt="../_images/03_Good_Vibrations_18_0.png" src="../_images/03_Good_Vibrations_18_0.png" />
 </div>
 </div>
 </div>
@@ -978,6 +1015,43 @@ x_2\\
 <p>Give the two masses multiples of the eigenvector for the initial velocities.
 e.g. <code class="docutils literal notranslate"><span class="pre">z[:,0]=np.array([0,0,2,2])</span></code> for eigenvector 1.</p>
 <p>How does it change the plots for “Eigenvector 1” and “Eigenvector 2”?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="n">w1</span> <span class="c1"># 2 x longest period</span>
+<span class="n">dt</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">w2</span><span class="o">/</span><span class="mi">10</span> <span class="c1"># shortest period</span>
+<span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">dt</span><span class="p">)</span>
+<span class="n">state_e1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+<span class="n">state_e1</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># set initial conditions eigenv 1</span>
+<span class="n">state_e2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+<span class="n">state_e2</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># set initial conditions eigenv 2</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">state_e1</span><span class="p">[:,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">heun_step</span><span class="p">(</span><span class="n">state_e1</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span><span class="n">spring_mass</span><span class="p">,</span><span class="n">dt</span><span class="p">)</span>
+    <span class="n">state_e2</span><span class="p">[:,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">heun_step</span><span class="p">(</span><span class="n">state_e2</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span><span class="n">spring_mass</span><span class="p">,</span><span class="n">dt</span><span class="p">)</span>
+    
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Eigenvector 1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">state_e1</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;rs-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;x_1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">state_e1</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;b-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;x_2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;position</span><span class="se">\n</span><span class="s1"> (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Eigenvector 2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">state_e2</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;rs-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;x_1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">state_e2</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;b-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;x_2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;position</span><span class="se">\n</span><span class="s1"> (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.2</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_Good_Vibrations_20_0.png" src="../_images/03_Good_Vibrations_20_0.png" />
+</div>
+</div>
+<p>Eigenvector 1 graph is shifted over and its amplitude changes. Eigenvector 2 graph is not changed but its amplitude changed.</p>
 </div>
 </div>
 <div class="section" id="back-to-your-guitar-string">
@@ -1118,8 +1192,18 @@ shortest time period =2.103 ms
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ymodes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">v</span><span class="p">,((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)))</span> <span class="c1"># add a 0 to the first row and last row, but add nothing to columns </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;eigenvector 1&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;eigenvector 2&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;eigenvector 3&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fdfd3b0f250&gt;
+</pre></div>
+</div>
+<img alt="../_images/03_Good_Vibrations_28_1.png" src="../_images/03_Good_Vibrations_28_1.png" />
 </div>
 </div>
 </div>
@@ -1165,7 +1249,7 @@ shortest time period =2.103 ms
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Initial state 1&#39;)
 </pre></div>
 </div>
-<img alt="../_images/03_Good_Vibrations_28_1.png" src="../_images/03_Good_Vibrations_28_1.png" />
+<img alt="../_images/03_Good_Vibrations_30_1.png" src="../_images/03_Good_Vibrations_30_1.png" />
 </div>
 </div>
 <ol class="simple">
@@ -1183,7 +1267,7 @@ shortest time period =2.103 ms
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Initial state 2&#39;)
 </pre></div>
 </div>
-<img alt="../_images/03_Good_Vibrations_30_1.png" src="../_images/03_Good_Vibrations_30_1.png" />
+<img alt="../_images/03_Good_Vibrations_32_1.png" src="../_images/03_Good_Vibrations_32_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1259,16 +1343,13 @@ shortest time period =2.103 ms
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time(s)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y-position (m)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Plotting rows of y(x,t)</span><span class="se">\n</span><span class="s1">each line is one point along x-axis&#39;</span><span class="p">)</span>
-<span class="c1">##plt.plot(np.arange(0,tsteps)*dt,y[50,:]);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Plotting rows of y(x,t)</span><span class="se">\n</span><span class="s1">each line is one point along x-axis&#39;</span><span class="p">);</span>
+<span class="c1">#plt.plot(np.arange(0,tsteps)*dt,y[50,:]);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Plotting rows of y(x,t)\neach line is one point along x-axis&#39;)
-</pre></div>
-</div>
-<img alt="../_images/03_Good_Vibrations_34_1.png" src="../_images/03_Good_Vibrations_34_1.png" />
+<img alt="../_images/03_Good_Vibrations_36_0.png" src="../_images/03_Good_Vibrations_36_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1278,15 +1359,12 @@ shortest time period =2.103 ms
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">*</span><span class="mi">100</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x-position (cm)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y-position (cm)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Plotting columns of y(x,t)</span><span class="se">\n</span><span class="s1">each line is one point in time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Plotting columns of y(x,t)</span><span class="se">\n</span><span class="s1">each line is one point in time&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Plotting columns of y(x,t)\neach line is one point in time&#39;)
-</pre></div>
-</div>
-<img alt="../_images/03_Good_Vibrations_35_1.png" src="../_images/03_Good_Vibrations_35_1.png" />
+<img alt="../_images/03_Good_Vibrations_37_0.png" src="../_images/03_Good_Vibrations_37_0.png" />
 </div>
 </div>
 <div class="section" id="fancy-3d-plot-to-see-the-whole-y-x-t-stretched-out-over-the-time-and-space-axes">
@@ -1312,7 +1390,7 @@ shortest time period =2.103 ms
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03_Good_Vibrations_37_0.png" src="../_images/03_Good_Vibrations_37_0.png" />
+<img alt="../_images/03_Good_Vibrations_39_0.png" src="../_images/03_Good_Vibrations_39_0.png" />
 </div>
 </div>
 </div>
@@ -1380,6 +1458,20 @@ shortest time period =0.235 ms
 <div class="section" id="id5">
 <h3>Exercise<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>Plot the first 3 vibration modes as you did for the 6-node guitar string. What is different? How would you describe the <em>convergence</em>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;eigenvector 1&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;eigenvector 2&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;eigenvector 3&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span><span class="mi">1</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_Good_Vibrations_45_0.png" src="../_images/03_Good_Vibrations_45_0.png" />
+</div>
+</div>
+<p>The natural frequencies are more smooth rather than the blocky lines from the 6 element string. The convergence is also more accurate as it spans the full length of the string</p>
 </div>
 <div class="section" id="increase-length-of-simulation">
 <h3>Increase length of simulation<a class="headerlink" href="#increase-length-of-simulation" title="Permalink to this headline">¶</a></h3>
@@ -1412,16 +1504,13 @@ shortest time period =0.235 ms
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time(s)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y-position (m)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Plotting half the rows of y(x,t)</span><span class="se">\n</span><span class="s1">each line is one point along x-axis&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Plotting half the rows of y(x,t)</span><span class="se">\n</span><span class="s1">each line is one point along x-axis&#39;</span><span class="p">);</span>
 <span class="c1">##plt.plot(np.arange(0,tsteps)*dt,y[50,:]);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Plotting half the rows of y(x,t)\neach line is one point along x-axis&#39;)
-</pre></div>
-</div>
-<img alt="../_images/03_Good_Vibrations_46_1.png" src="../_images/03_Good_Vibrations_46_1.png" />
+<img alt="../_images/03_Good_Vibrations_49_0.png" src="../_images/03_Good_Vibrations_49_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1431,15 +1520,12 @@ shortest time period =0.235 ms
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">*</span><span class="mi">100</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x-position (cm)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y-position (cm)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Plotting columns of y(x,t)</span><span class="se">\n</span><span class="s1">each line is one point in time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Plotting columns of y(x,t)</span><span class="se">\n</span><span class="s1">each line is one point in time&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Plotting columns of y(x,t)\neach line is one point in time&#39;)
-</pre></div>
-</div>
-<img alt="../_images/03_Good_Vibrations_47_1.png" src="../_images/03_Good_Vibrations_47_1.png" />
+<img alt="../_images/03_Good_Vibrations_50_0.png" src="../_images/03_Good_Vibrations_50_0.png" />
 </div>
 </div>
 </div>
@@ -1484,7 +1570,7 @@ shortest time period =0.235 ms
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03_Good_Vibrations_51_0.png" src="../_images/03_Good_Vibrations_51_0.png" />
+<img alt="../_images/03_Good_Vibrations_54_0.png" src="../_images/03_Good_Vibrations_54_0.png" />
 </div>
 </div>
 <ol class="simple">
@@ -1549,17 +1635,17 @@ shortest time period =0.235 ms
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_2086</span><span class="o">/</span><span class="mf">4267696184.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_2180</span><span class="o">/</span><span class="mf">4267696184.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">HTML</span><span class="p">(</span><span class="n">anim</span><span class="o">.</span><span class="n">to_html5_video</span><span class="p">())</span>
 
-<span class="nn">/opt/hostedtoolcache/Python/3.9.6/x64/lib/python3.9/site-packages/matplotlib/animation.py</span> in <span class="ni">to_html5_video</span><span class="nt">(self, embed_limit)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1346</span>                 <span class="c1"># We create a writer manually so that we can get the</span>
-<span class="g g-Whitespace">   </span><span class="mi">1347</span>                 <span class="c1"># appropriate size for the tag</span>
-<span class="ne">-&gt; </span><span class="mi">1348</span>                 <span class="n">Writer</span> <span class="o">=</span> <span class="n">writers</span><span class="p">[</span><span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;animation.writer&#39;</span><span class="p">]]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1349</span>                 <span class="n">writer</span> <span class="o">=</span> <span class="n">Writer</span><span class="p">(</span><span class="n">codec</span><span class="o">=</span><span class="s1">&#39;h264&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1350</span>                                 <span class="n">bitrate</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;animation.bitrate&#39;</span><span class="p">],</span>
+<span class="nn">/opt/hostedtoolcache/Python/3.9.9/x64/lib/python3.9/site-packages/matplotlib/animation.py</span> in <span class="ni">to_html5_video</span><span class="nt">(self, embed_limit)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1264</span>                 <span class="c1"># We create a writer manually so that we can get the</span>
+<span class="g g-Whitespace">   </span><span class="mi">1265</span>                 <span class="c1"># appropriate size for the tag</span>
+<span class="ne">-&gt; </span><span class="mi">1266</span>                 <span class="n">Writer</span> <span class="o">=</span> <span class="n">writers</span><span class="p">[</span><span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;animation.writer&#39;</span><span class="p">]]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1267</span>                 <span class="n">writer</span> <span class="o">=</span> <span class="n">Writer</span><span class="p">(</span><span class="n">codec</span><span class="o">=</span><span class="s1">&#39;h264&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1268</span>                                 <span class="n">bitrate</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;animation.bitrate&#39;</span><span class="p">],</span>
 
-<span class="nn">/opt/hostedtoolcache/Python/3.9.6/x64/lib/python3.9/site-packages/matplotlib/animation.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, name)</span>
+<span class="nn">/opt/hostedtoolcache/Python/3.9.9/x64/lib/python3.9/site-packages/matplotlib/animation.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, name)</span>
 <span class="g g-Whitespace">    </span><span class="mi">149</span>         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_available</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
 <span class="g g-Whitespace">    </span><span class="mi">150</span>             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_registered</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
 <span class="ne">--&gt; </span><span class="mi">151</span>         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Requested MovieWriter (</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">) not available&quot;</span><span class="p">)</span>
@@ -1597,6 +1683,15 @@ shortest time period =0.235 ms
 <div class="section" id="id6">
 <h3>Exercise<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>Create a 1-second audio clip of the 440-Hz A note.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span><span class="o">=</span><span class="mi">20000</span>
+<span class="n">tsig</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">r</span><span class="p">)</span>
+<span class="n">Audio</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="mi">100</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">440</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">tsig</span><span class="p">),</span><span class="n">rate</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="listen-to-your-simulated-guitar">
 <h3>Listen to your simulated Guitar<a class="headerlink" href="#listen-to-your-simulated-guitar" title="Permalink to this headline">¶</a></h3>
@@ -1615,7 +1710,7 @@ shortest time period =0.235 ms
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">out_file</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span><span class="n">out_file</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (ms)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;input signal (a.u.)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;input signal (a.u.)&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -1656,13 +1751,207 @@ shortest time period =0.235 ms
 </ol>
 <p>a. Calculate the natural frequencies and mode shapes <em>(eigenvectors)</em>.</p>
 <p>b. Plot the position of <span class="math notranslate nohighlight">\(x_1~and~x_2\)</span> if the masses are at rest when mass 2 is given an initial velocity of 2 m/s.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">spring_mass</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="n">k1</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">k2</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span><span class="n">k3</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">m1</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">m2</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Define right-hand-side of 2-DOF spring-mass system</span>
+<span class="sd">    |                      |</span>
+<span class="sd">    |--\/--m1--\/--m2--\/--|</span>
+<span class="sd">    |  k1      k2      k3  |</span>
+<span class="sd">    |                      |</span>
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    state : array of dependent variables (x1,x2,v1,v2)</span>
+<span class="sd">    k1 : stiffness in first spring</span>
+<span class="sd">    k2 : stiffness in second spring</span>
+<span class="sd">    k3 : stiffness in third spring</span>
+<span class="sd">    m1 : mass of first mass</span>
+<span class="sd">    m2 : mass of second mass</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dstate : the derivative of the state, (v1,v2,a1,a2)</span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">A</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="p">)))</span>
+    <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="p">(</span><span class="n">k1</span><span class="o">+</span><span class="n">k2</span><span class="p">)</span><span class="o">/</span><span class="n">m1</span><span class="p">,</span><span class="n">k2</span><span class="o">/</span><span class="n">m1</span><span class="p">],[</span><span class="n">k2</span><span class="o">/</span><span class="n">m2</span><span class="p">,</span><span class="o">-</span><span class="p">(</span><span class="n">k2</span><span class="o">+</span><span class="n">k3</span><span class="p">)</span><span class="o">/</span><span class="n">m2</span><span class="p">]])</span>
+    <span class="n">dstate</span> <span class="o">=</span> <span class="n">A</span><span class="nd">@state</span>
+    <span class="k">return</span> <span class="n">dstate</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a</span>
+<span class="n">m1</span><span class="o">=</span><span class="n">m2</span><span class="o">=</span><span class="mf">0.1</span> <span class="c1"># 0.2 kg</span>
+<span class="n">k1</span><span class="o">=</span><span class="n">k3</span> <span class="o">=</span><span class="mi">1000</span> <span class="c1"># 1000 N/m</span>
+<span class="n">k2</span> <span class="o">=</span> <span class="mi">500</span> <span class="c1"># 500 N/m</span>
+<span class="n">M</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">m1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="n">m2</span><span class="p">]])</span>
+<span class="n">K</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">k1</span><span class="o">+</span><span class="n">k2</span><span class="p">,</span><span class="o">-</span><span class="n">k2</span><span class="p">],[</span><span class="o">-</span><span class="n">k2</span><span class="p">,</span><span class="n">k2</span><span class="o">+</span><span class="n">k3</span><span class="p">]])</span>
+
+<span class="n">e</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">M</span><span class="p">)</span>
+<span class="n">w1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">v1</span><span class="o">=</span><span class="n">v</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="nb">max</span><span class="p">(</span><span class="n">v</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">w2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">v2</span><span class="o">=</span><span class="n">v</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="nb">max</span><span class="p">(</span><span class="n">v</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;1st natural frequency is </span><span class="si">%1.2f</span><span class="s1"> Hz, </span><span class="se">\</span>
+<span class="s1">     mode shape: </span><span class="si">%1.0f</span><span class="s1">*x1(t)=</span><span class="si">%1.0f</span><span class="s1">*x2(t)&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span><span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;2nd natural frequency is </span><span class="si">%1.2f</span><span class="s1"> Hz, </span><span class="se">\</span>
+<span class="s1">    mode shape: </span><span class="si">%1.0f</span><span class="s1">*x1(t)=</span><span class="si">%1.0f</span><span class="s1">*x2(t)&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">w2</span><span class="p">,</span><span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="n">w1</span> <span class="c1"># 2 x longest period</span>
+<span class="n">dt</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">w2</span><span class="o">/</span><span class="mi">10</span> <span class="c1"># shortest period</span>
+<span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">dt</span><span class="p">)</span>
+<span class="n">state_e1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+<span class="n">state_e1</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">.02</span><span class="p">,</span><span class="mf">.02</span><span class="p">])</span> <span class="c1"># set initial conditions eigenv 1</span>
+<span class="n">state_e2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+<span class="n">state_e2</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">.02</span><span class="p">,</span><span class="mf">.02</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># set initial conditions eigenv 2</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">state_e1</span><span class="p">[:,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">heun_step</span><span class="p">(</span><span class="n">state_e1</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span><span class="n">spring_mass</span><span class="p">,</span><span class="n">dt</span><span class="p">)</span>
+    <span class="n">state_e2</span><span class="p">[:,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">heun_step</span><span class="p">(</span><span class="n">state_e2</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span><span class="n">spring_mass</span><span class="p">,</span><span class="n">dt</span><span class="p">)</span>
+    
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Eigenvector 1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">state_e1</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;rs-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;x_1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">state_e1</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;b-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;x_2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;position</span><span class="se">\n</span><span class="s1"> (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Eigenvector 2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">state_e2</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;rs-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;x_1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">state_e2</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;b-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;x_2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;position</span><span class="se">\n</span><span class="s1"> (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.2</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
 <ol class="simple">
 <li><p>Consider the G-string on the guitar, L=0.64 m, <span class="math notranslate nohighlight">\(\mu=1.14~g/m,\)</span> and T=71.81 N [1].</p></li>
 </ol>
 <p><strong>Guitar string equation:</strong> <span class="math notranslate nohighlight">\(\mu\frac{\partial^2 y}{\partial t^2}=T\frac{\partial ^2 y}{\partial x^2}\)</span></p>
 <p>a. Calculate the first and second natural frequencies using 6, 30, 45, and 60 nodes. Plot the mode shapes to demonstrate convergence.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">L</span><span class="o">=</span><span class="mf">0.64</span> <span class="c1"># 64-cm guitar string</span>
+<span class="n">T</span><span class="o">=</span><span class="mf">71.81</span> <span class="c1"># 7.32kg*9.81 m/s/s # N</span>
+<span class="n">mu</span><span class="o">=</span><span class="mf">1.14e-3</span> <span class="c1"># kg/m</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">60</span><span class="p">]:</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="n">dx</span><span class="o">=</span><span class="n">L</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">k</span> <span class="o">=</span> <span class="n">T</span><span class="o">/</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">mu</span>
+
+    <span class="n">A</span> <span class="o">=</span> <span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>\
+           <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>\
+           <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span>
+    
+    <span class="n">e</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="n">isort</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>
+    <span class="n">e</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">real</span><span class="p">[</span><span class="n">isort</span><span class="p">]</span>
+    <span class="n">v</span><span class="o">=</span><span class="n">v</span><span class="o">.</span><span class="n">real</span><span class="p">[:,</span><span class="n">isort</span><span class="p">]</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> nodes eigenvector 1&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> nodes eigenvector 2&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span><span class="mi">1</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>b. Use 60 nodes to create an animation using the following initial condition, <span class="math notranslate nohighlight">\(y(x,0)=0\)</span> and <span class="math notranslate nohighlight">\(\dot{y}(L/2,0)=2~m/s.\)</span> e.g. <code class="docutils literal notranslate"><span class="pre">dy[30,0]=2</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">L</span><span class="o">=</span><span class="mf">0.64</span> <span class="c1"># 64-cm guitar string</span>
+<span class="n">T</span><span class="o">=</span><span class="mf">71.81</span> <span class="c1"># 7.32kg*9.81 m/s/s # N</span>
+<span class="n">mu</span><span class="o">=</span><span class="mf">1.14e-3</span> <span class="c1"># kg/m</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">dx</span><span class="o">=</span><span class="n">L</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="n">T</span><span class="o">/</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">mu</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>\
+        <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>\
+        <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span>
+    
+<span class="n">e</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">isort</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>
+<span class="n">e</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">real</span><span class="p">[</span><span class="n">isort</span><span class="p">]</span>
+<span class="n">v</span><span class="o">=</span><span class="n">v</span><span class="o">.</span><span class="n">real</span><span class="p">[:,</span><span class="n">isort</span><span class="p">]</span>
+<span class="n">f1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">real</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">fn</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">real</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span> <span class="mi">0</span><span class="p">,</span> <span class="n">L</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="o">-</span><span class="mf">0.003</span><span class="p">,</span> <span class="mf">0.003</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x-position (m)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y-position (m)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+
+<span class="n">line</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">T1</span> <span class="o">=</span> <span class="mi">10</span><span class="o">/</span><span class="n">f1</span> 
+<span class="n">dt</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">fn</span><span class="o">/</span><span class="mi">10</span>
+<span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">T1</span><span class="p">,</span><span class="n">dt</span><span class="p">)</span>
+<span class="n">tsteps</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="n">tsteps</span><span class="p">))</span>
+<span class="n">y</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">dy</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="n">tsteps</span><span class="p">))</span>
+<span class="n">dy</span><span class="p">[</span><span class="mi">30</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span><span class="mi">2</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">tsteps</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([</span><span class="n">y</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span><span class="n">dy</span><span class="p">[:,</span><span class="n">i</span><span class="p">]])</span> <span class="c1"># set z=[y,dy]</span>
+    <span class="n">next_state</span> <span class="o">=</span> <span class="n">heun_step</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="n">wave_equation</span><span class="p">,</span><span class="n">dt</span><span class="p">)</span> <span class="c1"># get next state</span>
+    <span class="n">y</span><span class="p">[:,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">next_state</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">N</span><span class="p">]</span> <span class="c1"># save the postions</span>
+    <span class="n">dy</span><span class="p">[:,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">next_state</span><span class="p">[</span><span class="n">N</span><span class="p">:]</span> <span class="c1"># save the velocities</span>
+
+<span class="n">ybcs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">y</span><span class="p">,((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)))</span>
+
+<span class="n">anim</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">init_func</span><span class="o">=</span><span class="n">init</span><span class="p">,</span>
+                               <span class="n">frames</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">tsteps</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">interval</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
+                               <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Animation of String from t=0-</span><span class="si">{:.1f}</span><span class="s1"> ms every </span><span class="si">{:.2f}</span><span class="s1"> ms&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span><span class="n">t</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">*</span><span class="mi">1000</span><span class="p">))</span>
+
+<span class="n">HTML</span><span class="p">(</span><span class="n">anim</span><span class="o">.</span><span class="n">to_html5_video</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>c. Use 60 nodes to create an audio display using the following initial condition, <span class="math notranslate nohighlight">\(y(x,0)=0\)</span> and <span class="math notranslate nohighlight">\(\dot{y}(L/2,0)=2~m/s.\)</span> e.g. <code class="docutils literal notranslate"><span class="pre">dy[30,0]=2</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">samplerate</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">dt</span><span class="p">)</span>
+<span class="n">out_file</span><span class="o">=</span><span class="mi">100</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dy</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">)])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,)</span>
+<span class="n">Audio</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">out_file</span><span class="p">,</span><span class="n">rate</span><span class="o">=</span><span class="n">samplerate</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">out_file</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span><span class="n">out_file</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (ms)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;input signal (a.u.)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -1688,36 +1977,27 @@ shortest time period =0.235 ms
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="02_Keep_it_steady.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Keep it Steady</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="02_Keep_it_steady.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Keep it Steady</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../projects/05-BVPs_project.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Computational Mechanics Boundary Values - Project 05</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="../projects/05-BVPs_project.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Computational Mechanics Boundary Values - Project 05</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         
@@ -1733,8 +2013,7 @@ shortest time period =0.235 ms
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

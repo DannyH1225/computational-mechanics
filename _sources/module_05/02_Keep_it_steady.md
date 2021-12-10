@@ -5,9 +5,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.10.3
+    jupytext_version: 1.11.4
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -80,7 +80,7 @@ If you divide the fin into 6 equally spaced sections, you have 6 equations with 
 
 6. $T_5-2T_6+T_7+\Delta x^2 h'(T_{\infty}-T_6) = 0 \leftarrow T_7 = \frac{-h\Delta x}{k}(T_{6}-T_{\infty})+T_5$
 
-where $h'=\frac{2h}{\kappa R}$ is the modified convective heat transfer for the fin. And your boundary conditions give us values for $T_{0}~and~T_{7}.$ You can plug in constants for forced air convection, $h=100~W/m^2K$, aluminum fin, $\kappa=200~W/mK$, and 60-mm-long and 1-mm-radius fin, the air is room temperature, $T_{\infty}=20^oC$, and the base is $T_{base}=T_{0}=100^oC$. 
+where $h'=\frac{2h}{\kappa R}$ is the modified convective heat transfer for the fin. And your boundary conditions give us values for $T_{0}~and~T_{7}.$ You can plug in constants for forced air convection, $h=100~W/m^2K$, aluminum fin, $\kappa=200~W/mK$, and 60-mm-long and 1-mm-radius fin, the air is room temperature, $T_{\infty}=20^oC$, and the base is $T_{base}=T_{0}=100^oC$.
 
 ```{code-cell} ipython3
 import numpy as np
@@ -181,7 +181,51 @@ a. Make a plot of the Temperature along the fin.
 b. Plot the heat flux through the fin $-\kappa \frac{dT}{dx}$
 
 ```{code-cell} ipython3
+#part a
+hp = 2*h/k/R
+N=12
+dx=L/N
 
+print('h\' = {}, and step size dx= {}'.format(hp,dx))
+diag_factor=2+hp*dx**2 # diagonal multiplying factor
+print(diag_factor)
+Tinfty=20
+T0 = 100
+
+A = np.diag(np.ones(N)*diag_factor)-np.diag(np.ones(N-1),-1)-np.diag(np.ones(N-1),1)
+A[-1,-2]+= -1
+A[-1,-1]+= h/k*dx
+b = np.ones(N)*hp*Tinfty*dx**2
+b[0]+=T0
+b[-1]+=h*dx/k*(Tinfty)
+print('finite difference A:\n------------------')
+print(A)
+print('\nfinite difference b:\n------------------')
+print(b)
+T=np.linalg.solve(A,b)
+print('\nfinite difference solution T(x):\n------------------')
+print(T)
+print('\nfinite difference solution at x (mm)=\n------------------')
+print(np.arange(1,13)*dx*1000)
+L=60e-3
+s=np.sqrt(hp)
+F=lambda x: 20+80*(np.cosh(s*L-s*x)+h/s/k*np.sinh(s*L-s*x))/(np.cosh(s*L)+h/s/k*np.sinh(s*L))
+x=np.arange(0,N+1)*dx
+plt.plot(x*1000,F(x),label='analytical')#a*np.cosh(s*x)+b*np.sinh(s*x))
+plt.plot(x[1:]*1000,T,'ro',label='finite difference')
+plt.plot(x[0],100,'rs',label='base temperature')
+plt.xlabel('distance along fin (mm)')
+plt.ylabel('Temperature (C)')
+plt.legend(bbox_to_anchor=(1,0.5),loc='center left');
+```
+
+```{code-cell} ipython3
+#part b
+dT_c=(T[2:]-T[:-2])/(x[3:]-x[1:-2])
+flux = -k*dT_c
+plt.plot(x[3:],flux,'b-o')
+plt.xlabel('distance along fin (mm)')
+plt.ylabel(r'Heat Flux ($\frac{W}{m^2}$)');
 ```
 
 ## Static beam deflections
@@ -309,19 +353,51 @@ plt.plot(x,w_an*1000)
 
 ### Exercise 
 
-Divide the simply-supported beam into 12 sections and plot the deflection as a function of distance along the beam with a uniform load. 
+Divide the simply-supported beam into 12 sections and plot the deflection as a function of distance along the beam with a uniform load.
 
 ```{code-cell} ipython3
+L=1
+N = 12
+h=L/N
+E=200e9
+I=0.01**4/12
+q=100
 
+A=np.diag(np.ones(N-1)*6)\
++np.diag(np.ones(N-2)*-4,-1)\
++np.diag(np.ones(N-2)*-4,1)\
++np.diag(np.ones(N-3),-2)\
++np.diag(np.ones(N-3),2)
+A[0,0]+=-1
+A[-1,-1]+=-1
+
+b=-np.ones(N-1)*q/E/I*h**4
+
+w=np.linalg.solve(A,b)
+xnum=np.arange(0,L+h/2,h)
+print('finite difference A:\n------------------')
+print(A)
+print('\nfinite difference b:\n------------------')
+print(b)
+print('\ndeflection of beam (mm)\n-------------\n',w*1000)
+print('at position (m) \n-------------\n',xnum[1:-1])
+
+x=np.linspace(0,L)
+w_an=-q*x*(L**3-2*x**2*L+x**3)/24/E/I
+
+plt.plot(xnum,np.block([0,w*1000,0]),'s')
+plt.plot(x,w_an*1000);
 ```
 
 ### Discussion
 
 What is the convergence rate for this central difference method? _Hint: check the magnitude of round-off error for [central difference methods](./01_Revisiting_derivatives.ipynb)._
 
-```{code-cell} ipython3
++++
 
-```
+The convergence rate is $h^2$.
+
++++
 
 ## What You've Learned
 
@@ -349,10 +425,118 @@ b. Set up and solve the finite difference equations for $\Delta x=5~mm$, plot th
 
 c. Set up and solve the finite difference equations for $\Delta x=1~mm$, plot the resulting temperature $T(x)$. 
 
-d. Plot the heat flux through the fin, $-\kappa \frac{dT}{dx}$. 
+d. Plot the heat flux through the fin, $-\kappa \frac{dT}{dx}$.
 
 ```{code-cell} ipython3
+#part a
+h=100 # W/m/m/K
+k=200 # W/m/K
+R=1E-3# radius in m
+L=60E-3# length in m
+hp = 2*h/k/R
+N=6
+dx=L/N
 
+
+diag_factor=2+hp*dx**2 # diagonal multiplying factor
+Tinfty=20
+T0 = 100
+Tsink = 25
+
+A = np.diag(np.ones(N-1)*diag_factor)-np.diag(np.ones(N-2),-1)-np.diag(np.ones(N-2),1)
+print(A)
+
+b = np.ones(N-1)*hp*Tinfty*dx**2
+b[0]+=T0
+b[-1]+=Tsink
+T=np.linalg.solve(A,b)
+
+L=60e-3
+x=np.arange(0,N+1)*dx
+print(T)
+plt.plot(x[1:-1]*1000,T,'ro',label='finite difference')
+plt.plot(x[0],100,'rs',label='base temperature')
+plt.plot(x[-1]*1000,25,'bs',label='sink temperature')
+plt.xlabel('distance along fin (mm)')
+plt.ylabel('Temperature (C)')
+plt.legend(bbox_to_anchor=(1,0.5),loc='center left');
+```
+
+```{code-cell} ipython3
+#part b
+h=100 # W/m/m/K
+k=200 # W/m/K
+R=1E-3# radius in m
+L=60E-3# length in m
+hp = 2*h/k/R
+N= 12
+dx=L/N
+
+
+diag_factor=2+hp*dx**2 # diagonal multiplying factor
+Tinfty=20
+T0 = 100
+Tsink = 25
+
+A = np.diag(np.ones(N-1)*diag_factor)-np.diag(np.ones(N-2),-1)-np.diag(np.ones(N-2),1)
+
+b = np.ones(N-1)*hp*Tinfty*dx**2
+b[0]+=T0
+b[-1]+=Tsink
+T=np.linalg.solve(A,b)
+
+L=60e-3
+x=np.arange(0,N+1)*dx
+
+plt.plot(x[1:-1]*1000,T,'ro',label='finite difference')
+plt.plot(x[0],100,'rs',label='base temperature')
+plt.plot(x[-1]*1000,25,'bs',label='sink temperature')
+plt.xlabel('distance along fin (mm)')
+plt.ylabel('Temperature (C)')
+plt.legend(bbox_to_anchor=(1,0.5),loc='center left');
+```
+
+```{code-cell} ipython3
+#part c
+h=100 # W/m/m/K
+k=200 # W/m/K
+R=1E-3# radius in m
+L=60E-3# length in m
+hp = 2*h/k/R
+N=60
+dx=L/N
+
+
+diag_factor=2+hp*dx**2 # diagonal multiplying factor
+Tinfty=20
+T0 = 100
+Tsink = 25
+
+A = np.diag(np.ones(N-1)*diag_factor)-np.diag(np.ones(N-2),-1)-np.diag(np.ones(N-2),1)
+
+b = np.ones(N-1)*hp*Tinfty*dx**2
+b[0]+=T0
+b[-1]+=Tsink
+T=np.linalg.solve(A,b)
+
+L=60e-3
+x=np.arange(0,N+1)*dx
+
+plt.plot(x[1:-1]*1000,T,'ro',label='finite difference')
+plt.plot(x[0],100,'rs',label='base temperature')
+plt.plot(x[-1]*1000,25,'bs',label='sink temperature')
+plt.xlabel('distance along fin (mm)')
+plt.ylabel('Temperature (C)')
+plt.legend(bbox_to_anchor=(1,0.5),loc='center left');
+```
+
+```{code-cell} ipython3
+#part d
+dT_c=(T[2:]-T[:-2])/(x[4:]-x[2:-2])
+flux = -k*dT_c
+plt.plot(x[4:],flux,'b-o')
+plt.xlabel('distance along fin (mm)')
+plt.ylabel(r'Heat Flux ($\frac{W}{m^2}$)');
 ```
 
 2. Consider the encastre beam shown in the __Static Beam deflections__ section. Use the following material and geometry (1-m steel rod 1-cm-by-1-cm) with 100 N/m load applied
@@ -373,6 +557,89 @@ a. Solve for the four integration constants using the boundary conditions shown 
 b. Create a finite difference approximation with 10, 20, 30, and 40 segments. 
 
 c. Plot the error between the maximum predicted numerical deflection (b) and the analytical deflection (a). What is the convergence rate of the finite difference approximation?
+
+```{code-cell} ipython3
+#part a; encastre beam 
+L = 1
+E = 200e9
+I = 0.01**4/12
+q = 100
+
+y = np.array([[1/2, 1],\
+              [1/6, 1/2]])
+b = np.array([-q/6, -q/24])
+
+w = np.linalg.solve(y,b)
+A = w[0]
+B = w[1]
+
+print('Integration constants: A = {}, B = {:.2f}, C=0, D=0'.format(*w))
+```
+
+```{code-cell} ipython3
+#part b
+x=np.linspace(0,L)
+w_a = -(q*x**4/24 -50/6*x**3 + 25/6*x**2)/(E*I)
+max_deflec= np.zeros([4])
+for N in [10, 20, 30, 40]:
+    L=1
+    h=L/N
+    E=200e9
+    I=0.01**4/12
+    q=100
+
+    A=np.diag(np.ones(N-1)*6)\
+    +np.diag(np.ones(N-2)*-4,-1)\
+    +np.diag(np.ones(N-2)*-4,1)\
+    +np.diag(np.ones(N-3),-2)\
+    +np.diag(np.ones(N-3),2)
+    A[0,0]+=1
+    A[-1,-1]+=1
+
+    b=-np.ones(N-1)*q/E/I*h**4
+
+    w=np.linalg.solve(A,b)
+    
+    max_v = np.append(max_deflec,np.min(w))
+    xnum=np.arange(0,L+h/2,h)
+    plt.plot(xnum,np.block([0,w*1000,0]),'s',label = f'{N} segments')
+    
+plt.plot(x,w_a*1000, label='Analytical')
+plt.legend(bbox_to_anchor=(1,0.5),loc='center left');
+```
+
+```{code-cell} ipython3
+#part c
+ana_max = np.min(w_a)
+for N in [10, 20, 30, 40]:
+    L=1
+    h=L/N
+    E=200e9
+    I=0.01**4/12
+    q=100
+
+    A=np.diag(np.ones(N-1)*6)\
+    +np.diag(np.ones(N-2)*-4,-1)\
+    +np.diag(np.ones(N-2)*-4,1)\
+    +np.diag(np.ones(N-3),-2)\
+    +np.diag(np.ones(N-3),2)
+    A[0,0]+=1
+    A[-1,-1]+=1
+
+    b=-np.ones(N-1)*q/E/I*h**4
+
+    w=np.linalg.solve(A,b)
+    
+    error = abs(ana_max-np.min(w))/abs(ana_max)*100
+    plt.plot(N,error,'s',label = f'Absolute error for {N} segments')
+    
+
+plt.xlabel('Number of Segments')
+plt.ylabel('Absolute Error (%)')
+plt.legend(bbox_to_anchor=(1,0.5),loc='center left');
+```
+
+The convergence rate of the finite difference is exponential with increasing segments.
 
 ```{code-cell} ipython3
 

@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Linear Regression Algebra &#8212; Computational Mechanics</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -58,7 +58,10 @@
     <link rel="next" title="CompMech04-Linear Algebra Project" href="../projects/04_Linear_Algebra-project.html" />
     <link rel="prev" title="Gauss Elimination" href="02_Gauss_elimination.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -74,6 +77,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../_static/comp-mech-logo.svg" class="logo" alt="logo">
       
@@ -730,6 +737,21 @@ before
 <div class="section" id="exercise">
 <h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h2>
 <p>The quadratic curve plotted should be smooth, but you Python is connected each (x,y)-location provided with straight lines. Plot the quadratic fit with 50 x-data points to make it smooth.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_fcn</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="mi">50</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">Z</span><span class="nd">@a</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;quadratic fit&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_Linear-regression-algebra_10_0.png" src="../_images/03_Linear-regression-algebra_10_0.png" />
+</div>
+</div>
 </div>
 <div class="section" id="general-coefficient-of-determination">
 <h2>General Coefficient of Determination<a class="headerlink" href="#general-coefficient-of-determination" title="Permalink to this headline">¶</a></h2>
@@ -765,10 +787,34 @@ the correlation coefficient this fit is 0.954563020646285
 <div class="section" id="discussion">
 <h3>Discussion<a class="headerlink" href="#discussion" title="Permalink to this headline">¶</a></h3>
 <p>What is the highest possible coefficient of determination? If its maximized, is that a <em>good</em> thing?</p>
+<p>The highest coefficient of determination is 1. If it is maximized that is a not always a good thing because the model can be over-fitted.</p>
 </div>
 <div class="section" id="id1">
 <h3>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Compare the coefficient of determination for a straight line <em>(you have to do a fit)</em> to the quadratic fit <em>(done above)</em>. Which one is a better fit?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Z2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[</span><span class="n">x</span><span class="o">**</span><span class="mi">0</span><span class="p">],[</span><span class="n">x</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Z2</span><span class="o">.</span><span class="n">T</span><span class="nd">@Z2</span><span class="p">,</span><span class="n">Z2</span><span class="o">.</span><span class="n">T</span><span class="nd">@y</span><span class="p">)</span>
+<span class="n">St2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">Sr2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">Z2</span><span class="nd">@a2</span><span class="p">)</span>
+
+<span class="n">r2_2</span><span class="o">=</span><span class="mi">1</span><span class="o">-</span><span class="n">Sr2</span><span class="o">/</span><span class="n">St2</span><span class="p">;</span>
+<span class="n">r_2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">r2_2</span><span class="p">);</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;the coefficient of determination for this fit is </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r2_2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;the correlation coefficient this fit is </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r_2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>the coefficient of determination for this fit is 0.6295837381405225
+the correlation coefficient this fit is 0.7934631296667303
+</pre></div>
+</div>
+</div>
+</div>
+<p>The quadratic is the better fit.</p>
 </div>
 </div>
 <div class="section" id="overfitting-warning">
@@ -845,7 +891,7 @@ the correlation coefficient this fit is 0.983
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03_Linear-regression-algebra_19_0.png" src="../_images/03_Linear-regression-algebra_19_0.png" />
+<img alt="../_images/03_Linear-regression-algebra_22_0.png" src="../_images/03_Linear-regression-algebra_22_0.png" />
 </div>
 </div>
 <p>Since, you have lots of data you can use as large of a polynomial fit as you want too, so let’s also fit higher order polynomials and see if you can get a better function for force-vs-deflection, <span class="math notranslate nohighlight">\(F(\delta)\)</span>. First, you will separate the data into <strong>training</strong> and <strong>testing</strong> datasets [5].</p>
@@ -920,7 +966,7 @@ the coefficient of determination for this fit is 0.983
 the correlation coefficient this fit is 0.992
 </pre></div>
 </div>
-<img alt="../_images/03_Linear-regression-algebra_22_1.png" src="../_images/03_Linear-regression-algebra_22_1.png" />
+<img alt="../_images/03_Linear-regression-algebra_25_1.png" src="../_images/03_Linear-regression-algebra_25_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -942,7 +988,7 @@ the correlation coefficient this fit is 0.992
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03_Linear-regression-algebra_23_0.png" src="../_images/03_Linear-regression-algebra_23_0.png" />
+<img alt="../_images/03_Linear-regression-algebra_26_0.png" src="../_images/03_Linear-regression-algebra_26_0.png" />
 </div>
 </div>
 </div>
@@ -977,7 +1023,7 @@ the correlation coefficient this fit is 0.992
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03_Linear-regression-algebra_25_0.png" src="../_images/03_Linear-regression-algebra_25_0.png" />
+<img alt="../_images/03_Linear-regression-algebra_28_0.png" src="../_images/03_Linear-regression-algebra_28_0.png" />
 </div>
 </div>
 <p>The extrapolated results are much less promising than the <strong>training</strong> and <strong>testing</strong> data predictions. It would be very odd for the force to start to decrease at 70 nm or 58 nm of deflection. All three polynomials seem to capture the testing and training data, but extrapolation should be done with the lower order polynomials.</p>
@@ -989,8 +1035,102 @@ the correlation coefficient this fit is 0.992
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xy_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../data/xy_data.csv&#39;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
 <span class="n">x</span><span class="o">=</span><span class="n">xy_data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">];</span>
 <span class="n">y</span><span class="o">=</span><span class="n">xy_data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">];</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0.  2.  4.  6.  8. 10. 12. 14. 16. 18.]
+[21.5  20.84 23.19 22.69 30.27 40.11 43.31 54.79 70.88 89.48]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># randomize testing/training indices</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">103</span><span class="p">)</span>
+<span class="n">i_rand</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="c1"># choose the first half of data as training</span>
+<span class="n">train_per</span><span class="o">=</span><span class="mf">0.7</span>
+<span class="n">x_train</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">i_rand</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">train_per</span><span class="p">)]]</span>
+<span class="n">y_train</span><span class="o">=</span><span class="n">y</span><span class="p">[</span><span class="n">i_rand</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">train_per</span><span class="p">)]]</span>
+
+<span class="c1"># choose the second half of data as testing</span>
+<span class="n">x_test</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">i_rand</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">train_per</span><span class="p">):]]</span>
+<span class="n">y_test</span><span class="o">=</span><span class="n">y</span><span class="p">[</span><span class="n">i_rand</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">train_per</span><span class="p">):]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Z</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[</span><span class="n">x_train</span><span class="o">**</span><span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">Z_test</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[</span><span class="n">x_test</span><span class="o">**</span><span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+<span class="c1">#np.append(Z,np.array([d**2]),axis=0)</span>
+<span class="n">max_N</span><span class="o">=</span><span class="mi">8</span>
+<span class="n">SSE_train</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">max_N</span><span class="p">)</span>
+<span class="n">SSE_test</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">max_N</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">max_N</span><span class="p">):</span>
+    <span class="n">Z</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">Z</span><span class="p">,</span><span class="n">x_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">Z_test</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">Z_test</span><span class="p">,</span><span class="n">x_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">T</span><span class="nd">@Z</span><span class="p">,</span><span class="n">Z</span><span class="o">.</span><span class="n">T</span><span class="nd">@y_train</span><span class="p">)</span>
+    <span class="n">St</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
+    <span class="n">Sr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_train</span><span class="o">-</span><span class="n">Z</span><span class="nd">@A</span><span class="p">)</span>
+    <span class="n">r2</span><span class="o">=</span><span class="mi">1</span><span class="o">-</span><span class="n">Sr</span><span class="o">/</span><span class="n">St</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">%</span><span class="k">5</span>==0:
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---- n=</span><span class="si">{:d}</span><span class="s1"> -------&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;the coefficient of determination for this fit is </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r2</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;the correlation coefficient this fit is </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r2</span><span class="o">**</span><span class="mf">0.5</span><span class="p">))</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">&lt;=</span><span class="mi">7</span> <span class="ow">or</span> <span class="n">i</span><span class="o">==</span><span class="mi">29</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span><span class="n">y_train</span><span class="o">-</span><span class="n">Z</span><span class="nd">@A</span><span class="p">,</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;order </span><span class="si">{:d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">SSE_train</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y_train</span><span class="o">-</span><span class="n">Z</span><span class="nd">@A</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
+    <span class="n">SSE_test</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y_test</span><span class="o">-</span><span class="n">Z_test</span><span class="nd">@A</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+    
+<span class="c1">#plt.plot(d,F)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">));</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Error in predicted vs measured values&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;dx&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;error</span><span class="se">\n</span><span class="s1">y-Z@A&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>---- n=5 -------
+the coefficient of determination for this fit is 1.000
+the correlation coefficient this fit is 1.000
+</pre></div>
+</div>
+<img alt="../_images/03_Linear-regression-algebra_32_1.png" src="../_images/03_Linear-regression-algebra_32_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_ext</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">Z_ext</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[</span><span class="n">x_ext</span><span class="o">**</span><span class="mi">0</span><span class="p">],[</span><span class="n">x_ext</span><span class="o">**</span><span class="mi">1</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">Z</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[</span><span class="n">x</span><span class="o">**</span><span class="mi">0</span><span class="p">],[</span><span class="n">x</span><span class="o">**</span><span class="mi">1</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">max_N</span><span class="o">=</span><span class="mi">7</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">max_N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">Z</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">Z</span><span class="p">,</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">Z_ext</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">Z_ext</span><span class="p">,</span><span class="n">x_ext</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">T</span><span class="nd">@Z</span><span class="p">,</span><span class="n">Z</span><span class="o">.</span><span class="n">T</span><span class="nd">@y</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">7</span><span class="p">:</span><span class="c1"># or i==20: </span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_ext</span><span class="p">,</span><span class="n">Z_ext</span><span class="nd">@A</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;order </span><span class="si">{:d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+
+        
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;xy-data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">));</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;xy-Plot&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;y&#39;)
+</pre></div>
+</div>
+<img alt="../_images/03_Linear-regression-algebra_33_1.png" src="../_images/03_Linear-regression-algebra_33_1.png" />
 </div>
 </div>
 </div>
@@ -1014,7 +1154,7 @@ Let’s take some voltage-vs-time data that you know has two frequency component
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03_Linear-regression-algebra_29_0.png" src="../_images/03_Linear-regression-algebra_29_0.png" />
+<img alt="../_images/03_Linear-regression-algebra_35_0.png" src="../_images/03_Linear-regression-algebra_35_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1034,7 +1174,7 @@ Let’s take some voltage-vs-time data that you know has two frequency component
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03_Linear-regression-algebra_31_0.png" src="../_images/03_Linear-regression-algebra_31_0.png" />
+<img alt="../_images/03_Linear-regression-algebra_37_0.png" src="../_images/03_Linear-regression-algebra_37_0.png" />
 </div>
 </div>
 </div>
@@ -1096,7 +1236,7 @@ Let’s take some voltage-vs-time data that you know has two frequency component
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03_Linear-regression-algebra_34_0.png" src="../_images/03_Linear-regression-algebra_34_0.png" />
+<img alt="../_images/03_Linear-regression-algebra_40_0.png" src="../_images/03_Linear-regression-algebra_40_0.png" />
 </div>
 </div>
 </div>
@@ -1134,6 +1274,155 @@ Let’s take some voltage-vs-time data that you know has two frequency component
 <p>d. Sum the squared difference between the predicted anomoly and the measured anomoly.</p>
 <p>e. Repeat b-d for orders 2,3,4,…,10</p>
 <p>f. Plot the error in <strong>testing-training</strong> error vs the order of the polynomial fit</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;../data/land_global_temperature_anomaly-1880-2016.csv&#39;</span>
+
+<span class="n">temp_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span><span class="n">skiprows</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">temp_data</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">-</span><span class="mi">1880</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">temp_data</span><span class="p">)</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">temp_data</span><span class="p">[</span><span class="s1">&#39;Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a</span>
+<span class="c1"># randomize testing/training indices</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">103</span><span class="p">)</span>
+<span class="n">i_rand</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">),</span><span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+<span class="c1"># choose the first half of data as training</span>
+<span class="n">train_per</span><span class="o">=</span><span class="mf">0.7</span>
+<span class="n">t_train</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="n">i_rand</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">train_per</span><span class="p">)]]</span>
+<span class="n">T_train</span><span class="o">=</span><span class="n">T</span><span class="p">[</span><span class="n">i_rand</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">train_per</span><span class="p">)]]</span>
+<span class="c1"># choose the second half of data as testing</span>
+<span class="n">t_test</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="n">i_rand</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">train_per</span><span class="p">):]]</span>
+<span class="n">T_test</span><span class="o">=</span><span class="n">T</span><span class="p">[</span><span class="n">i_rand</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">train_per</span><span class="p">):]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Z</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[</span><span class="n">t_train</span><span class="o">**</span><span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">Z_test</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[</span><span class="n">t_test</span><span class="o">**</span><span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+<span class="c1">#np.append(Z,np.array([d**2]),axis=0)</span>
+<span class="n">max_N</span><span class="o">=</span><span class="mi">11</span>
+<span class="n">SSE_train</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">max_N</span><span class="p">)</span>
+<span class="n">SSE_test</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">max_N</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">max_N</span><span class="p">):</span>
+    <span class="n">Z</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">Z</span><span class="p">,</span><span class="n">t_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">Z_test</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">Z_test</span><span class="p">,</span><span class="n">t_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">T</span><span class="nd">@Z</span><span class="p">,</span><span class="n">Z</span><span class="o">.</span><span class="n">T</span><span class="nd">@T_train</span><span class="p">)</span> <span class="c1">#part c</span>
+    <span class="n">St</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">T_train</span><span class="p">)</span>
+    <span class="n">Sr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">T_train</span><span class="o">-</span><span class="n">Z</span><span class="nd">@A</span><span class="p">)</span>
+    <span class="n">r2</span><span class="o">=</span><span class="mi">1</span><span class="o">-</span><span class="n">Sr</span><span class="o">/</span><span class="n">St</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">%</span><span class="k">1</span>==0:
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---- n=</span><span class="si">{:d}</span><span class="s1"> -------&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;the coefficient of determination for this fit is </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r2</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;the correlation coefficient this fit is </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r2</span><span class="o">**</span><span class="mf">0.5</span><span class="p">))</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">&lt;=</span><span class="mi">10</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_train</span><span class="p">,</span><span class="n">T_train</span><span class="o">-</span><span class="n">Z</span><span class="nd">@A</span><span class="p">,</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;order </span><span class="si">{:d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">SSE_train</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">T_train</span><span class="o">-</span><span class="n">Z</span><span class="nd">@A</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">T_train</span><span class="p">)</span> <span class="c1">#part d</span>
+    <span class="n">SSE_test</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">T_test</span><span class="o">-</span><span class="n">Z_test</span><span class="nd">@A</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">T_test</span><span class="p">)</span> <span class="c1">#part d</span>
+    
+<span class="c1">#plt.plot(t,T)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">));</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Error in predicted vs measured values&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Normalized Year&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;error</span><span class="se">\n</span><span class="s1">y-Z@A (</span><span class="se">\N{DEGREE SIGN}</span><span class="s1">C)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>---- n=1 -------
+the coefficient of determination for this fit is 0.555
+the correlation coefficient this fit is 0.745
+---- n=2 -------
+the coefficient of determination for this fit is 0.629
+the correlation coefficient this fit is 0.793
+---- n=3 -------
+the coefficient of determination for this fit is 0.679
+the correlation coefficient this fit is 0.824
+---- n=4 -------
+the coefficient of determination for this fit is 0.683
+the correlation coefficient this fit is 0.826
+---- n=5 -------
+the coefficient of determination for this fit is 0.698
+the correlation coefficient this fit is 0.836
+---- n=6 -------
+the coefficient of determination for this fit is 0.707
+the correlation coefficient this fit is 0.841
+---- n=7 -------
+the coefficient of determination for this fit is 0.708
+the correlation coefficient this fit is 0.841
+---- n=8 -------
+the coefficient of determination for this fit is 0.710
+the correlation coefficient this fit is 0.843
+---- n=9 -------
+the coefficient of determination for this fit is 0.713
+the correlation coefficient this fit is 0.844
+---- n=10 -------
+the coefficient of determination for this fit is 0.713
+the correlation coefficient this fit is 0.844
+</pre></div>
+</div>
+<img alt="../_images/03_Linear-regression-algebra_44_1.png" src="../_images/03_Linear-regression-algebra_44_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span><span class="n">ax2</span><span class="p">)</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span><span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">max_N</span><span class="p">),</span><span class="n">SSE_train</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;training error&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">max_N</span><span class="p">),</span><span class="n">SSE_test</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;testing error&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Reduction in error with higher order fits&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;polynomial order&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;total sum of square error&#39;</span><span class="p">);</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_train</span><span class="p">,</span><span class="n">Z</span><span class="nd">@A</span><span class="o">+</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;train order </span><span class="si">{:d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_test</span><span class="p">,</span><span class="n">Z_test</span><span class="nd">@A</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;s&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;test order </span><span class="si">{:d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="s1">&#39;d&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;AFM data&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Temp-Offset for Clarity (</span><span class="se">\N{DEGREE SIGN}</span><span class="s1">C)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Normalized Year&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_Linear-regression-algebra_45_0.png" src="../_images/03_Linear-regression-algebra_45_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Z</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[</span><span class="n">t_train</span><span class="o">**</span><span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">Z_test</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[</span><span class="n">t_test</span><span class="o">**</span><span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+<span class="c1">#np.append(Z,np.array([d**2]),axis=0)</span>
+<span class="n">max_N</span><span class="o">=</span><span class="mi">11</span>
+<span class="n">SSE_train</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">max_N</span><span class="p">)</span>
+<span class="n">SSE_test</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">max_N</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">max_N</span><span class="p">):</span>
+    <span class="n">Z</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">Z</span><span class="p">,</span><span class="n">t_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">Z_test</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">Z_test</span><span class="p">,</span><span class="n">t_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">T</span><span class="nd">@Z</span><span class="p">,</span><span class="n">Z</span><span class="o">.</span><span class="n">T</span><span class="nd">@T_train</span><span class="p">)</span> <span class="c1">#part c</span>
+    <span class="n">St</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">T_train</span><span class="p">)</span>
+    <span class="n">Sr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">T_train</span><span class="o">-</span><span class="n">Z</span><span class="nd">@A</span><span class="p">)</span>
+    <span class="n">r2</span><span class="o">=</span><span class="mi">1</span><span class="o">-</span><span class="n">Sr</span><span class="o">/</span><span class="n">St</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">&lt;=</span><span class="mi">10</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_train</span><span class="p">,</span><span class="n">Z</span><span class="nd">@A</span><span class="p">,</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;order </span><span class="si">{:d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">SSE_train</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">T_train</span><span class="o">-</span><span class="n">Z</span><span class="nd">@A</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">T_train</span><span class="p">)</span> <span class="c1">#part d</span>
+    <span class="n">SSE_test</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">T_test</span><span class="o">-</span><span class="n">Z_test</span><span class="nd">@A</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">T_test</span><span class="p">)</span> <span class="c1">#part d</span>
+    
+<span class="c1">#plt.plot(t,T)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">));</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Fitted Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Normalized Year&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted Temperature (</span><span class="se">\N{DEGREE SIGN}</span><span class="s1">C)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_Linear-regression-algebra_46_0.png" src="../_images/03_Linear-regression-algebra_46_0.png" />
+</div>
+</div>
 <p><img src="../images/prony-series.png" style="width: 300px;"/> <img src="../images/stress_relax_wheat.png" style="width: 400px;"/></p>
 <p>Viscoelastic Prony series model and stress-vs-time relaxation curve of wheat kernels <a class="reference external" href="https://www.cerealsgrains.org/publications/plexus/cfw/pastissues/2013/Documents/CFW-58-3-0139.pdf">[3]</a>. Stress relaxation curve of a wheat kernel from regressed equation data that illustrate where to locate relaxation times (vertical dotted lines) and stresses (horizontal black marks). <span class="math notranslate nohighlight">\(\sigma\)</span> = stress; t = time.</p>
 <ol class="simple">
@@ -1145,6 +1434,40 @@ Let’s take some voltage-vs-time data that you know has two frequency component
 <p>b. Create a <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>-matrix to perform the least-squares regression for the given Prony series equation <span class="math notranslate nohighlight">\(\mathbf{y} = \mathbf{Za}\)</span>.</p>
 <p>c. Solve for the constants, <span class="math notranslate nohighlight">\(a_1,~a_2,~a_3,~a_4~,a_5\)</span></p>
 <p>d. Plot the best-fit function and the data from <code class="docutils literal notranslate"><span class="pre">../data/stress_relax.dat</span></code> <em>Use at least 50 points in time to get a smooth best-fit line.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a</span>
+<span class="n">data</span> <span class="o">=</span> <span class="s1">&#39;../data/stress_relax.dat&#39;</span>
+
+<span class="n">stress_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">time</span> <span class="o">=</span> <span class="n">stress_data</span><span class="p">[</span><span class="s1">&#39;time (sec)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">stress</span> <span class="o">=</span> <span class="n">stress_data</span><span class="p">[</span><span class="s1">&#39;stress (MPa)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1">#part b</span>
+<span class="n">Z</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">time</span><span class="o">/</span><span class="mf">1.78</span><span class="p">)],[</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">time</span><span class="o">/</span><span class="mi">11</span><span class="p">)],</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">time</span><span class="o">/</span><span class="mi">53</span><span class="p">)],[</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">time</span><span class="o">/</span><span class="mi">411</span><span class="p">)],[</span><span class="n">time</span><span class="o">**</span><span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1">#part c</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">T</span><span class="nd">@Z</span><span class="p">,</span><span class="n">Z</span><span class="o">.</span><span class="n">T</span><span class="nd">@stress</span><span class="p">)</span>
+
+<span class="c1">#part d</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">stress</span><span class="p">,</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">Z</span><span class="nd">@a</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;poly fit&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;stress (MPa)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a constants 1-5 respectively are: </span><span class="si">{:.3f}</span><span class="s1">, </span><span class="si">{:.3f}</span><span class="s1">, </span><span class="si">{:.3f}</span><span class="s1">, </span><span class="si">{:.3f}</span><span class="s1">, </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a constants 1-5 respectively are: 1.902, 3.274, 1.060, 2.278, 30.554
+</pre></div>
+</div>
+<img alt="../_images/03_Linear-regression-algebra_48_1.png" src="../_images/03_Linear-regression-algebra_48_1.png" />
+</div>
+</div>
 <ol class="simple">
 <li><p>Load the ‘../data/primary-energy-consumption-by-region.csv’ that has the energy consumption of different regions of the world from 1965 until 2018 <a class="reference external" href="https://ourworldindata.org/energy">Our world in Data</a>.
 You are going to compare the energy consumption of the United States to all of Europe. Load the data into a pandas dataframe. <em>Note: you can get certain rows of the data frame by specifying what you’re looking for e.g.
@@ -1153,6 +1476,55 @@ You are going to compare the energy consumption of the United States to all of E
 <p>a. Use a piecewise least-squares regression to find a function for the energy consumption as a function of year</p>
 <p>energy consumed = <span class="math notranslate nohighlight">\(f(t) = At+B+C(t-1970)H(t-1970)\)</span></p>
 <p>c. What is your prediction for US energy use in 2025? How about European energy use in 2025?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/primary-energy-consumption-by-region.csv&#39;</span><span class="p">)</span>
+
+<span class="n">USA</span> <span class="o">=</span> <span class="n">energy</span><span class="p">[</span><span class="n">energy</span><span class="p">[</span><span class="s1">&#39;Entity&#39;</span><span class="p">]</span><span class="o">==</span> <span class="s1">&#39;United States&#39;</span><span class="p">]</span>
+<span class="n">EUR</span> <span class="o">=</span> <span class="n">energy</span><span class="p">[</span><span class="n">energy</span><span class="p">[</span><span class="s1">&#39;Entity&#39;</span><span class="p">]</span><span class="o">==</span> <span class="s1">&#39;Europe&#39;</span><span class="p">]</span>
+
+<span class="n">USA_yrs</span> <span class="o">=</span> <span class="n">USA</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">USA_energy</span> <span class="o">=</span> <span class="n">USA</span><span class="p">[</span><span class="s1">&#39;Primary Energy Consumption (terawatt-hours)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">EUR_yrs</span> <span class="o">=</span> <span class="n">EUR</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">EUR_energy</span> <span class="o">=</span> <span class="n">EUR</span><span class="p">[</span><span class="s1">&#39;Primary Energy Consumption (terawatt-hours)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">Z</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[</span><span class="n">USA_yrs</span><span class="p">],[</span><span class="n">USA_yrs</span><span class="o">**</span><span class="mi">0</span><span class="p">],[(</span><span class="n">USA_yrs</span><span class="o">-</span><span class="mi">1970</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">USA_yrs</span><span class="o">&gt;=</span><span class="mi">1970</span><span class="p">)]])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">Z2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[</span><span class="n">EUR_yrs</span><span class="p">],[</span><span class="n">EUR_yrs</span><span class="o">**</span><span class="mi">0</span><span class="p">],[(</span><span class="n">EUR_yrs</span><span class="o">-</span><span class="mi">1970</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">EUR_yrs</span><span class="o">&gt;=</span><span class="mi">1970</span><span class="p">)]])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">USA_fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">T</span><span class="nd">@Z</span><span class="p">,</span><span class="n">Z</span><span class="o">.</span><span class="n">T</span><span class="nd">@USA_energy</span><span class="p">)</span>
+<span class="n">EUR_fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Z2</span><span class="o">.</span><span class="n">T</span><span class="nd">@Z2</span><span class="p">,</span><span class="n">Z2</span><span class="o">.</span><span class="n">T</span><span class="nd">@EUR_energy</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">USA_yrs</span><span class="p">,</span><span class="n">USA_energy</span><span class="p">,</span><span class="s1">&#39;o-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;USA measured&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">EUR_yrs</span><span class="p">,</span><span class="n">EUR_energy</span><span class="p">,</span><span class="s1">&#39;o-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;EUR measured&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">USA_yrs</span><span class="p">,</span><span class="n">Z</span><span class="nd">@USA_fit</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;USA piece-wise best-fit&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">EUR_yrs</span><span class="p">,</span><span class="n">Z2</span><span class="nd">@EUR_fit</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;EUR piece-wise best-fit&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Piecewise fit to Energy Consumption&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Energy Consumption (TW-hrs)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_Linear-regression-algebra_50_0.png" src="../_images/03_Linear-regression-algebra_50_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">USA_2050</span> <span class="o">=</span> <span class="n">USA_fit</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2050</span> <span class="o">+</span> <span class="n">USA_fit</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2050</span><span class="o">-</span><span class="mi">1970</span><span class="p">)</span><span class="o">*</span><span class="n">USA_fit</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">EUR_2050</span> <span class="o">=</span> <span class="n">EUR_fit</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2050</span> <span class="o">+</span> <span class="n">EUR_fit</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2050</span><span class="o">-</span><span class="mi">1970</span><span class="p">)</span><span class="o">*</span><span class="n">EUR_fit</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Predicted USA energy use in 2050: </span><span class="si">{:.3f}</span><span class="s1"> TW-hrs&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">USA_2050</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Predicted USA energy use in 2050: </span><span class="si">{:.3f}</span><span class="s1"> TW-hrs&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">EUR_2050</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Predicted USA energy use in 2050: 33248.443 TW-hrs
+Predicted USA energy use in 2050: 31344.762 TW-hrs
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -1178,36 +1550,27 @@ You are going to compare the energy consumption of the United States to all of E
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="02_Gauss_elimination.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Gauss Elimination</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="02_Gauss_elimination.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Gauss Elimination</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../projects/04_Linear_Algebra-project.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">CompMech04-Linear Algebra Project</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="../projects/04_Linear_Algebra-project.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">CompMech04-Linear Algebra Project</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         
@@ -1223,8 +1586,7 @@ You are going to compare the energy consumption of the United States to all of E
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

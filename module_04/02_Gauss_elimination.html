@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gauss Elimination &#8212; Computational Mechanics</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -58,7 +58,10 @@
     <link rel="next" title="Linear Regression Algebra" href="03_Linear-regression-algebra.html" />
     <link rel="prev" title="Linear Algebra Introduction" href="01_Linear-Algebra.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -74,6 +77,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../_static/comp-mech-logo.svg" class="logo" alt="logo">
       
@@ -691,6 +698,7 @@ y \end{array}\right]=
 <div class="section" id="discussion">
 <h2>Discussion<a class="headerlink" href="#discussion" title="Permalink to this headline">¶</a></h2>
 <p>The intersection between the equations lines 1 and 2 seems to occur everywhere. Why is there still a <strong>single</strong> solution?</p>
+<p>There is still a single solution due to the addition of <span class="math notranslate nohighlight">\(\delta\)</span> added to to the coefficient of x and y.</p>
 </div>
 <div class="section" id="degrees-of-freedom">
 <h2>3 Degrees of Freedom<a class="headerlink" href="#degrees-of-freedom" title="Permalink to this headline">¶</a></h2>
@@ -735,7 +743,7 @@ z \end{array}\right]=
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02_Gauss_elimination_7_0.png" src="../_images/02_Gauss_elimination_7_0.png" />
+<img alt="../_images/02_Gauss_elimination_9_0.png" src="../_images/02_Gauss_elimination_9_0.png" />
 </div>
 </div>
 </div>
@@ -746,16 +754,16 @@ z \end{array}\right]=
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
 <span class="c1"># Define your Z1,Z2,Z3 based upon your chosen equations</span>
-<span class="c1"># Z1</span>
-<span class="c1"># Z2</span>
-<span class="c1"># Z3</span>
+<span class="n">Z1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="mi">5</span><span class="o">*</span><span class="n">X</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">Y</span>
+<span class="n">Z2</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">10</span><span class="o">*</span><span class="n">X</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">Y</span>
+<span class="n">Z3</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">X</span> <span class="o">-</span> <span class="mi">6</span><span class="o">*</span><span class="n">Y</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">plot_wireframe</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Z1</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot_wireframe</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Z2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot_wireframe</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Z3</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]));</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">],[</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]));</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39; x1&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;x2&#39;</span><span class="p">)</span>
@@ -765,7 +773,35 @@ z \end{array}\right]=
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02_Gauss_elimination_9_0.png" src="../_images/02_Gauss_elimination_9_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">LinAlgError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_2079</span><span class="o">/</span><span class="mf">619332393.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_wireframe</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Z2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_wireframe</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Z3</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">12</span> <span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">],[</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]));</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39; x1&#39;</span><span class="p">)</span>
+
+<span class="nn">&lt;__array_function__ internals&gt;</span> in <span class="ni">solve</span><span class="nt">(*args, **kwargs)</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.9.9/x64/lib/python3.9/site-packages/numpy/linalg/linalg.py</span> in <span class="ni">solve</span><span class="nt">(a, b)</span>
+<span class="g g-Whitespace">    </span><span class="mi">391</span>     <span class="n">signature</span> <span class="o">=</span> <span class="s1">&#39;DD-&gt;D&#39;</span> <span class="k">if</span> <span class="n">isComplexType</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;dd-&gt;d&#39;</span>
+<span class="g g-Whitespace">    </span><span class="mi">392</span>     <span class="n">extobj</span> <span class="o">=</span> <span class="n">get_linalg_error_extobj</span><span class="p">(</span><span class="n">_raise_linalgerror_singular</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">393</span>     <span class="n">r</span> <span class="o">=</span> <span class="n">gufunc</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">signature</span><span class="o">=</span><span class="n">signature</span><span class="p">,</span> <span class="n">extobj</span><span class="o">=</span><span class="n">extobj</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">394</span> 
+<span class="g g-Whitespace">    </span><span class="mi">395</span>     <span class="k">return</span> <span class="n">wrap</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">result_t</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.9.9/x64/lib/python3.9/site-packages/numpy/linalg/linalg.py</span> in <span class="ni">_raise_linalgerror_singular</span><span class="nt">(err, flag)</span>
+<span class="g g-Whitespace">     </span><span class="mi">86</span> 
+<span class="g g-Whitespace">     </span><span class="mi">87</span> <span class="k">def</span> <span class="nf">_raise_linalgerror_singular</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="n">flag</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">88</span>     <span class="k">raise</span> <span class="n">LinAlgError</span><span class="p">(</span><span class="s2">&quot;Singular matrix&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">89</span> 
+<span class="g g-Whitespace">     </span><span class="mi">90</span> <span class="k">def</span> <span class="nf">_raise_linalgerror_nonposdef</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="n">flag</span><span class="p">):</span>
+
+<span class="ne">LinAlgError</span>: Singular matrix
+</pre></div>
+</div>
+<img alt="../_images/02_Gauss_elimination_11_1.png" src="../_images/02_Gauss_elimination_11_1.png" />
 </div>
 </div>
 </div>
@@ -831,13 +867,6 @@ z \end{array}\right]=
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[10.  2.  1.  1.]
- [ 2.  1.  1.  1.]
- [ 1.  2. 10.  1.]]
-</pre></div>
-</div>
-</div>
 </div>
 <p>Now, subtract <span class="math notranslate nohighlight">\(1/5*A[0,:]\)</span> from <span class="math notranslate nohighlight">\(A[1]\)</span>.</p>
 <p><span class="math notranslate nohighlight">\(\left[ \begin{array}{ccc|c}
@@ -850,13 +879,6 @@ z \end{array}\right]=
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ay</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span><span class="o">=</span> <span class="n">Ay</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span><span class="o">-</span><span class="mf">0.2</span><span class="o">*</span><span class="n">Ay</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">Ay</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[10.   2.   1.   1. ]
- [ 0.   0.6  0.8  0.8]
- [ 1.   2.  10.   1. ]]
 </pre></div>
 </div>
 </div>
@@ -875,13 +897,6 @@ z \end{array}\right]=
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[10.   2.   1.   1. ]
- [ 0.   0.6  0.8  0.8]
- [ 0.   1.8  9.9  0.9]]
-</pre></div>
-</div>
-</div>
 </div>
 <p>Finally, you can substract <span class="math notranslate nohighlight">\(1.8/0.6*A[1,:]\)</span> from $A[2,:]</p>
 <p><span class="math notranslate nohighlight">\(\left[ \begin{array}{ccc|c}
@@ -894,13 +909,6 @@ z \end{array}\right]=
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ay</span><span class="p">[</span><span class="mi">2</span><span class="p">,:]</span><span class="o">=</span> <span class="n">Ay</span><span class="p">[</span><span class="mi">2</span><span class="p">,:]</span><span class="o">-</span><span class="mf">1.8</span><span class="o">/</span><span class="mf">0.6</span><span class="o">*</span><span class="n">Ay</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">Ay</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 1.00000000e+01  2.00000000e+00  1.00000000e+00  1.00000000e+00]
- [ 0.00000000e+00  6.00000000e-01  8.00000000e-01  8.00000000e-01]
- [ 0.00000000e+00  2.22044605e-16  7.50000000e+00 -1.50000000e+00]]
 </pre></div>
 </div>
 </div>
@@ -978,14 +986,6 @@ z \end{array}\right]=
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x=  </span><span class="se">\t\t</span><span class="s1">Aug=&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="se">\t\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">,</span> <span class="n">Ay</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x=  		Aug=
--0.20		 [10.  2.  1.  1.]
-1.60		 [0.  0.6 0.8 0.8]
--0.20		 [ 0.00000000e+00  2.22044605e-16  7.50000000e+00 -1.50000000e+00]
 </pre></div>
 </div>
 </div>
@@ -1068,27 +1068,6 @@ c_{3}\end{array}\right]=\left[\begin{array}{c}
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>example 1
-x=  		Aug=
--0.20		 [10.  2.  1.  1.]
-1.60		 [0.  0.6 0.8 0.8]
--0.20		 [ 0.00000000e+00  2.22044605e-16  7.50000000e+00 -1.50000000e+00]
-
-example 2
-x=  		Aug=
--0.20		 [10.  2.  1.  1.]
-1.60		 [0.  0.6 0.8 0.8]
--0.20		 [ 0.00000000e+00  2.22044605e-16  7.50000000e+00 -1.50000000e+00]
-
-example 3
-x=  		Aug=
--0.20		 [10.  2.  1.  1.]
-1.60		 [0.  0.6 0.8 0.8]
--0.20		 [ 0.00000000e+00  2.22044605e-16  7.50000000e+00 -1.50000000e+00]
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="solving-the-same-problem-with-different-inputs">
@@ -1139,6 +1118,13 @@ L_{31} &amp; L_{32} &amp; 1 \end{array} \right]
 <h3>Exercise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>Use the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>-symbol to confirm LU = A.</p>
 <p><code class="docutils literal notranslate"><span class="pre">L&#64;U</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">L</span><span class="nd">@U</span> <span class="o">==</span> <span class="n">A</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>Now, you can rewrite our problem <span class="math notranslate nohighlight">\(\mathbf{Ax} = \mathbf{b}\)</span> as <span class="math notranslate nohighlight">\(\mathbf{LUx} = \mathbf{b}\)</span>. This may not see helpful at first, but take a look at the new system of equations that you can solve</p>
 <ol class="simple">
 <li><p><span class="math notranslate nohighlight">\(\mathbf{Ly} = \mathbf{b}\)</span></p></li>
@@ -1225,12 +1211,6 @@ y_{3}\end{array}\right]\)</span></p></li>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 306 µs, sys: 76 µs, total: 382 µs
-Wall time: 267 µs
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1242,12 +1222,6 @@ Wall time: 267 µs
 <span class="n">c1</span><span class="p">,</span><span class="n">aug</span> <span class="o">=</span> <span class="n">GaussNaive</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b1</span><span class="p">)</span>
 <span class="n">c2</span><span class="p">,</span><span class="n">aug</span> <span class="o">=</span> <span class="n">GaussNaive</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b2</span><span class="p">)</span>
 <span class="n">c3</span><span class="p">,</span><span class="n">aug</span> <span class="o">=</span> <span class="n">GaussNaive</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 344 µs, sys: 85 µs, total: 429 µs
-Wall time: 320 µs
 </pre></div>
 </div>
 </div>
@@ -1284,12 +1258,6 @@ Wall time: 320 µs
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 46.9 ms, sys: 0 ns, total: 46.9 ms
-Wall time: 46.8 ms
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1300,12 +1268,6 @@ Wall time: 46.8 ms
         <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">X1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">],</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">8</span><span class="o">*</span><span class="n">X2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]])</span>
         <span class="n">c</span><span class="p">,</span><span class="n">aug</span> <span class="o">=</span> <span class="n">GaussNaive</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
         <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 106 ms, sys: 10.1 ms, total: 116 ms
-Wall time: 101 ms
 </pre></div>
 </div>
 </div>
@@ -1321,9 +1283,6 @@ Wall time: 101 ms
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Salt mass flow out </span><span class="se">\n</span><span class="s1">of tank 2 (mg/s)&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/02_Gauss_elimination_37_0.png" src="../_images/02_Gauss_elimination_37_0.png" />
 </div>
 </div>
 </div>
@@ -1355,7 +1314,7 @@ x_{2} \end{array}\right]=
 300-3/4\cdot400 &amp; -450+3/4\cdot300  \end{array} \right]=
 \left[ \begin{array}{cc}
 -400 &amp; 300 \\
-0 &amp; -300  \end{array} \right]\)</span></p>
+0 &amp; -225  \end{array} \right]\)</span></p>
 <p>The lower matrix stores this factor, <span class="math notranslate nohighlight">\(-3/4\)</span> in the second row, first column</p>
 <p><span class="math notranslate nohighlight">\(\mathbf{L}=\left[ \begin{array}{cc}
 1 &amp; 0 \\
@@ -1367,11 +1326,21 @@ x_{2} \end{array}\right]=
 1 &amp; 0 \\
 -3/4 &amp; 1  \end{array} \right]\left[ \begin{array}{cc}
 -400 &amp; 300 \\
-0 &amp; -300  \end{array} \right]=
+0 &amp; -225  \end{array} \right]=
 \left[ \begin{array}{cc}
 -400 &amp; 300 \\
 300 &amp; -450  \end{array} \right]
 \)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="o">-</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">225</span><span class="p">]])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">],[</span><span class="mi">300</span><span class="p">,</span> <span class="o">-</span><span class="mi">450</span><span class="p">]])</span>
+<span class="n">L</span><span class="nd">@U</span> <span class="o">==</span> <span class="n">A</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="create-lu-decomposition-function">
@@ -1431,6 +1400,24 @@ x_{2} \end{array}\right]=
 7 &amp; 5 &amp; -10 &amp; 0 \\
 0 &amp; 2 &amp; 4 &amp; -12 \end{array} \right]\)</span></p></li>
 </ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">18</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">]])</span>
+<span class="n">A2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">10</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">]])</span>
+<span class="n">A3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">19</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">12</span><span class="p">]])</span>
+
+<span class="n">L1</span><span class="p">,</span> <span class="n">U1</span> <span class="o">=</span> <span class="n">LUNaive</span><span class="p">(</span><span class="n">A1</span><span class="p">)</span>
+<span class="n">L2</span><span class="p">,</span> <span class="n">U2</span> <span class="o">=</span> <span class="n">LUNaive</span><span class="p">(</span><span class="n">A2</span><span class="p">)</span>
+<span class="n">L3</span><span class="p">,</span> <span class="n">U3</span> <span class="o">=</span> <span class="n">LUNaive</span><span class="p">(</span><span class="n">A3</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">L1</span><span class="nd">@U1</span> <span class="o">==</span> <span class="n">A1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">L2</span><span class="nd">@U2</span> <span class="o">==</span> <span class="n">A2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">L3</span><span class="nd">@U3</span> <span class="o">==</span> <span class="n">A3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="problem-diagonal-element-is-zero">
 <h3>Problem (Diagonal element is zero)<a class="headerlink" href="#problem-diagonal-element-is-zero" title="Permalink to this headline">¶</a></h3>
@@ -1487,13 +1474,6 @@ x_{3} \end{array} \right]=
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.         0.66666667]
-[[ 1.e-15  3.e+00  2.e+00]
- [ 0.e+00 -3.e+15 -2.e+15]]
-</pre></div>
-</div>
-</div>
 </div>
 <p>According to our <code class="docutils literal notranslate"><span class="pre">GaussNaive</span></code> solution, <span class="math notranslate nohighlight">\(x_1=0\)</span> and <span class="math notranslate nohighlight">\(x_2=2/3\)</span>, but plugging these values into our original equation you get the following result:</p>
 <p>a. <span class="math notranslate nohighlight">\(\left[ \begin{array}{cccc}
@@ -1511,11 +1491,6 @@ x_{3} \end{array} \right]=
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Aa</span><span class="nd">@np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2.        , 0.66666667])
 </pre></div>
 </div>
 </div>
@@ -1539,12 +1514,6 @@ x_{2} \end{array} \right]=
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;solution=&#39;</span><span class="p">,</span><span class="n">x_a</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;confirm b=Ax -&gt;&#39;</span><span class="p">,</span><span class="n">Aa</span><span class="nd">@np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">]))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>solution= [0.33333333 0.66666667]
-confirm b=Ax -&gt; [1. 2.]
 </pre></div>
 </div>
 </div>
@@ -1573,28 +1542,26 @@ x_{3} \end{array} \right]=
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[nan nan nan]
-[[  0.   2.   3.   8.]
- [ nan -inf -inf -inf]
- [ nan  nan  nan  nan]]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_1987/1119853754.py:24: RuntimeWarning: divide by zero encountered in double_scalars
-  factor = Aug[i,k]/Aug[k,k]
-/tmp/ipykernel_1987/1119853754.py:25: RuntimeWarning: invalid value encountered in multiply
-  Aug[i,:] = Aug[i,:] - factor*Aug[k,:]
-/tmp/ipykernel_1987/1119853754.py:24: RuntimeWarning: invalid value encountered in double_scalars
-  factor = Aug[i,k]/Aug[k,k]
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 </div>
 <div class="section" id="id5">
 <h2>Exercise<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>Swap row 1 with either row 2 or row 3. What is the solution for <code class="docutils literal notranslate"><span class="pre">x_b</span></code> now? Show that if you plug in the solution for <span class="math notranslate nohighlight">\([x_1,~x_2,~x_3]\)</span> into the unpivoted <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> that the result is <span class="math notranslate nohighlight">\([8,~-3,~5]\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ab</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">bb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">])</span>
+
+<span class="n">x_b</span><span class="p">,</span> <span class="n">aug_b</span> <span class="o">=</span> <span class="n">GaussNaive</span><span class="p">(</span><span class="n">Ab</span><span class="p">,</span><span class="n">bb</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aug_b</span><span class="p">)</span>
+
+<span class="n">Ab</span><span class="nd">@x_b</span> <span class="o">==</span> <span class="n">bb</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="existing-linear-algebra-functions-in-python">
 <h2>Existing <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/routines.linalg.html">linear algebra functions in Python</a><a class="headerlink" href="#existing-linear-algebra-functions-in-python" title="Permalink to this headline">¶</a></h2>
@@ -1621,32 +1588,11 @@ x_{3} \end{array} \right]=
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>P=
- [[0. 0. 1.]
- [1. 0. 0.]
- [0. 1. 0.]]
-L=
- [[ 1.          0.          0.        ]
- [ 0.5         1.          0.        ]
- [ 0.         -0.33333333  1.        ]]
-U=
- [[ 4.          6.          7.        ]
- [ 0.         -6.          2.5       ]
- [ 0.          0.          3.83333333]]
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># linear algebra solution with built-in numpy solver</span>
 <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Ab</span><span class="p">,</span><span class="n">bb</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-5.42391304,  0.02173913,  2.65217391])
 </pre></div>
 </div>
 </div>
@@ -1656,11 +1602,6 @@ U=
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># our unmodified solveLU function (with forward and backward substitution)</span>
 <span class="c1"># note: output vector b is replaced with P.T@b (transpose(P)*b)</span>
 <span class="n">solveLU</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">U</span><span class="p">,</span><span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="nd">@bb</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-5.42391304,  0.02173913,  2.65217391])
 </pre></div>
 </div>
 </div>
@@ -1715,6 +1656,26 @@ m_{1}g \\
 m_{2}g \\
 m_{3}g \\
 m_{4}g \end{array} \right]\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m1</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">m3</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">m4</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">g</span> <span class="o">=</span> <span class="mf">9.81</span>
+<span class="n">A4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="p">,</span><span class="o">-</span><span class="n">k</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="o">-</span><span class="n">k</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="p">,</span><span class="o">-</span><span class="n">k</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">k</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="p">,</span><span class="o">-</span><span class="n">k</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">k</span><span class="p">,</span><span class="n">k</span><span class="p">]])</span>
+<span class="n">y4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">m1</span><span class="o">*</span><span class="n">g</span><span class="p">,</span>\
+               <span class="n">m2</span><span class="o">*</span><span class="n">g</span><span class="p">,</span>\
+               <span class="n">m3</span><span class="o">*</span><span class="n">g</span><span class="p">,</span>\
+               <span class="n">m4</span><span class="o">*</span><span class="n">g</span><span class="p">])</span>
+
+<span class="n">x4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A4</span><span class="p">,</span><span class="n">y4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x1=</span><span class="si">{:.3f}</span><span class="s1"> m</span><span class="se">\n</span><span class="s1">x2=</span><span class="si">{:.3f}</span><span class="s1"> m</span><span class="se">\n</span><span class="s1">x3=</span><span class="si">{:.3f}</span><span class="s1"> m</span><span class="se">\n</span><span class="s1">x4=</span><span class="si">{:.3f}</span><span class="s1"> m&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">x4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p><img alt="Triangular truss" src="../_images/truss.png" /></p>
 <p>For problems <strong>2-3</strong>, consider the simple 3-element triangular truss, shown above, with a point load applied at the tip. The goal is to understand what tension is in the horizontal element, <span class="math notranslate nohighlight">\(P_1\)</span>. In problem <strong>2</strong>, the applied force is verical <span class="math notranslate nohighlight">\((\theta=0)\)</span> and in problem <strong>3</strong> the applied force varies in angle <span class="math notranslate nohighlight">\((\theta \neq 0)\)</span>.</p>
 <ol class="simple">
@@ -1736,6 +1697,54 @@ F \\
 <p>a. Create the system of equations, <span class="math notranslate nohighlight">\(\mathbf{Ax}=\mathbf{b}\)</span>, when <span class="math notranslate nohighlight">\(\alpha=35^o\)</span>, <span class="math notranslate nohighlight">\(\beta=40^o\)</span>, and <span class="math notranslate nohighlight">\(F=1~kN\)</span>. Use <strong>Gauss elimination</strong> to solve for <span class="math notranslate nohighlight">\(P_1,~P_2,~and~R_2\)</span>. What is the resulting augmented matrix, <span class="math notranslate nohighlight">\(\mathbf{A|y}\)</span> after Gauss elimination?</p>
 <p>b. Solve for the <span class="math notranslate nohighlight">\(\mathbf{LU}\)</span> decomposition of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>.</p>
 <p>c. Use the <span class="math notranslate nohighlight">\(\mathbf{LU}\)</span> solution to solve for the tension in bar 1 <span class="math notranslate nohighlight">\((P_1)\)</span> every 10 N values of force, F, between 100 N and 1100 N. Plot <span class="math notranslate nohighlight">\(P_1~vs~F\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">(</span><span class="mi">35</span><span class="p">)</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">F</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">At</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">),</span> <span class="mi">0</span><span class="p">],</span>\
+               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="mi">0</span><span class="p">],</span>\
+               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha</span><span class="p">),</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="n">bt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+<span class="n">xt</span><span class="p">,</span> <span class="n">Aug</span> <span class="o">=</span> <span class="n">GaussNaive</span><span class="p">(</span><span class="n">At</span><span class="p">,</span> <span class="n">bt</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x=&#39;</span><span class="p">,</span> <span class="n">xt</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="s1">&#39;Augmented Matrix =</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">Aug</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part b</span>
+<span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">lu</span><span class="p">(</span><span class="n">At</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;L= </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">L</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;U= </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">U</span><span class="p">))</span>
+<span class="n">L</span><span class="nd">@U</span> <span class="o">==</span> <span class="n">At</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part c</span>
+<span class="n">Fs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">1110</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">bs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">Fs</span><span class="p">),</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">Fs</span><span class="p">),</span> <span class="mi">3</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Fs</span><span class="p">)):</span>
+    <span class="n">bs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">Fs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">solveLU</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">U</span><span class="p">,</span><span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="nd">@bs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Fs</span><span class="p">,</span> <span class="n">xs</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;F (N)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\mathrm</span><span class="si">{P_1}</span><span class="s1">$ (N)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;$\mathrm</span><span class="si">{P_1}</span><span class="s1">$ vs. F&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <ol class="simple">
 <li><p>Using the same truss as shown above, let’s calculate the tension in bar 1, <span class="math notranslate nohighlight">\(P_1\)</span>, when <span class="math notranslate nohighlight">\(\theta=[0...90^o]\)</span> and <span class="math notranslate nohighlight">\(F=[100...1100]~kN\)</span>. When <span class="math notranslate nohighlight">\(\theta\neq 0\)</span>, the resulting 6 equations and 6 unknowns are given in the following matrix</p></li>
 </ol>
@@ -1764,6 +1773,60 @@ F\cos\theta \\
 <p>a. Create the system of equations, <span class="math notranslate nohighlight">\(\mathbf{Ax}=\mathbf{b}\)</span>, when <span class="math notranslate nohighlight">\(\alpha=35^o\)</span>, <span class="math notranslate nohighlight">\(\beta=40^o\)</span>, <span class="math notranslate nohighlight">\(\theta=45^o=\pi/4\)</span>, and <span class="math notranslate nohighlight">\(F=1~kN\)</span>. Use <strong>Gauss elimination</strong> to solve for <span class="math notranslate nohighlight">\(P_1,~P_2,~P_3,~R_1,~R_2,~and~R_3\)</span>. What is the resulting augmented matrix, <span class="math notranslate nohighlight">\(\mathbf{A|y}\)</span> after Gauss elimination? <em>Hint: do you see a problem with the order of the equations? How can you <strong>pivot</strong> to fix it?</em></p>
 <p>b. Solve for the <span class="math notranslate nohighlight">\(\mathbf{PLU}\)</span> decomposition of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>.</p>
 <p>c. Use the <span class="math notranslate nohighlight">\(\mathbf{PLU}\)</span> solution to solve for the tension in bar 1 <span class="math notranslate nohighlight">\((P_1)\)</span> every 10 N values of force, F, between 100 N and 1100 N. Plot <span class="math notranslate nohighlight">\(P_1~vs~F\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a</span>
+<span class="n">alpha1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mi">35</span><span class="p">)</span>
+<span class="n">beta1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">F1</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">At2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha1</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>\
+                <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha1</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>\
+                <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta1</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>\
+                <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">beta1</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>\
+                <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha1</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>\
+                <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha1</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">bt2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">F1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span><span class="o">-</span><span class="n">F1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">x2</span><span class="p">,</span> <span class="n">Aug1</span> <span class="o">=</span> <span class="n">GaussNaive</span><span class="p">(</span><span class="n">At2</span><span class="p">,</span> <span class="n">bt2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Augmented matrix=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Aug1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part b</span>
+<span class="n">P1</span><span class="p">,</span><span class="n">L1</span><span class="p">,</span><span class="n">U1</span> <span class="o">=</span> <span class="n">lu</span><span class="p">(</span><span class="n">At2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;P= </span><span class="si">{}</span><span class="se">\n</span><span class="s1">L=</span><span class="si">{}</span><span class="se">\n</span><span class="s1">U=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">P1</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">U1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">P1</span><span class="nd">@L1@U1</span> <span class="o">==</span><span class="n">At2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part c</span>
+<span class="n">Fs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">1110</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">bs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">Fs</span><span class="p">),</span> <span class="mi">6</span><span class="p">])</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">Fs</span><span class="p">),</span> <span class="mi">6</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Fs</span><span class="p">)):</span>
+    <span class="n">bs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">Fs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span><span class="o">-</span><span class="n">Fs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">solveLU</span><span class="p">(</span><span class="n">L1</span><span class="p">,</span><span class="n">U1</span><span class="p">,</span><span class="n">P1</span><span class="o">.</span><span class="n">T</span><span class="nd">@bs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Fs</span><span class="p">,</span> <span class="n">xs</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;F (N)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\mathrm</span><span class="si">{P_1}</span><span class="s1">$ (N)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;$\mathrm</span><span class="si">{P_1}</span><span class="s1">$ vs. F&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -1789,36 +1852,27 @@ F\cos\theta \\
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="01_Linear-Algebra.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Linear Algebra Introduction</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="01_Linear-Algebra.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Linear Algebra Introduction</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="03_Linear-regression-algebra.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Linear Regression Algebra</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="03_Linear-regression-algebra.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Linear Regression Algebra</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         
@@ -1834,8 +1888,7 @@ F\cos\theta \\
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

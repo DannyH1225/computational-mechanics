@@ -5,9 +5,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.10.3
+    jupytext_version: 1.11.4
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -53,6 +53,8 @@ $  \left[ \begin{array}{cccccccccccccc}
 ```{code-cell} ipython3
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.linalg import lu
+from scipy.integrate import solve_ivp
 plt.style.use('fivethirtyeight')
 ```
 
@@ -88,9 +90,14 @@ c. What error would you expect when you solve for `u[2:13]` in `K[2:13,2:13]*u=F
 print(np.linalg.cond(K))
 print(np.linalg.cond(K[2:13,2:13]))
 
-print('expected error in x=solve(K,b) is {}'.format(10**(16-16)))
-print('expected error in x=solve(K[2:13,2:13],b) is {}'.format(10**(2-16)))
+#part a and c
+print('expected error in x=solve(K,b) is {}'.format(10**(17-16)))
+print('expected error in x=solve(K[2:13,2:13],b) is {}'.format(10**(1-16)))
 ```
+
+Part b: K is large because the problem is underconstrained. It describes stiffness of structure, but not the BC's. So, we end up with sumF=0 and -sumF=0.
+
++++
 
 ### 2. Apply a 300-N downward force to the central top node (n 4)
 
@@ -117,7 +124,99 @@ d. Create a plot of the undeformed and deformed structure with the displacements
 ![Deformed structure with loads applied](../images/deformed_truss.png)
 
 ```{code-cell} ipython3
- 
+#part a
+K1 = K[2:13,2:13]
+P, L, U= lu(K1)
+
+E_st = 200e3
+E_al = 70e3
+A = 0.1
+F= np.zeros(len(L))
+F[5]= -300
+F_st = F/(E_st*A)
+F_al = F/(E_al*A)
+
+#part b
+u1=np.zeros(14)
+u2=np.zeros(14)
+
+y_st = np.linalg.solve(L, F_st)
+u_st = np.linalg.solve(U, y_st)
+u1[2:13]=u_st
+
+y_al = np.linalg.solve(L, F_al)
+u_al = np.linalg.solve(U, y_al)
+u2[2:13]=u_al
+
+#part c
+F_st1 = E_st*A*K@u1
+F_al1 = E_al*A*K@u2
+```
+
+```{code-cell} ipython3
+xy_st={0:'x',1:'y'}
+xy_al={0:'x',1:'y'}
+print('displacements steel:\n----------------')
+for i in range(len(u1)):
+    print('u_{}{}:{:.2f} mm'.format(int(i/2)+1,xy_st[i%2],u1[i]))
+print('\nforces steel:\n----------------')
+for i in range(len(F_st1)):
+    print('F_{}{}:{:.2f} N'.format(int(i/2)+1,xy_st[i%2],F_st1[i]))
+    
+    
+print('\ndisplacements aluminum:\n----------------')
+for i in range(len(u2)):
+    print('u_{}{}:{:.2f} mm'.format(int(i/2)+1,xy_al[i%2],u2[i]))
+print('\nforces aluminum:\n----------------')
+for i in range(len(F_st1)):
+    print('F_{}{}:{:.2f} N'.format(int(i/2)+1,xy_al[i%2],F_al1[i]))
+```
+
+```{code-cell} ipython3
+#part d
+from __future__ import print_function
+from ipywidgets import interact, interactive, fixed, interact_manual
+import ipywidgets as widgets
+
+l=300 # mm
+nodes = np.array([[1,0,0],[2,0.5,3**0.5/2],[3,1,0],[4,1.5,3**0.5/2],[5,2,0],[6,2.5,3**0.5/2],[7,3,0]])
+nodes[:,1:3]*=l
+elems = np.array([[1,1,2],[2,2,3],[3,1,3],[4,2,4],[5,3,4],[6,3,5],[7,4,5],[8,4,6],[9,5,6],[10,5,7],[11,6,7]])
+
+ix = 2*np.block([[np.arange(0,5)],[np.arange(1,6)],[np.arange(2,7)],[np.arange(0,5)]])
+iy = ix+1
+
+r = np.block([n[1:3] for n in nodes])
+
+def f(s,x):
+    if x ==1:
+        plt.plot(r[ix],r[iy],'-',color=(0,0,0,1))
+        plt.plot(r[ix]+u1[ix]*s,r[iy]+u1[iy]*s,'-',color=(1,0,0,1))
+        #plt.quiver(r[ix],r[iy],u[ix],u[iy],color=(0,0,1,1),label='displacements')
+        plt.quiver(r[ix],r[iy],F_st1[ix],F_st1[iy],color=(1,0,0,1),label='applied forces')
+        plt.quiver(r[ix],r[iy],u1[ix],u1[iy],color=(0,0,1,1),label='displacements')
+        plt.axis(l*np.array([-0.5,3.5,-0.5,2]))
+        plt.xlabel('x (mm)')
+        plt.ylabel('y (mm)')
+        plt.title('Steel Deformation scale = {:.1f}x'.format(s))
+        plt.legend(bbox_to_anchor=(1,0.5))
+    else:
+        plt.plot(r[ix],r[iy],'-',color=(0,0,0,1))
+        plt.plot(r[ix]+u2[ix]*s,r[iy]+u2[iy]*s,'-',color=(1,0,0,1))
+        #plt.quiver(r[ix],r[iy],u[ix],u[iy],color=(0,0,1,1),label='displacements')
+        plt.quiver(r[ix],r[iy],F_al1[ix],F_al1[iy],color=(1,0,0,1),label='applied forces')
+        plt.quiver(r[ix],r[iy],u2[ix],u2[iy],color=(0,0,1,1),label='displacements')
+        plt.axis(l*np.array([-0.5,3.5,-0.5,2]))
+        plt.xlabel('x (mm)')
+        plt.ylabel('y (mm)')
+        plt.title('Aluminum Deformation scale = {:.1f}x'.format(s))
+        plt.legend(bbox_to_anchor=(1,0.5))
+
+f(5,1)
+```
+
+```{code-cell} ipython3
+f(5,2)
 ```
 
 ### 3. Determine cross-sectional area
@@ -130,7 +229,97 @@ c. What are the weights of the aluminum and steel trusses with the
 chosen cross-sectional areas?
 
 ```{code-cell} ipython3
+#part a
+def steel_deflec(Area):
+    A = Area
+    E=200e3
+    Ff=np.zeros(2*len(nodes)-3)
+    Ff[5]=-300
+    # step 1 solve for uf (the joints without constraints)
+    uf = np.linalg.solve(E*A*K[2:13,2:13],Ff)
+    u=np.zeros(2*len(nodes))
+    u[2:13]=uf
+    y_deflect = np.max(np.abs(u[1::2]))
+    error = .2 - y_deflect
+    return error
 
+def aluminum_deflec(Area):
+    A = Area
+    E=70e3
+    Ff=np.zeros(2*len(nodes)-3)
+    Ff[5]=-300
+    # step 1 solve for uf (the joints without constraints)
+    uf = np.linalg.solve(E*A*K[2:13,2:13],Ff)
+    u=np.zeros(2*len(nodes))
+    u[2:13]=uf
+    y_deflect = np.max(np.abs(u[1::2]))
+    error = .2 - y_deflect
+    return error
+```
+
+```{code-cell} ipython3
+def mod_secant(func,dx,x0,es=0.0001,maxit=50):
+    '''mod_secant: Modified secant root location zeroes
+    root,[fx,ea,iter]=mod_secant(func,dfunc,xr,es,maxit,p1,p2,...):
+    uses modified secant method to find the root of func
+    arguments:
+    ----------
+    func = name of function
+    dx = perturbation fraction
+    xr = initial guess
+    es = desired relative error (default = 0.0001 )
+    maxit = maximum allowable iterations (default = 50)
+    p1,p2,... = additional parameters used by function
+    returns:
+    --------
+    root = real root
+    fx = func evaluated at root
+    ea = approximate relative error ( )
+    iter = number of iterations'''
+
+    iter = 0;
+    xr=x0
+    for iter in range(0,maxit):
+        xrold = xr;
+        dfunc=(func(xr+dx)-func(xr))/dx;
+        xr = xr - func(xr)/dfunc;
+        if xr != 0:
+            ea = abs((xr - xrold)/xr) * 100;
+        else:
+            ea = abs((xr - xrold)/1) * 100;
+        if ea <= es:
+            break
+    return xr,[func(xr),ea,iter]
+```
+
+```{code-cell} ipython3
+#part a and b
+step_size = .00001
+a = np.linspace(0,2,100,endpoint=False)
+err_modsec1=np.zeros(len(a))
+err_modsec2=np.zeros(len(a))
+
+root1,out1 = mod_secant(steel_deflec,step_size,.1,es=0)
+    
+root2,out2 = mod_secant(aluminum_deflec,step_size,.1,es=0)
+
+print('Steel minimum cross-sectional area: {:.1f} mm^2'.format(root1))
+print('Aluminum minimum cross-sectional area: {:.1f} mm^2'.format(root2))
+```
+
+```{code-cell} ipython3
+rho_st = 0.00805 #g/mm^3
+rho_al = 0.0027 #g/mm^3
+g = 9.81
+n = 11
+v_st = root1*n*l
+v_al = root2*n*l
+
+st_weight = v_st*rho_st*g/1000
+al_weight = v_al*rho_al*g/1000
+
+print('Weight of steel truss: {:.1f} Newtons'.format(st_weight))
+print('Weight of aluminum truss: {:.1f} Newtons'.format(al_weight))
 ```
 
 ## References

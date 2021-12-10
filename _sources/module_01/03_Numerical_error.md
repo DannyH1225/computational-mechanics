@@ -4,10 +4,10 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
-    format_version: 0.12
-    jupytext_version: 1.6.0
+    format_version: 0.13
+    jupytext_version: 1.11.4
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -238,9 +238,11 @@ If you increase the number of time steps from 0 to 12 seconds what happens to v_
 
 What happens when you decrease the number of time steps?
 
-```{code-cell} ipython3
++++
 
-```
+ 1. Increasing the number of time steps makes v_numerical closer to v_analytical. Decreasing the number of time steps makes v_numerical farther away from v_analytical.
+
++++
 
 ## Errors in Numerical Modeling
 
@@ -516,7 +518,7 @@ First, solve for `n=2` steps, so t=[0,2]. We can time the solution to get a sens
 
 ```{code-cell} ipython3
 %%time
-n=5
+n=1000
 
 v_analytical,v_numerical,t=freefall(n);
 ```
@@ -542,7 +544,7 @@ plt.plot(t,v_analytical,label='analytical')
 plt.title('First 2 seconds of freefall')
 plt.xlabel('time (s)')
 plt.ylabel('speed (m/s)')
-plt.legend()
+plt.legend();
 ```
 
 ### Exercise
@@ -579,7 +581,7 @@ for i in range(0,N):
 plt.loglog(n, error,'o')
 plt.xlabel('number of timesteps N')
 plt.ylabel('relative error')
-plt.title('Truncation and roundoff error \naccumulation in log-log plot')
+plt.title('Truncation and roundoff error \naccumulation in log-log plot');
 ```
 
 In the above plot "Truncation and roundoff error accumulation in log-log
@@ -639,16 +641,47 @@ print('years=',year)
 print('population =', pop)
 ```
 
-
 ```{code-cell} ipython3
+#part a
 print('average population changes 1900-1950, 1950-2000, 2000-2020')
 print((pop[1:] - pop[0:-1])/(year[1:] - year[0:-1]))
 print('average growth of 1900 - 2020')
 print(np.mean((pop[1:] - pop[0:-1])/(year[1:] - year[0:-1])))
 ```
 
-__d.__ As the number of time steps increases, the Euler approximation approaches the analytical solution, not the measured data. The best-case scenario is that the Euler solution is the same as the analytical solution.
+```{code-cell} ipython3
+avg_growth = (pop[1:] - pop[0:-1])/(year[1:] - year[0:-1])                                   
+avg_kg = np.zeros_like(avg_growth)
+for i in range(len(avg_growth)):
+    avg_kg[i] = avg_growth[i] / pop[i+1]
 
+print('Average growth rate from 1900-1950:', avg_kg[0] )
+print('Average growth rate from 1950-2000:', avg_kg[1] )
+print('Average growth rate from 2000-2020:', avg_kg[2] )
+```
+
+```{code-cell} ipython3
+years = np.arange(1900, 2040, 20)
+pop_analytical =np.zeros_like(years)
+pop_numerical=np.array([1578000000,0,0,0,0,0,0])
+k_g = 0.013
+
+for i in range(0,len(years)):
+    pop_analytical[i] = 1.578000e+09 * np.exp(k_g*(years[i]-1900))
+
+for i in range(1,len(years)):
+    pop_numerical[i] = pop_numerical[i-1] + pop_numerical[i-1] * k_g * (years[i] - years[i-1])
+
+plt.plot(years, pop_analytical,'-',label='analytical')
+plt.plot(years, pop_numerical,'o-',label='numerical')
+plt.legend()
+plt.xlabel('Year')
+plt.ylabel('Population')
+print(pop_numerical)
+print(pop_analytical)
+```
+
+__d.__ As the number of time steps increases, the Euler approximation approaches the analytical solution, not the measured data. The best-case scenario is that the Euler solution is the same as the analytical solution.
 
 +++
 
@@ -678,9 +711,46 @@ def exptaylor(x,n):
         for i in range(1,n):
             ex+=x**(i+1)/factorial(i+1) # add the nth-order result for each step in loop
         return ex
-        
+    
+taylor_approx = exptaylor(1, 2)
+print('Taylor approximation=', taylor_approx)
+print('Numpy e^1=', np.exp(1))
+
+error = (taylor_approx - np.exp(1))/ np.exp(1)
+print(f'Relative error= {error}')
 ```
 
 ```{code-cell} ipython3
+%%time
+exptaylor(1, 2)
+#time for second order Taylor series; part b
+```
 
+```{code-cell} ipython3
+%%time
+exptaylor(1, 10)
+#time for a tenth order Taylor series; part b
+```
+
+```{code-cell} ipython3
+%%time
+exptaylor(1, 10000)
+```
+
+Since it takes about 28 seconds to run a 10000 order Taylor series it should take about 10 times longer to run a 100000 order Taylor series. This means the estimated time should be about 2800 seconds.
+
+```{code-cell} ipython3
+#part c
+n = np.arange(1, 1000) # create an array from 1 to 10^4 with N values
+N = len(n)
+error = np.zeros(N)    # initialize an N-valued array of relative errors
+taylor = np.zeros(N)
+for i in range(0,N):
+    taylor[i] = exptaylor(1, n[i]) # Taylor series solutions
+    error[i] = abs(taylor[i]- np.exp(1))/ np.exp(1) #calculate relative error
+    
+plt.loglog(n, error,'o')
+plt.xlabel('number of orders N')
+plt.ylabel('relative error')
+plt.title('Truncation and roundoff error \naccumulation in log-log plot');
 ```

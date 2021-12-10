@@ -5,13 +5,12 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.10.3
+    jupytext_version: 1.11.4
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
-
 
 # Revisiting Derivatives
 
@@ -66,7 +65,7 @@ Here you have the numerical second derivative of a function, $f(x)$, with __trun
 
 ## Using your numerical derivatives
 
-Consider the example of taking the derivative of $f(x) = \sin(x)$ with only 10 data points per period. Let's assume there is no random error in the signal. First, you can plot the values you expect since you know the derivatives of $\sin(x)$. 
+Consider the example of taking the derivative of $f(x) = \sin(x)$ with only 10 data points per period. Let's assume there is no random error in the signal. First, you can plot the values you expect since you know the derivatives of $\sin(x)$.
 
 ```{code-cell} ipython3
 import numpy as np
@@ -92,7 +91,7 @@ plt.xlabel('x')
 plt.ylabel('f(x), f\'(x), f\'\'(x)');
 ```
 
-Next, you use your definitions for first and second derivatives to get the approximate derivatives, $f'(x)~and~f''(x)$. You are using a forward difference method so for $f'(x)$ you truncate the values by 1 and for $f''(x)$, you truncate the values by 2. 
+Next, you use your definitions for first and second derivatives to get the approximate derivatives, $f'(x)~and~f''(x)$. You are using a forward difference method so for $f'(x)$ you truncate the values by 1 and for $f''(x)$, you truncate the values by 2.
 
 ```{code-cell} ipython3
 ## numerical derivatives
@@ -109,7 +108,9 @@ plt.legend();
 What is the maximum error between the numerical $\frac{df}{dx}$ and the actual $\frac{df}{dx}$?
 
 ```{code-cell} ipython3
-
+dy_val = np.cos(x[:-1])
+max_error = np.max((dy_val - dy_n)/dy_val*100)
+print('Max Error: {:.2f}'.format(max_error))
 ```
 
 ```{code-cell} ipython3
@@ -128,10 +129,21 @@ $f'(x_{i})=\frac{f(x_{i})-f(x_{i-1})}{h}+O(h)$
 
 $f''(x_{i})=\frac{f(x_{i})-2f(x_{i-1})+f(x_{i-2})}{h^2}+O(h)$
 
-Plot the first and second derivatives of $\sin(x)$ using the same x-locations as you did above. 
+Plot the first and second derivatives of $\sin(x)$ using the same x-locations as you did above.
 
 ```{code-cell} ipython3
+dy_n=(y[1:]-y[0:-1])/(x[1:]-x[0:-1]);
+ddy_n=(y[2:]-2*y[1:-1]+y[0:-2])/(x[2:]-x[1:-1])**2;
 
+plt.plot(xx,dy,label='analytical dy/dx')
+plt.plot(x[1:],dy_n,'o',label='num dy/dx')
+plt.legend();
+```
+
+```{code-cell} ipython3
+plt.plot(xx,ddy,label='analytical d2y/dx2')
+plt.plot(x[1:-1],ddy_n,'o',label='num d2y/dx2')
+plt.legend(loc='best');
 ```
 
 ## Central Difference
@@ -188,7 +200,19 @@ plt.legend(bbox_to_anchor=(1,0.5),loc='center left');
 
 ### Exercise
 
-Plot the analytical, forward difference, and central difference results for the second derivative of $\sin(x)$. 
+Plot the analytical, forward difference, and central difference results for the second derivative of $\sin(x)$.
+
+```{code-cell} ipython3
+## forward difference
+ddy_f=(y[2:]-2*y[1:-1]+y[0:-2])/(x[2:]-x[1:-1])**2;
+## central difference
+ddy_c=(y[2:]-2*y[1:-1]+y[0:-2])/(x[2:]-x[1:-1])**2;
+
+plt.plot(xx,ddy,label='analytical dy/dx')
+plt.plot(x[:-2],ddy_f,'o',label='fwd difference')
+plt.plot(x[1:-1],ddy_c,'s',label='central difference')
+plt.legend(bbox_to_anchor=(1,0.5),loc='center left');
+```
 
 ## Higher order derivatives
 
@@ -241,7 +265,7 @@ __Table of derivatives and the corresponding forward, backward, and central diff
 </tr>
 <tr class="even">
 <td><span class="math inline">\(\frac{d^2f}{dx^2}\)</span></td>
-<td><span class="math inline">\(\frac{f(x_{i+2})-2f(x_{i+1})-3f(x_{i})}{h^2}\)</span></td>
+<td><span class="math inline">\(\frac{f(x_{i+2})-2f(x_{i+1})+f(x_{i})}{h^2}\)</span></td>
 <td><span class="math inline">\(\frac{f(x_{i})-2f(x_{i-1})+f(x_{i-2})}{h^2}\)</span></td>
 <td><span class="math inline">\(\frac{f(x_{i+1})-2f(x_{i})+f(x_{i-1})}{h^2}\)</span></td>
 </tr>
@@ -287,20 +311,56 @@ __Plot the following derivatives using h=0.1m, x=0, 0.1, 0.2, ...1 m:__
 a. Take the first derivative of the above function using a forward, backward, and central difference method
 
 ```{code-cell} ipython3
+L = 1
+E = 200e9
+I = .01**4/12
+q = 100
+x = np.linspace(0,1,11)
+w = -q*x*(L**3-2*x**2+x**3)/(24*E*I)
 
+dw_f=(w[1:]-w[0:-1])/(x[1:]-x[0:-1]);
+dw_b=(w[1:]-w[0:-1])/(x[1:]-x[0:-1]);
+dw_c=(w[2:]-w[0:-2])/(x[2:]-x[0:-2]);
+dw_a=-q*(L**3-6*x**2*L+4*x**3)/(24*E*I)
+
+plt.plot(x[:-1],dw_f,'o',label='fwd difference')
+plt.plot(x[1:],dw_b,'o',label='bwd difference')
+plt.plot(x[1:-1],dw_c,'s',label='central difference')
+plt.plot(x,dw_a,'-',label='analytical')
+plt.legend(bbox_to_anchor=(1,0.5),loc='center left')
+plt.title('First Derivatives');
 ```
 
 b. Take the second derivative of the above function using a forward, backward, and central difference method
 
 ```{code-cell} ipython3
+ddw_f = (w[2:]-2*w[1:-1]+w[0:-2])/(x[2:]-x[1:-1])**2
+ddw_b = (w[2:]-2*w[1:-1]+w[0:-2])/(x[2:]-x[1:-1])**2
+ddw_c = (w[2:]-2*w[1:-1]+w[0:-2])/(x[2:]-x[1:-1])**2
+ddw_a = -q*x*(x-L)/(2*E*I)
 
+plt.plot(x[:-2],ddw_f,'o',label='fwd difference')
+plt.plot(x[2:],ddw_b,'o',label='bwd difference')
+plt.plot(x[1:-1],ddw_c,'s',label='central difference')
+plt.plot(x,ddw_a,'-',label='analytical')
+plt.legend(bbox_to_anchor=(1,0.5),loc='center left')
+plt.title('Second Derivatives');
 ```
 
 c. Take the third derivative of the above function using a forward, backward, and central difference method
- 
 
 ```{code-cell} ipython3
+dddw_f = (w[3:]-3*w[2:-1]+3*w[1:-2]-w[0:-3])/(x[3:]-x[2:-1])**3
+dddw_b = (w[3:]-3*w[2:-1]+3*w[1:-2]-w[0:-3])/(x[3:]-x[2:-1])**3
+dddw_c = (w[4:]-2*w[3:-1]+2*w[1:-3]-w[0:-4])/(2*(x[4:]-x[3:-1])**3)
+dddw_a = -q*(2*x-L)/(2*E*I)
 
+plt.plot(x[:-3],dddw_f,'o',label='fwd difference')
+plt.plot(x[3:],dddw_b,'o',label='bwd difference')
+plt.plot(x[2:-2],dddw_c,'s',label='central difference')
+plt.plot(x,dddw_a,'-',label='analytical')
+plt.legend(bbox_to_anchor=(1,0.5),loc='center left')
+plt.title('Third Derivatives');
 ```
 
 2. Consider the temperature of a fin with conductive and convective heat transfer [analytical solution](https://en.wikipedia.org/wiki/Fin_(extended_surface)#Solutions) with x=0...60 mm connected to a $100^oC$ base surrounded by $20^oC$ air. 
@@ -316,7 +376,7 @@ $T(x)=20+80\frac{\cosh(s(L-x))+\frac{h}{sk}\sinh(s(L-x))}{\cosh(sL)+\frac{h}{sk}
 
 __Plot the first derivative of $T(x)$ using h=10 mm, x=0, 10, 20, ...60 mm (values given below):__
 
-using the forward, backward, and central difference methods. 
+using the forward, backward, and central difference methods.
 
 ```{code-cell} ipython3
 h=100 # W/m/m/K
@@ -326,6 +386,16 @@ L=60E-3# length in m
 s=np.sqrt(2*h/k/R)
 x=np.arange(0,70,10)*1e-3 # m
 T= 20+80*(np.cosh(s*L-s*x)+h/s/k*np.sinh(s*L-s*x))/(np.cosh(s*L)+h/s/k*np.sinh(s*L))
+
+dT_f = (T[1:]-T[0:-1])/(x[1:]-x[0:-1]);
+dT_b=(T[1:]-T[0:-1])/(x[1:]-x[0:-1]);
+dT_c=(T[2:]-T[0:-2])/(x[2:]-x[0:-2]);
+
+plt.plot(x[:-1],dT_f,'o',label='fwd difference')
+plt.plot(x[1:],dT_b,'o',label='bwd difference')
+plt.plot(x[1:-1],dT_c,'s',label='central difference')
+plt.legend(bbox_to_anchor=(1,0.5),loc='center left')
+plt.title('First Derivatives');
 ```
 
 ```{code-cell} ipython3

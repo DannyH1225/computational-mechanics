@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>01 - Cheers! Stats with Beers &#8212; Computational Mechanics</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -58,7 +58,10 @@
     <link rel="next" title="02 - Seeing stats in a new light" href="02_Seeing_Stats.html" />
     <link rel="prev" title="Computational Mechanics 02 - Analyze Data" href="README.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -74,6 +77,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../_static/comp-mech-logo.svg" class="logo" alt="logo">
       
@@ -951,7 +958,6 @@ an array, check how many values you lost.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ibu_clean</span> <span class="o">=</span> <span class="n">ibu_series</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 
 <span class="n">ibu</span> <span class="o">=</span> <span class="n">ibu_clean</span><span class="o">.</span><span class="n">values</span>
-
 <span class="nb">len</span><span class="p">(</span><span class="n">ibu</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -967,6 +973,20 @@ an array, check how many values you lost.</p>
 <h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h2>
 <p>Write a Python function that calculates the percentage of missing values for a certain data series. Use the function to calculate the percentage of missing values for the <code class="docutils literal notranslate"><span class="pre">abv</span></code> and <code class="docutils literal notranslate"><span class="pre">ibu</span></code> data sets.</p>
 <p>For the original series, before cleaning, remember that you can access the values with <code class="docutils literal notranslate"><span class="pre">series.values</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">abv_series.values</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">abv</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">abv_series</span><span class="p">))</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">abv_series</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">ibu</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">ibu_series</span><span class="p">))</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">ibu_series</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-2.451184046530951
+-41.628583298712094
+</pre></div>
+</div>
+</div>
+</div>
 <blockquote>
 <div><p><strong>Important</strong>:</p>
 <p>Notice that in the case of the variable <code class="docutils literal notranslate"><span class="pre">ibu</span></code> you are missing almost 42%
@@ -1198,7 +1218,27 @@ the formulas with <span class="math notranslate nohighlight">\(N-1\)</span> in t
 <span class="sd">    var   : float, variance of the array .</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+    
+    <span class="n">sum_sqr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">mean</span> <span class="o">-</span> <span class="n">array</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="n">sum_sqr</span> <span class="o">/</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">var</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">var_pythonic</span><span class="p">(</span><span class="n">ibu</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample_var</span><span class="p">(</span><span class="n">ibu</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>673.6135373259929
+673.6135373259932
 </pre></div>
 </div>
 </div>
@@ -1276,6 +1316,7 @@ You’ll show you here an example using the <code class="docutils literal notran
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 
 <span class="c1">#Import rcParams to set font styles</span>
@@ -1346,6 +1387,7 @@ does a nice job presenting readable plots. Set the style using:</p>
 <span class="n">pyplot</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
 
 <span class="c1">#Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
 <span class="n">pyplot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">abv</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span> 
 <span class="c1">#The \n is to leave a blank line between the title and the plot</span>
 <span class="n">pyplot</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;abv </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -1364,6 +1406,7 @@ does a nice job presenting readable plots. Set the style using:</p>
 <span class="n">pyplot</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
 
 <span class="c1">#Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
 <span class="n">pyplot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ibu</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">),</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span> 
 <span class="c1">#The \n is to leave a blanck line between the title and the plot</span>
 <span class="n">pyplot</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;ibu </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -1450,6 +1493,19 @@ how the following piece of code works.</p>
 <li><p>Check what the logical operation <code class="docutils literal notranslate"><span class="pre">np.logical_and(1&lt;x,</span> <span class="pre">x&lt;4)</span></code> returns.</p></li>
 <li><p>Check what happens if you sum booleans. For example, <code class="docutils literal notranslate"><span class="pre">True</span> <span class="pre">+</span> <span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">True</span> <span class="pre">+</span> <span class="pre">False</span></code> and so on.</p></li>
 </ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;</span><span class="n">x</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">&lt;</span><span class="mi">4</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
 <p>Now, using the same idea, you will calculate the number of elements in each interval of width <span class="math notranslate nohighlight">\((1\sigma, 2\sigma, 3\sigma)\)</span>, and get the corresponding percentage.</p>
 <p>Since you want to compute this for both of your variables, <code class="docutils literal notranslate"><span class="pre">abv</span></code> and
 <code class="docutils literal notranslate"><span class="pre">ibu</span></code>, you’ll write a function to do so. Study carefully the code below. Better yet, explain it to your neighbor.</p>
@@ -1542,7 +1598,7 @@ you need to follow a specific syntax. In your example this would be:</p>
 <p><strong>abv</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">abv_std1_per</span><span class="p">,</span> <span class="n">abv_std2_per</span><span class="p">,</span> <span class="n">abv_std3_per</span> <span class="o">=</span> <span class="n">std_percentages</span><span class="p">(</span><span class="n">abv</span><span class="p">,</span> <span class="n">abv_mean</span><span class="p">,</span> <span class="n">abv_std</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">abv_std1_per</span><span class="p">,</span> <span class="n">abv_std2_per</span><span class="p">,</span> <span class="n">abv_std3_per</span><span class="o">=</span> <span class="n">std_percentages</span><span class="p">(</span><span class="n">abv</span><span class="p">,</span> <span class="n">abv_mean</span><span class="p">,</span> <span class="n">abv_std</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1648,6 +1704,54 @@ the top of the csv. What are the headings for the columns?</p>
 (<code class="docutils literal notranslate"><span class="pre">NaN</span></code>) are
 in the column with the number of transistors? What fraction are
 missing?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a</span>
+<span class="o">!</span>head ../data/transistor_data.csv
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Processor,MOS transistor count,Date of Introduction,Designer,MOSprocess,Area
+&quot;MP944 (20-bit, 6-chip)&quot;,NaN,1970,Garrett AiResearch,?,?
+&quot;Intel 4004 (4-bit, 16-pin)&quot;,2250,1971,Intel,&quot;10,000 nm&quot;,12 mm²
+&quot;Intel 8008 (8-bit, 18-pin)&quot;,3500,1972,Intel,&quot;10,000 nm&quot;,14 mm²
+&quot;NEC μCOM-4 (4-bit, 42-pin)&quot;,2500,1973,NEC,&quot;7,500 nm&quot;,?
+&quot;Intel 4040 (4-bit, 16-pin)&quot;,3000,1974,Intel,&quot;10,000 nm&quot;,12 mm²
+&quot;Motorola 6800 (8-bit, 40-pin)&quot;,4100,1974,Motorola,&quot;6,000 nm&quot;,16 mm²
+&quot;Intel 8080 (8-bit, 40-pin)&quot;,6000,1974,Intel,&quot;6,000 nm&quot;,20 mm²
+&quot;TMS 1000 (4-bit, 28-pin)&quot;,8000,1974,Texas Instruments,&quot;8,000 nm&quot;,11 mm²
+&quot;MOS Technology 6502 (8-bit, 40-pin)&quot;,4528,1975,MOS Technology,&quot;8,000 nm&quot;,21 mm²
+</pre></div>
+</div>
+</div>
+</div>
+<p>a. The headings are: Processor,MOS transistor count,Date of Introduction,Designer,MOSprocess, and Area</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part b</span>
+<span class="n">transistor_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/transistor_data.csv&#39;</span><span class="p">)</span>
+<span class="n">transistor_series</span> <span class="o">=</span> <span class="n">transistor_data</span><span class="p">[</span><span class="s1">&#39;MOS transistor count&#39;</span><span class="p">]</span>
+
+<span class="n">original</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">transistor_series</span><span class="p">)</span>
+
+<span class="n">transistor_count_clean</span> <span class="o">=</span> <span class="n">transistor_series</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+<span class="n">dropped_NaN</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">transistor_count_clean</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">original</span> <span class="o">-</span> <span class="n">dropped_NaN</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">((</span><span class="n">original</span> <span class="o">-</span> <span class="n">dropped_NaN</span><span class="p">)</span> <span class="o">/</span> <span class="n">original</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7
+3.763440860215054
+</pre></div>
+</div>
+</div>
+</div>
+<p>b. There are 7 missing NaN values in the column with teh number of transistors. About 3.76% of values are missing.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -1673,36 +1777,27 @@ missing?</p>
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="README.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Computational Mechanics 02 - Analyze Data</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="README.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Computational Mechanics 02 - Analyze Data</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="02_Seeing_Stats.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">02 - Seeing stats in a new light</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="02_Seeing_Stats.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">02 - Seeing stats in a new light</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         
@@ -1718,8 +1813,7 @@ missing?</p>
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

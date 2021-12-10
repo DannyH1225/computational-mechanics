@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>03 - Linear regression with real data &#8212; Computational Mechanics</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -58,7 +58,10 @@
     <link rel="next" title="04 - Statistics and Monte-Carlo Models" href="04_Stats_and_Montecarlo.html" />
     <link rel="prev" title="02 - Seeing stats in a new light" href="02_Seeing_Stats.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -74,6 +77,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../_static/comp-mech-logo.svg" class="logo" alt="logo">
       
@@ -549,6 +556,7 @@
     src="https://www.youtube.com/embed/gGOzHVUQCw0"
     frameborder="0"
     allowfullscreen
+
 ></iframe>
 </div></div>
 </div>
@@ -946,8 +954,6 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">coefficients</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x_mean</span><span class="p">,</span> <span class="n">y_mean</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Write docstrings here</span>
-<span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
 <span class="sd">    x: independent variable </span>
 <span class="sd">    y: dependent variable measurements</span>
@@ -1209,22 +1215,48 @@ land temperature anomoly? Split the data and perform two linear fits.</p>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/primary-energy-consumption-by-region.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a</span>
+<span class="n">energy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/primary-energy-consumption-by-region.csv&#39;</span><span class="p">)</span>
 <span class="n">CAN</span> <span class="o">=</span> <span class="n">energy</span><span class="p">[</span><span class="n">energy</span><span class="p">[</span><span class="s1">&#39;Entity&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Canada&#39;</span><span class="p">]</span>
 <span class="n">USA</span> <span class="o">=</span> <span class="n">energy</span><span class="p">[</span><span class="n">energy</span><span class="p">[</span><span class="s1">&#39;Entity&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;United States&#39;</span><span class="p">]</span>
 <span class="n">EUR</span> <span class="o">=</span> <span class="n">energy</span><span class="p">[</span><span class="n">energy</span><span class="p">[</span><span class="s1">&#39;Entity&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Europe&#39;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">USA</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">],</span><span class="n">USA</span><span class="p">[</span><span class="s1">&#39;Primary Energy Consumption (terawatt-hours)&#39;</span><span class="p">],</span><span class="s1">&#39;-o&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">EUR</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">],</span><span class="n">EUR</span><span class="p">[</span><span class="s1">&#39;Primary Energy Consumption (terawatt-hours)&#39;</span><span class="p">],</span><span class="s1">&#39;-s&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">USA</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">],</span><span class="n">USA</span><span class="p">[</span><span class="s1">&#39;Primary Energy Consumption (terawatt-hours)&#39;</span><span class="p">],</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;USA&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">EUR</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">],</span><span class="n">EUR</span><span class="p">[</span><span class="s1">&#39;Primary Energy Consumption (terawatt-hours)&#39;</span><span class="p">],</span><span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;EUR&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Primary Energy Consumption (TW-hrs)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+
+<span class="c1">#part b</span>
+<span class="n">USA_yrs</span> <span class="o">=</span> <span class="n">USA</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">USA_energy</span> <span class="o">=</span> <span class="n">USA</span><span class="p">[</span><span class="s1">&#39;Primary Energy Consumption (terawatt-hours)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">EUR_yrs</span> <span class="o">=</span> <span class="n">EUR</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">EUR_energy</span> <span class="o">=</span> <span class="n">EUR</span><span class="p">[</span><span class="s1">&#39;Primary Energy Consumption (terawatt-hours)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">m_USA</span><span class="p">,</span> <span class="n">b_USA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">USA_yrs</span><span class="p">,</span> <span class="n">USA_energy</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">USA_linear</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">poly1d</span><span class="p">((</span><span class="n">m_USA</span><span class="p">,</span> <span class="n">b_USA</span><span class="p">))</span>
+
+<span class="n">m_EUR</span><span class="p">,</span> <span class="n">b_EUR</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">EUR_yrs</span><span class="p">,</span> <span class="n">EUR_energy</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">EUR_linear</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">poly1d</span><span class="p">((</span><span class="n">m_EUR</span><span class="p">,</span> <span class="n">b_EUR</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">USA_yrs</span><span class="p">,</span> <span class="n">USA_linear</span><span class="p">(</span><span class="n">USA_yrs</span><span class="p">),</span> <span class="s1">&#39;b--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">EUR_yrs</span><span class="p">,</span> <span class="n">EUR_linear</span><span class="p">(</span><span class="n">EUR_yrs</span><span class="p">),</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;USA function:&#39;</span><span class="p">,</span><span class="n">USA_linear</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;EUR function:&#39;</span><span class="p">,</span><span class="n">EUR_linear</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f31cf3f9850&gt;]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>USA function:  
+200.4 x - 3.765e+05
+EUR function:  
+199.6 x - 3.76e+05
 </pre></div>
 </div>
 <img alt="../_images/03_Linear_Regression_with_Real_Data_56_1.png" src="../_images/03_Linear_Regression_with_Real_Data_56_1.png" />
 </div>
 </div>
+<p>part c. I would split the data at the year 1980.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">=</span><span class="n">USA</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
@@ -1257,11 +1289,19 @@ land temperature anomoly? Split the data and perform two linear fits.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Energy Consumption (TW-hrs)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Regression of Energy use in USA and EUR</span><span class="se">\n</span><span class="s1">Before/After 1980&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+
+<span class="c1">#part d</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Predicted energy consumption in USA for year 2050: </span><span class="si">{:.3f}</span><span class="s1"> TW-hrs&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mUSA2</span><span class="o">*</span><span class="mi">2050</span> <span class="o">+</span> <span class="n">bUSA2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Predicted energy consumption in EUR for year 2050:</span><span class="si">{:.3f}</span><span class="s1"> TW-hrs&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mEUR2</span><span class="o">*</span><span class="mi">2050</span> <span class="o">+</span> <span class="n">bEUR2</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03_Linear_Regression_with_Real_Data_57_0.png" src="../_images/03_Linear_Regression_with_Real_Data_57_0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Predicted energy consumption in USA for year 2050: 33820.976 TW-hrs
+Predicted energy consumption in EUR for year 2050:27779.606 TW-hrs
+</pre></div>
+</div>
+<img alt="../_images/03_Linear_Regression_with_Real_Data_58_1.png" src="../_images/03_Linear_Regression_with_Real_Data_58_1.png" />
 </div>
 </div>
 <ol class="simple">
@@ -1283,7 +1323,8 @@ Color the data according to the “Designer”.</p>
 <p>b. What are the values of constants <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> for our Moore’s law fit? How does this compare to Gordon Moore’s prediction that MOS transistor count doubles every two years?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/transistor_data.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/transistor_data.csv&#39;</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">xi</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Date of Introduction&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 <span class="n">TC</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;MOS transistor count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
@@ -1297,13 +1338,21 @@ Color the data according to the “Designer”.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;year introduced&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">));</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;# of transistors&#39;</span><span class="p">);</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Value of A:</span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Value of B:</span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03_Linear_Regression_with_Real_Data_59_0.png" src="../_images/03_Linear_Regression_with_Real_Data_59_0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Value of A:0.336
+Value of B:-654.714
+</pre></div>
+</div>
+<img alt="../_images/03_Linear_Regression_with_Real_Data_60_1.png" src="../_images/03_Linear_Regression_with_Real_Data_60_1.png" />
 </div>
 </div>
+<p>part b. Value of A:0.336. Value of B:-654.714. Plugging A into the equation for the amount of resistors every year and plugging in 2 years we get a rate of 1.96. This is close to the rate of 2 every two years.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -1329,36 +1378,27 @@ Color the data according to the “Designer”.</p>
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="02_Seeing_Stats.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">02 - Seeing stats in a new light</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="02_Seeing_Stats.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">02 - Seeing stats in a new light</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="04_Stats_and_Montecarlo.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">04 - Statistics and Monte-Carlo Models</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="04_Stats_and_Montecarlo.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">04 - Statistics and Monte-Carlo Models</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         
@@ -1374,8 +1414,7 @@ Color the data according to the “Designer”.</p>
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

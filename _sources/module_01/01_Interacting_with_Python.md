@@ -4,10 +4,10 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
-    format_version: 0.12
-    jupytext_version: 1.6.0
+    format_version: 0.13
+    jupytext_version: 1.11.4
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -246,7 +246,16 @@ Use Python (as a calculator) to solve the following two problems:
 2. Suppose the cover price of a book is $\$ 24.95$, but bookstores get a $40\%$ discount. Shipping costs $\$3$ for the first copy and $75$ cents for each additional copy. What is the total wholesale cost for $60$ copies? Compare your answer with the solution up to 2 decimal numbers.
 
 ```{code-cell} ipython3
+d = 6.65
+pi = 3.14159
+v_sphere = round(4/3*pi*(d/2)**3, 4)
+print('1. Volume of sphere is {} in^3'.format(v_sphere))
 
+price_book = 24.95*.6
+shipping = 3 + .75*(59)
+
+total_cost = price_book*60 + shipping
+print('2. Total price of books is ${}'.format(round(total_cost, 2)))
 ```
 
 To reveal the answers, highlight the following line of text using the mouse:
@@ -299,7 +308,8 @@ y = 4.5
 Print the values of the variables `x` and `y`.
 
 ```{code-cell} ipython3
-
+print('x=',x)
+print('y=',y)
 ```
 
 Let's do some arithmetic operations with our new variables:
@@ -578,7 +588,14 @@ Throughout this course module, you will be drawing from the following references
     c. What is the result of the following logical operation, `volume>1000` (in inches^3)
 
 ```{code-cell} ipython3
+v_box = 12.5 * 11 * 14
+density = 31/ v_box
 
+c = v_box>1000
+
+print(' a. Volume of box is {} in^3'.format(round(v_box,3)))
+print(' b. Density is {} lb/in^3'.format(round(density,4)))
+print(' c. {}'.format(c) )
 ```
 
 2. Use the variables given below, `str1` and `str2`, and check the following 
@@ -594,6 +611,11 @@ Throughout this course module, you will be drawing from the following references
 ```{code-cell} ipython3
 str1 = 'Python'
 str2 = 'python'
+
+print('a. str1<str2 is: {}'.format(str1<str2))
+print('b. str1==str2 is: {}'.format(str1==str2))
+print('c. str1>str2 is: {}'.format(str1>str2))
+print('d. You can strip the p from both strings using the .strip command')
 ```
 
 3. The following code has an error, fix the error so that the correct result is returned:
@@ -611,7 +633,13 @@ else:
 ```
 
 ```{code-cell} ipython3
+x=1 #changed string into int
+y=20
 
+if x<y and y==20:
+    print('y is 20 and x is less than y')
+else:
+    print('x is not less than y')
 ```
 
 4. Create a script that takes the clock hour in 24 hours and prints the clock hour with am or pm. 
@@ -620,10 +648,14 @@ else:
 
 ```{code-cell} ipython3
 time = 22
-if time > 12:
-    print(time - 12, 'PM')
-elif time < 12:
-    print(time, 'AM')
+#function used to convert from 24 hours to 12 hour time
+def twenty_four_to_twelve(time):
+    if time > 12:
+        print(time - 12, 'PM')
+    elif time < 12:
+        print(time, 'AM')
+
+twenty_four_to_twelve(time)
 ```
 
 ```{code-cell} ipython3

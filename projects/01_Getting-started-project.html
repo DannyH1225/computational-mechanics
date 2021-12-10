@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Computational Mechanics Project #01 - Heat Transfer in Forensic Science &#8212; Computational Mechanics</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -58,7 +58,10 @@
     <link rel="next" title="Computational Mechanics 02 - Analyze Data" href="../module_02/README.html" />
     <link rel="prev" title="03 - Numerical Error" href="../module_01/03_Numerical_error.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -74,6 +77,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../_static/comp-mech-logo.svg" class="logo" alt="logo">
       
@@ -437,9 +444,44 @@
 <ol class="simple">
 <li><p>Use Python to calculate <span class="math notranslate nohighlight">\(K\)</span> using a finite difference approximation, <span class="math notranslate nohighlight">\(\frac{dT}{dt} \approx \frac{T(t+\Delta t)-T(t)}{\Delta t}\)</span>.</p></li>
 </ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T_f</span> <span class="o">=</span> <span class="mi">74</span>
+<span class="n">T_i</span> <span class="o">=</span> <span class="mi">85</span>
+<span class="n">T_a</span> <span class="o">=</span> <span class="mi">65</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">dT_dt</span> <span class="o">=</span> <span class="p">(</span><span class="n">T_f</span> <span class="o">-</span> <span class="n">T_i</span><span class="p">)</span><span class="o">/</span> <span class="n">dt</span>
+
+<span class="n">K</span> <span class="o">=</span> <span class="o">-</span> <span class="n">dT_dt</span> <span class="o">/</span> <span class="p">(</span><span class="n">T_f</span> <span class="o">-</span> <span class="n">T_a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;K=</span><span class="si">{</span><span class="n">K</span><span class="si">}</span><span class="s1"> per hour&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>K=0.6111111111111112 per hour
+</pre></div>
+</div>
+</div>
+</div>
 <ol class="simple">
 <li><p>Change your work from problem 1 to create a function that accepts the temperature at two times, ambient temperature, and the time elapsed to return <span class="math notranslate nohighlight">\(K\)</span>.</p></li>
 </ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">K</span><span class="p">(</span><span class="n">T_i</span><span class="p">,</span> <span class="n">T_f</span><span class="p">,</span> <span class="n">T_a</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Function that accepts the temperature at two times, ambient temperature, and the time elapsed to return 𝐾</span>
+<span class="sd">    T_i = Initial temperature</span>
+<span class="sd">    T_f = Final temperature</span>
+<span class="sd">    T_a = Ambient temperature</span>
+<span class="sd">    Governing equation: dT/dt = -K(T-T_a)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">dT_dt</span> <span class="o">=</span> <span class="p">(</span><span class="n">T_f</span> <span class="o">-</span> <span class="n">T_i</span><span class="p">)</span> <span class="o">/</span> <span class="n">dt</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="o">-</span> <span class="n">dT_dt</span> <span class="o">/</span> <span class="p">(</span><span class="n">T_f</span> <span class="o">-</span> <span class="n">T_a</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">K</span>
+</pre></div>
+</div>
+</div>
+</div>
 <ol>
 <li><p>A first-order thermal system has the following analytical solution,</p>
 <p><span class="math notranslate nohighlight">\(T(t) =T_a+(T(0)-T_a)e^{-Kt}\)</span></p>
@@ -449,6 +491,74 @@
 <p>c. At what time was the corpse 98.6<span class="math notranslate nohighlight">\(^{o}\)</span>F? i.e. what was the time of death?</p>
 </li>
 </ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a</span>
+<span class="n">T_f</span> <span class="o">=</span> <span class="mi">74</span>
+<span class="n">T_i</span> <span class="o">=</span> <span class="mi">85</span>
+<span class="n">T_a</span> <span class="o">=</span> <span class="mi">65</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">dT_dt</span> <span class="o">=</span> <span class="p">(</span><span class="n">T_f</span> <span class="o">-</span> <span class="n">T_i</span><span class="p">)</span><span class="o">/</span> <span class="n">dt</span>
+
+<span class="n">K</span> <span class="o">=</span> <span class="o">-</span> <span class="n">dT_dt</span> <span class="o">/</span> <span class="p">(</span><span class="n">T_f</span> <span class="o">-</span> <span class="n">T_a</span><span class="p">)</span>
+<span class="n">t_10</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">t_50</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">cooling_law</span><span class="p">(</span><span class="n">T_i</span><span class="p">,</span><span class="n">T_a</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="n">T_f_ana</span> <span class="o">=</span> <span class="n">T_a</span> <span class="o">+</span> <span class="p">(</span><span class="n">T_i</span> <span class="o">-</span> <span class="n">T_a</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">K</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">T_f_num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+    <span class="n">T_f_num</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">T_i</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+        <span class="n">T_f_num</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">K</span><span class="o">*</span><span class="p">(</span><span class="n">T_f_num</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">T_a</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">T_f_num</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">T_f_ana</span><span class="p">,</span> <span class="n">T_f_num</span>
+
+<span class="n">T_10_ana</span><span class="p">,</span> <span class="n">T_f10_num</span> <span class="o">=</span> <span class="n">cooling_law</span><span class="p">(</span><span class="n">T_i</span><span class="p">,</span> <span class="n">T_a</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">t_10</span><span class="p">)</span>
+
+<span class="n">T_50_ana</span><span class="p">,</span> <span class="n">T_f50_num</span> <span class="o">=</span> <span class="n">cooling_law</span><span class="p">(</span><span class="n">T_i</span><span class="p">,</span> <span class="n">T_a</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">t_50</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_10</span><span class="p">,</span> <span class="n">T_f10_num</span><span class="p">,</span> <span class="s1">&#39;b-o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span> <span class="s1">&#39;10 time steps&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_10</span><span class="p">,</span> <span class="n">T_10_ana</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span> <span class="s1">&#39;analytical 10 steps&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Cooling for First 5 Hours&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (hr)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Temp </span><span class="se">\N{DEGREE SIGN}</span><span class="s1">F&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_50</span><span class="p">,</span> <span class="n">T_f50_num</span><span class="p">,</span> <span class="s1">&#39;g-o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span> <span class="s1">&#39;50 time steps&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_50</span><span class="p">,</span> <span class="n">T_50_ana</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span> <span class="s1">&#39;analytical 50 steps&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/01_Getting-started-project_6_0.png" src="../_images/01_Getting-started-project_6_0.png" />
+</div>
+</div>
+<p>Part a: Looking at the both graphs, it can be shown that as the time step decreases the Euler integration approaches the analytical solution. There is little difference between the analytical solution at 10 time steps vs 50 time steps, so that is why they are the same line.</p>
+<p>Part b: The final temperature as t–&gt; infinity is the ambient temperature.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part C</span>
+<span class="n">T_f</span> <span class="o">=</span> <span class="mi">74</span>
+<span class="n">T_i</span> <span class="o">=</span> <span class="mi">85</span>
+<span class="n">T_a</span> <span class="o">=</span> <span class="mi">65</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">dT_dt</span> <span class="o">=</span> <span class="p">(</span><span class="n">T_f</span> <span class="o">-</span> <span class="n">T_i</span><span class="p">)</span><span class="o">/</span> <span class="n">dt</span>
+
+<span class="n">K</span> <span class="o">=</span> <span class="o">-</span> <span class="n">dT_dt</span> <span class="o">/</span> <span class="p">(</span><span class="n">T_f</span> <span class="o">-</span> <span class="n">T_a</span><span class="p">)</span>
+<span class="n">t_death</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">((</span><span class="mf">98.6</span> <span class="o">-</span> <span class="n">T_a</span><span class="p">)</span><span class="o">/</span> <span class="p">(</span><span class="n">T_i</span> <span class="o">-</span> <span class="n">T_a</span><span class="p">))</span> <span class="o">/</span> <span class="o">-</span><span class="n">K</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">t_death</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time of death is 10:10 am&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-50.93611789894371
+Time of death is 10:10 am
+</pre></div>
+</div>
+</div>
+</div>
 <ol>
 <li><p>Now that we have a working numerical model, we can look at the results if the
 ambient temperature is not constant i.e. T_a=f(t). We can use the weather to improve our estimate for time of death. Consider the following Temperature for the day in question.</p>
@@ -485,13 +595,132 @@ ambient temperature is not constant i.e. T_a=f(t). We can use the weather to imp
 </tr>
 </tbody>
 </table>
-<p>a. Create a function that returns the current temperature based upon the time (0 hours=11am, 65<span class="math notranslate nohighlight">\(^{o}\)</span>F)
+<p>a. Create a function that returns the current temperature based upon the time (0 hours=11am, 75<span class="math notranslate nohighlight">\(^{o}\)</span>F)
 *Plot the function <span class="math notranslate nohighlight">\(T_a\)</span> vs time. Does it look correct? Is there a better way to get <span class="math notranslate nohighlight">\(T_a(t)\)</span>?</p>
 <p>b. Modify the Euler approximation solution to account for changes in temperature at each hour.
 Compare the new nonlinear Euler approximation to the linear analytical model.
 At what time was the corpse 98.6<span class="math notranslate nohighlight">\(^{o}\)</span>F? i.e. what was the time of death?</p>
 </li>
 </ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a</span>
+
+<span class="k">def</span> <span class="nf">ambient_temp</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">50</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">80</span><span class="p">])</span>
+    <span class="k">if</span> <span class="mi">0</span><span class="o">&lt;=</span> <span class="n">time</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">temp</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="o">-</span><span class="mi">1</span><span class="o">&lt;=</span> <span class="n">time</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">temp</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="o">-</span><span class="mi">2</span><span class="o">&lt;=</span> <span class="n">time</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">temp</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="o">-</span><span class="mi">3</span><span class="o">&lt;=</span> <span class="n">time</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">temp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="o">-</span><span class="mi">4</span><span class="o">&lt;=</span> <span class="n">time</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="o">-</span><span class="mi">5</span><span class="o">&lt;=</span> <span class="n">time</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">4</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="o">-</span><span class="mi">5</span><span class="o">&gt;</span> <span class="n">time</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="mi">1</span><span class="o">&lt;=</span> <span class="n">time</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">temp</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="mi">2</span><span class="o">&lt;=</span> <span class="n">time</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">temp</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">temps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ambient_temp</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))])</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">temps</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ambient Temp </span><span class="se">\N{DEGREE SIGN}</span><span class="s1">F&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (hr)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Ambient Temperatures&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/01_Getting-started-project_11_0.png" src="../_images/01_Getting-started-project_11_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cooling_law_changing_ambient</span><span class="p">(</span><span class="n">T_i</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="n">T_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ambient_temp</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))])</span>
+    <span class="n">T_f_num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+    <span class="n">T_f_ana</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+    <span class="n">T_f_num</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">T_i</span>
+    <span class="n">T_f_ana</span> <span class="o">=</span> <span class="mi">65</span> <span class="o">+</span> <span class="p">(</span><span class="n">T_i</span> <span class="o">-</span> <span class="mi">65</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">K</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+        <span class="n">T_f_num</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">K</span><span class="o">*</span><span class="p">(</span><span class="n">T_f_num</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">T_a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">T_f_num</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">T_f_ana</span><span class="p">,</span> <span class="n">T_f_num</span><span class="p">,</span> <span class="n">T_a</span>
+
+<span class="n">T_f</span> <span class="o">=</span> <span class="mi">74</span>
+<span class="n">T_i</span> <span class="o">=</span> <span class="mi">85</span>
+<span class="n">T_a</span> <span class="o">=</span> <span class="mi">65</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">dT_dt</span> <span class="o">=</span> <span class="p">(</span><span class="n">T_f</span> <span class="o">-</span> <span class="n">T_i</span><span class="p">)</span><span class="o">/</span> <span class="n">dt</span>
+
+<span class="n">K</span> <span class="o">=</span> <span class="o">-</span> <span class="n">dT_dt</span> <span class="o">/</span> <span class="p">(</span><span class="n">T_f</span> <span class="o">-</span> <span class="n">T_a</span><span class="p">)</span>
+
+<span class="n">t_10</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="n">T_ana</span><span class="p">,</span> <span class="n">T_num</span><span class="p">,</span> <span class="n">T_a</span> <span class="o">=</span> <span class="n">cooling_law_changing_ambient</span><span class="p">(</span><span class="n">T_i</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">t_10</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Body Temp vs. Time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_10</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">T_ana</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_10</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">T_num</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fa7071b4d60&gt;]
+</pre></div>
+</div>
+<img alt="../_images/01_Getting-started-project_12_1.png" src="../_images/01_Getting-started-project_12_1.png" />
+</div>
+</div>
+<p>The new non-linear Euler approximation is very different from the linear analytical method even with 1000 time steps. The models do not noverge at all.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cooling_law_changing_ambient_ana</span><span class="p">(</span><span class="n">T_i</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="n">T_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ambient_temp</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))])</span>
+    <span class="n">T_f_num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+    <span class="n">T_f_ana</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+    <span class="n">T_f_num</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">T_i</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+        <span class="n">T_f_ana</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">T_a</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">T_i</span> <span class="o">-</span> <span class="n">T_a</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">K</span><span class="o">*</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">T_f_num</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">K</span><span class="o">*</span><span class="p">(</span><span class="n">T_f_num</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">T_a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">T_f_num</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">T_f_ana</span><span class="p">,</span> <span class="n">T_f_num</span><span class="p">,</span> <span class="n">T_a</span>
+
+<span class="n">T_f</span> <span class="o">=</span> <span class="mi">74</span>
+<span class="n">T_i</span> <span class="o">=</span> <span class="mi">85</span>
+<span class="n">T_a</span> <span class="o">=</span> <span class="mi">65</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">dT_dt</span> <span class="o">=</span> <span class="p">(</span><span class="n">T_f</span> <span class="o">-</span> <span class="n">T_i</span><span class="p">)</span><span class="o">/</span> <span class="n">dt</span>
+
+<span class="n">K</span> <span class="o">=</span> <span class="o">-</span> <span class="n">dT_dt</span> <span class="o">/</span> <span class="p">(</span><span class="n">T_f</span> <span class="o">-</span> <span class="n">T_a</span><span class="p">)</span>
+
+<span class="n">t_10</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">T_ana</span><span class="p">,</span> <span class="n">T_num</span><span class="p">,</span> <span class="n">T_a</span> <span class="o">=</span> <span class="n">cooling_law_changing_ambient_ana</span><span class="p">(</span><span class="n">T_i</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">t_10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_10</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">T_ana</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_10</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">T_num</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Body Temp vs. Time&#39;</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">T_10_ana</span><span class="p">,</span> <span class="p">[</span><span class="mf">98.6</span><span class="p">],</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-04</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t_10</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">T_ana</span><span class="p">,</span> <span class="mf">98.6</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time of death is about 10:09 am&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-0.85585586]
+Time of death is about 10:09 am
+</pre></div>
+</div>
+<img alt="../_images/01_Getting-started-project_14_1.png" src="../_images/01_Getting-started-project_14_1.png" />
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -517,36 +746,27 @@ At what time was the corpse 98.6<span class="math notranslate nohighlight">\(^{o
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="../module_01/03_Numerical_error.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">03 - Numerical Error</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../module_01/03_Numerical_error.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">03 - Numerical Error</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../module_02/README.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Computational Mechanics 02 - Analyze Data</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="../module_02/README.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Computational Mechanics 02 - Analyze Data</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         
@@ -562,8 +782,7 @@ At what time was the corpse 98.6<span class="math notranslate nohighlight">\(^{o
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

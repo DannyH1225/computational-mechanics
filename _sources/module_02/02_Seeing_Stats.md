@@ -5,9 +5,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.10.3
+    jupytext_version: 1.11.4
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -218,6 +218,7 @@ Therefore, you need to be explicit about the division by $N-1$ when calling `np.
 For example, to compute the sample variance for your `abv` variable, you do:
 
 ```{code-cell} ipython3
+var_abv = np.var(abv, ddof=1)
 ```
 
 Now, you can compute the standard deviation by taking the square root of `var_abv`:
@@ -243,7 +244,6 @@ You will.
 ```
 
 ```{code-cell} ipython3
-
 np.std(abv,ddof=1)
 ```
 
@@ -259,7 +259,12 @@ As you may anticipate, NumPy has a built-in function that computes the median, h
 
 Using NumPy, compute the median for your variables `abv` and `ibu`. Compare the median with the mean, and look at the histogram to locate where the values fall on the x-axis.
 
-+++
+```{code-cell} ipython3
+abv_median = np.median(abv)
+ibu_median = np.median(ibu)
+
+print(abv_median, ibu_median)
+```
 
 ### Box plots
 
@@ -276,7 +281,7 @@ plt.boxplot(ibu, labels=['International bitterness unit']);
 
 What is going on here? Obviously, there is a _box_: it represents 50% of the data in the middle of the data range, with the line across it (here, in orange) indicating the _median_. 
 
-The bottom of the box is at the 25th _percentile_, while the top of the box is at the 75th percentile. In other words, the bottom 25% of the data falls below the box, and the top 25% of the data falls above the box. 
+The bottom of the box is at the 25th _percentile_, while the top of the box is at the 75th percentile. In other words, the bottom 25% of the data falls below the box, and the top 25% of the data falls above the box.
 
 +++
 
@@ -326,7 +331,7 @@ Any data values beyond the upper and lower extremes are shown with a marker (her
 
 ##### Exercise:
 
-Calculate the end-points of the top and bottom whiskers for both the `abv` and `ibu` variables, and compare the results with the whisker end-points you see in the plot. 
+Calculate the end-points of the top and bottom whiskers for both the `abv` and `ibu` variables, and compare the results with the whisker end-points you see in the plot.
 
 ```{code-cell} ipython3
 IQR = quartiles_ibu[2]-quartiles_ibu[0]
@@ -348,6 +353,10 @@ print('top whisker = {:.1f}% abv'.format(TW*100))
 print('bottom whisker = {:.1f}% abv'.format(BW*100))
 ```
 
+The whisker end-points from the plot are equal to the end-points calculated above.
+
++++
+
 ##### A bit of history:
 
 "Box-and-whiskers" plots were invented by John Tukey over 45 years ago. Tukey was a famous mathematician/statistician who is credited with coining the words _software_ and _bit_ [4]. He was active in the efforts to break the _Enigma_ code during WWII, and worked at Bell Labs in the first surface-to-air guided missile ("Nike"). A classic 1947 work on early design of the electonic computer acknowledged Tukey: he designed the electronic circuit for computing addition. Tukey was also a long-time advisor for the US Census Bureau, and a consultant for the Educational Testing Service (ETS), among many other contributions [5].
@@ -364,6 +373,7 @@ The typical method of visualizing categorical data is using **bar plots**. These
 
 ```{code-cell} ipython3
 style_series = beers['style']
+print(style_series[:10])
 ```
 
 ```{code-cell} ipython3
@@ -374,7 +384,7 @@ type(style_series)
 style_series.unique()
 ```
 
-Already in the first 10 elements you see that you have two beers of the style "American IPA," two beers of the style "American Pale Ale (APA)," but only one beer of the style "Oatmeal Stout." The question is: how many beers of each style are contained in the whole series? 
+Already in the first 10 elements you see that you have two beers of the style "American IPA," two beers of the style "American Pale Ale (APA)," but only one beer of the style "Oatmeal Stout." The question is: how many beers of each style are contained in the whole series?
 
 +++
 
@@ -382,7 +392,7 @@ Luckily, `pandas` has a built-in function to answer that question: [`series.valu
 
 ```{code-cell} ipython3
 style_counts = style_series.value_counts()
-print(style_counts[-50:])
+print(style_counts[:20])
 ```
 
 ```{code-cell} ipython3
@@ -395,7 +405,7 @@ len(style_counts)
 
 The `len()` function tells us that `style_counts` has 99 elements. That is, there are a total of 99 styles of beer in your data set. Wow, that's a lot!
 
-Notice that `value_counts()` returned the counts sorted in decreasing order: the most popular beer in your data set is "American IPA" with 424 entries in our data. The next-most popular beer is "American Pale Ale (APA)" with a lot fewer entries (245), and the counts decrease sharply after that. Naturally, you'd like to know how much more popular are the top-2 beers from the rest. Bar plot to the rescue! 
+Notice that `value_counts()` returned the counts sorted in decreasing order: the most popular beer in your data set is "American IPA" with 424 entries in our data. The next-most popular beer is "American Pale Ale (APA)" with a lot fewer entries (245), and the counts decrease sharply after that. Naturally, you'd like to know how much more popular are the top-2 beers from the rest. Bar plot to the rescue!
 
 +++
 
@@ -451,7 +461,7 @@ plt.ylabel('IBU');
 
 Hmm. That's a bit of a mess. Too many dots! But you do make out that the beers with low alcohol-by-volume tend to have low bitterness. For higher alcohol fraction, the beers can be anywhere on the bitterness scale: there's a lot of vertical spread on those dots to the right of the plot. 
 
-An idea! What if the bitterness has something to do with _style_? 
+An idea! What if the bitterness has something to do with _style_?
 
 +++
 
@@ -521,11 +531,11 @@ Above, you used Matplotlib to create a scatter plot using two NumPy arrays as th
 
 ```{code-cell} ipython3
 style_means.plot.scatter(figsize=(8,8), 
-                         x='abv', y='ibu', s=style_counts, 
+                         x='abv', y='ibu', s=style_counts*4, 
                          title='Beer ABV vs. IBU mean values by style');
 ```
 
-That's rad! Perhaps the bubbles are too small. You could multiply the `style_counts` by a factor of 5, or maybe 10? You should experiment. 
+That's rad! Perhaps the bubbles are too small. You could multiply the `style_counts` by a factor of 5, or maybe 10? You should experiment.
 
 +++
 
@@ -549,7 +559,7 @@ It looks like the most popular beers do follow a linear relationship between alc
 
 _Wait... one more thing!_ What if you add a text label next to the bigger bubbles, to identify the style? 
 
-OK, here you go a bit overboard, but you couldn't help it. You played around a lot to get this version of the plot. It uses `enumerate` to get pairs of indices and values from a list of style names; an `if` statement to select only the large-count styles; and the [`iloc[]`](http://pandas.pydata.org/pandas-docs/version/0.17.0/generated/pandas.DataFrame.iloc.html) slicing method of `pandas` to get a slice based on index position, and extract `abv` and `ibu` values to an $(x,y)$ coordinate for placing the annotation text. _Are you overkeen or what!_ 
+OK, here you go a bit overboard, but you couldn't help it. You played around a lot to get this version of the plot. It uses `enumerate` to get pairs of indices and values from a list of style names; an `if` statement to select only the large-count styles; and the [`iloc[]`](http://pandas.pydata.org/pandas-docs/version/0.17.0/generated/pandas.DataFrame.iloc.html) slicing method of `pandas` to get a slice based on index position, and extract `abv` and `ibu` values to an $(x,y)$ coordinate for placing the annotation text. _Are you overkeen or what!_
 
 ```{code-cell} ipython3
 ax = style_means.plot.scatter(figsize=(10,10), 
@@ -596,10 +606,31 @@ our dataset by removing rows that do not include the IBU measure.
     a. Use the command `beers_filled = beers.fillna(0)` to clean the `beers` dataframe
     
     b. Repeat the steps above to recreate the plot "Beer ABV vs. IBU mean values by style" 
-    scatter plot with `beers_filled`. What differences do you notice between the plots? 
+    scatter plot with `beers_filled`. What differences do you notice between the plots?
 
 ```{code-cell} ipython3
+beers_filled = beers.fillna(0)
+beers_styles = beers_filled.drop(['Unnamed: 0','name','brewery_id','ounces','id'], axis=1)
+style_series = beers_filled['style']
+style_means = beers_styles.groupby('style').mean()
+style_counts = beers_styles['style'].value_counts()
+style_counts = style_counts.sort_index()
+from matplotlib import cm
+colors = cm.viridis(style_counts.values)
+
+ax = style_means.plot.scatter(figsize=(10,10), 
+                               x='abv', y='ibu', s=style_counts*20, color=colors,
+                               title='Beer ABV vs. IBU mean values by style\n',
+                               alpha=0.3);
+
+for i, txt in enumerate(list(style_counts.index.values)):
+    if style_counts.values[i] > 65:
+        ax.annotate(txt, (style_means.abv.iloc[i],style_means.ibu.iloc[i]), fontsize=12)
 ```
+
+One difference between the plots is that many beers below an ibu were not included in the previous plot. Also many beers with counts greater than 65 were excluded like American Brown Ale, and American Porter.
+
++++
 
 2. Gordon Moore created an empirical prediction that the rate of
 semiconductors on a computer chip would double every two years. This
@@ -623,5 +654,32 @@ until 2015.
     Color the data according to the "Designer".
 
 ```{code-cell} ipython3
+#part a
+transistor_data = pd.read_csv("../data/transistor_data.csv")
+transistor_2017 = transistor_data[transistor_data['Date of Introduction'] == 2017]
+transistor_count = transistor_2017.drop(['Processor','Designer','MOSprocess','Area', 'Date of Introduction'], axis=1)
+transistor_count = transistor_count.values
+transistor_mean = transistor_count.mean()
+plt.boxplot(transistor_count, labels=['Transistor Count in 2017']);
+print('Mean of transistor count in 2017: {:.4}'.format(transistor_mean))
+quartiles_2017 = np.percentile(transistor_count, q=[25, 50, 75])
 
+print('The first quartile for transistor count in 2017 is {:.4}'.format(quartiles_2017[0]))
+print('The second quartile for transistor count in 2017 is {:.4}'.format(quartiles_2017[1]))
+print('The third quartile for transistor count in 2017 is {:.4}'.format(quartiles_2017[2]))
+```
+
+```{code-cell} ipython3
+#part b
+
+transistor_designers = transistor_data['Designer'].unique()
+transistor_designers
+
+for Designer in transistor_designers:
+    designer_data = transistor_data[transistor_data['Designer']== Designer]
+    plt.semilogy(designer_data['Date of Introduction'],designer_data['MOS transistor count'], '*', label=Designer)
+plt.legend(bbox_to_anchor=(1.1, 1.05))
+plt.xlabel('Date of Introduction')
+plt.ylabel('MOS Transistor Count')
+plt.legend(bbox_to_anchor=(1.1, 1.05));
 ```

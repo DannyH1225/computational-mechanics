@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>01 - Interacting with Python &#8212; Computational Mechanics</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -58,7 +58,10 @@
     <link rel="next" title="02 - Working with Python" href="02_Working_with_Python.html" />
     <link rel="prev" title="Computational Mechanics 01 - Getting Started" href="README.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -74,6 +77,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../_static/comp-mech-logo.svg" class="logo" alt="logo">
       
@@ -836,6 +843,28 @@ translate an equation to code, be deliberate and question the result.</p>
 </li>
 <li><p>Suppose the cover price of a book is <span class="math notranslate nohighlight">\(\$ 24.95\)</span>, but bookstores get a <span class="math notranslate nohighlight">\(40\%\)</span> discount. Shipping costs <span class="math notranslate nohighlight">\(\$3\)</span> for the first copy and <span class="math notranslate nohighlight">\(75\)</span> cents for each additional copy. What is the total wholesale cost for <span class="math notranslate nohighlight">\(60\)</span> copies? Compare your answer with the solution up to 2 decimal numbers.</p></li>
 </ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="mf">6.65</span>
+<span class="n">pi</span> <span class="o">=</span> <span class="mf">3.14159</span>
+<span class="n">v_sphere</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">4</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">d</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;1. Volume of sphere is </span><span class="si">{}</span><span class="s1"> in^3&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v_sphere</span><span class="p">))</span>
+
+<span class="n">price_book</span> <span class="o">=</span> <span class="mf">24.95</span><span class="o">*</span><span class="mf">.6</span>
+<span class="n">shipping</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">+</span> <span class="mf">.75</span><span class="o">*</span><span class="p">(</span><span class="mi">59</span><span class="p">)</span>
+
+<span class="n">total_cost</span> <span class="o">=</span> <span class="n">price_book</span><span class="o">*</span><span class="mi">60</span> <span class="o">+</span> <span class="n">shipping</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;2. Total price of books is $</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">total_cost</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1. Volume of sphere is 153.9796 in^3
+2. Total price of books is $945.45
+</pre></div>
+</div>
+</div>
+</div>
 <p>To reveal the answers, highlight the following line of text using the mouse:</p>
 <p>Answer exercise 1: <span style="color:white"> 153.9796 </span> Answer exercise 2: <span style="color:white"> 945.45 </span></p>
 </div>
@@ -879,6 +908,20 @@ are:</p>
 <div class="section" id="exercise">
 <h4>Exercise:<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h4>
 <p>Print the values of the variables <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x=&#39;</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;y=&#39;</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x= 3
+y= 4.5
+</pre></div>
+</div>
+</div>
+</div>
 <p>Let’s do some arithmetic operations with our new variables:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1340,6 +1383,27 @@ see what happens when you try that:</p>
 <p>c. What is the result of the following logical operation, <code class="docutils literal notranslate"><span class="pre">volume&gt;1000</span></code> (in inches^3)</p>
 </li>
 </ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v_box</span> <span class="o">=</span> <span class="mf">12.5</span> <span class="o">*</span> <span class="mi">11</span> <span class="o">*</span> <span class="mi">14</span>
+<span class="n">density</span> <span class="o">=</span> <span class="mi">31</span><span class="o">/</span> <span class="n">v_box</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">v_box</span><span class="o">&gt;</span><span class="mi">1000</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39; a. Volume of box is </span><span class="si">{}</span><span class="s1"> in^3&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">v_box</span><span class="p">,</span><span class="mi">3</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39; b. Density is </span><span class="si">{}</span><span class="s1"> lb/in^3&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">density</span><span class="p">,</span><span class="mi">4</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39; c. </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> a. Volume of box is 1925.0 in^3
+ b. Density is 0.0161 lb/in^3
+ c. True
+</pre></div>
+</div>
+</div>
+</div>
 <ol>
 <li><p>Use the variables given below, <code class="docutils literal notranslate"><span class="pre">str1</span></code> and <code class="docutils literal notranslate"><span class="pre">str2</span></code>, and check the following</p>
 <p>a. <code class="docutils literal notranslate"><span class="pre">str1&lt;str2</span></code></p>
@@ -1352,6 +1416,19 @@ see what happens when you try that:</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">str1</span> <span class="o">=</span> <span class="s1">&#39;Python&#39;</span>
 <span class="n">str2</span> <span class="o">=</span> <span class="s1">&#39;python&#39;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a. str1&lt;str2 is: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">str1</span><span class="o">&lt;</span><span class="n">str2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;b. str1==str2 is: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">str1</span><span class="o">==</span><span class="n">str2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;c. str1&gt;str2 is: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">str1</span><span class="o">&gt;</span><span class="n">str2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;d. You can strip the p from both strings using the .strip command&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a. str1&lt;str2 is: True
+b. str1==str2 is: False
+c. str1&gt;str2 is: False
+d. You can strip the p from both strings using the .strip command
 </pre></div>
 </div>
 </div>
@@ -1369,6 +1446,24 @@ see what happens when you try that:</p>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x is not less than y&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">=</span><span class="mi">1</span> <span class="c1">#changed string into int</span>
+<span class="n">y</span><span class="o">=</span><span class="mi">20</span>
+
+<span class="k">if</span> <span class="n">x</span><span class="o">&lt;</span><span class="n">y</span> <span class="ow">and</span> <span class="n">y</span><span class="o">==</span><span class="mi">20</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;y is 20 and x is less than y&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x is not less than y&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y is 20 and x is less than y
+</pre></div>
+</div>
+</div>
+</div>
 <ol>
 <li><p>Create a script that takes the clock hour in 24 hours and prints the clock hour with am or pm.</p>
 <p>Hint: Use an if-else statement with <code class="docutils literal notranslate"><span class="pre">print</span></code> commands</p>
@@ -1377,10 +1472,14 @@ see what happens when you try that:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time</span> <span class="o">=</span> <span class="mi">22</span>
-<span class="k">if</span> <span class="n">time</span> <span class="o">&gt;</span> <span class="mi">12</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">time</span> <span class="o">-</span> <span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;PM&#39;</span><span class="p">)</span>
-<span class="k">elif</span> <span class="n">time</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="s1">&#39;AM&#39;</span><span class="p">)</span>
+<span class="c1">#function used to convert from 24 hours to 12 hour time</span>
+<span class="k">def</span> <span class="nf">twenty_four_to_twelve</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">time</span> <span class="o">&gt;</span> <span class="mi">12</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">time</span> <span class="o">-</span> <span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;PM&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">time</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="s1">&#39;AM&#39;</span><span class="p">)</span>
+
+<span class="n">twenty_four_to_twelve</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1415,36 +1514,27 @@ see what happens when you try that:</p>
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="README.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Computational Mechanics 01 - Getting Started</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="README.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Computational Mechanics 01 - Getting Started</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="02_Working_with_Python.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">02 - Working with Python</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="02_Working_with_Python.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">02 - Working with Python</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         
@@ -1460,8 +1550,7 @@ see what happens when you try that:</p>
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

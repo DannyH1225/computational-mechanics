@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Keep it Steady &#8212; Computational Mechanics</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -58,7 +58,10 @@
     <link rel="next" title="Good Vibrations" href="03_Good_Vibrations.html" />
     <link rel="prev" title="Revisiting Derivatives" href="01_Revisiting_derivatives.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -74,6 +77,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../_static/comp-mech-logo.svg" class="logo" alt="logo">
       
@@ -679,6 +686,110 @@ finite difference solution at x (mm)=
 <p>Decrease <span class="math notranslate nohighlight">\(\Delta x\)</span> from <span class="math notranslate nohighlight">\(10~mm\)</span> to <span class="math notranslate nohighlight">\(5~mm\)</span>.</p>
 <p>a. Make a plot of the Temperature along the fin.</p>
 <p>b. Plot the heat flux through the fin <span class="math notranslate nohighlight">\(-\kappa \frac{dT}{dx}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a</span>
+<span class="n">hp</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">h</span><span class="o">/</span><span class="n">k</span><span class="o">/</span><span class="n">R</span>
+<span class="n">N</span><span class="o">=</span><span class="mi">12</span>
+<span class="n">dx</span><span class="o">=</span><span class="n">L</span><span class="o">/</span><span class="n">N</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;h</span><span class="se">\&#39;</span><span class="s1"> = </span><span class="si">{}</span><span class="s1">, and step size dx= </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hp</span><span class="p">,</span><span class="n">dx</span><span class="p">))</span>
+<span class="n">diag_factor</span><span class="o">=</span><span class="mi">2</span><span class="o">+</span><span class="n">hp</span><span class="o">*</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># diagonal multiplying factor</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">diag_factor</span><span class="p">)</span>
+<span class="n">Tinfty</span><span class="o">=</span><span class="mi">20</span>
+<span class="n">T0</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><span class="n">diag_factor</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">A</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">+=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">A</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span> <span class="n">h</span><span class="o">/</span><span class="n">k</span><span class="o">*</span><span class="n">dx</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><span class="n">hp</span><span class="o">*</span><span class="n">Tinfty</span><span class="o">*</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+=</span><span class="n">T0</span>
+<span class="n">b</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="n">h</span><span class="o">*</span><span class="n">dx</span><span class="o">/</span><span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">Tinfty</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;finite difference A:</span><span class="se">\n</span><span class="s1">------------------&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">finite difference b:</span><span class="se">\n</span><span class="s1">------------------&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">T</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">finite difference solution T(x):</span><span class="se">\n</span><span class="s1">------------------&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">finite difference solution at x (mm)=</span><span class="se">\n</span><span class="s1">------------------&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">13</span><span class="p">)</span><span class="o">*</span><span class="n">dx</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">L</span><span class="o">=</span><span class="mf">60e-3</span>
+<span class="n">s</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">hp</span><span class="p">)</span>
+<span class="n">F</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">20</span><span class="o">+</span><span class="mi">80</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">L</span><span class="o">-</span><span class="n">s</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="n">h</span><span class="o">/</span><span class="n">s</span><span class="o">/</span><span class="n">k</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">L</span><span class="o">-</span><span class="n">s</span><span class="o">*</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">L</span><span class="p">)</span><span class="o">+</span><span class="n">h</span><span class="o">/</span><span class="n">s</span><span class="o">/</span><span class="n">k</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">L</span><span class="p">))</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">dx</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span><span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;analytical&#39;</span><span class="p">)</span><span class="c1">#a*np.cosh(s*x)+b*np.sinh(s*x))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="s1">&#39;ro&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;finite difference&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;rs&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;base temperature&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;distance along fin (mm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Temperature (C)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>h&#39; = 1000.0, and step size dx= 0.005
+2.025
+finite difference A:
+------------------
+[[ 2.025  -1.      0.      0.      0.      0.      0.      0.      0.
+   0.      0.      0.    ]
+ [-1.      2.025  -1.      0.      0.      0.      0.      0.      0.
+   0.      0.      0.    ]
+ [ 0.     -1.      2.025  -1.      0.      0.      0.      0.      0.
+   0.      0.      0.    ]
+ [ 0.      0.     -1.      2.025  -1.      0.      0.      0.      0.
+   0.      0.      0.    ]
+ [ 0.      0.      0.     -1.      2.025  -1.      0.      0.      0.
+   0.      0.      0.    ]
+ [ 0.      0.      0.      0.     -1.      2.025  -1.      0.      0.
+   0.      0.      0.    ]
+ [ 0.      0.      0.      0.      0.     -1.      2.025  -1.      0.
+   0.      0.      0.    ]
+ [ 0.      0.      0.      0.      0.      0.     -1.      2.025  -1.
+   0.      0.      0.    ]
+ [ 0.      0.      0.      0.      0.      0.      0.     -1.      2.025
+  -1.      0.      0.    ]
+ [ 0.      0.      0.      0.      0.      0.      0.      0.     -1.
+   2.025  -1.      0.    ]
+ [ 0.      0.      0.      0.      0.      0.      0.      0.      0.
+  -1.      2.025  -1.    ]
+ [ 0.      0.      0.      0.      0.      0.      0.      0.      0.
+   0.     -2.      2.0275]]
+
+finite difference b:
+------------------
+[100.5    0.5    0.5    0.5    0.5    0.5    0.5    0.5    0.5    0.5
+   0.5    0.55]
+
+finite difference solution T(x):
+------------------
+[88.86315832 79.4478956  71.51883027 64.87773569 59.35858451 54.82339794
+ 51.15879632 48.27316461 46.09436201 44.56791847 43.65567288 43.33481912]
+
+finite difference solution at x (mm)=
+------------------
+[ 5. 10. 15. 20. 25. 30. 35. 40. 45. 50. 55. 60.]
+</pre></div>
+</div>
+<img alt="../_images/02_Keep_it_steady_8_1.png" src="../_images/02_Keep_it_steady_8_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part b</span>
+<span class="n">dT_c</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">-</span><span class="n">T</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">flux</span> <span class="o">=</span> <span class="o">-</span><span class="n">k</span><span class="o">*</span><span class="n">dT_c</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">:],</span><span class="n">flux</span><span class="p">,</span><span class="s1">&#39;b-o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;distance along fin (mm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Heat Flux ($\frac</span><span class="si">{W}</span><span class="s1">{m^2}$)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02_Keep_it_steady_9_0.png" src="../_images/02_Keep_it_steady_9_0.png" />
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="static-beam-deflections">
@@ -812,19 +923,90 @@ at position (m)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7eff8e7b7c10&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f7ec28f76d0&gt;]
 </pre></div>
 </div>
-<img alt="../_images/02_Keep_it_steady_11_1.png" src="../_images/02_Keep_it_steady_11_1.png" />
+<img alt="../_images/02_Keep_it_steady_12_1.png" src="../_images/02_Keep_it_steady_12_1.png" />
 </div>
 </div>
 <div class="section" id="id1">
 <h3>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Divide the simply-supported beam into 12 sections and plot the deflection as a function of distance along the beam with a uniform load.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">L</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">h</span><span class="o">=</span><span class="n">L</span><span class="o">/</span><span class="n">N</span>
+<span class="n">E</span><span class="o">=</span><span class="mf">200e9</span>
+<span class="n">I</span><span class="o">=</span><span class="mf">0.01</span><span class="o">**</span><span class="mi">4</span><span class="o">/</span><span class="mi">12</span>
+<span class="n">q</span><span class="o">=</span><span class="mi">100</span>
+
+<span class="n">A</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">6</span><span class="p">)</span>\
+<span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*-</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>\
+<span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*-</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>\
+<span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">3</span><span class="p">),</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>\
+<span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">3</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">+=-</span><span class="mi">1</span>
+<span class="n">A</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+=-</span><span class="mi">1</span>
+
+<span class="n">b</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">q</span><span class="o">/</span><span class="n">E</span><span class="o">/</span><span class="n">I</span><span class="o">*</span><span class="n">h</span><span class="o">**</span><span class="mi">4</span>
+
+<span class="n">w</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="n">xnum</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">L</span><span class="o">+</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">h</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;finite difference A:</span><span class="se">\n</span><span class="s1">------------------&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">finite difference b:</span><span class="se">\n</span><span class="s1">------------------&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">deflection of beam (mm)</span><span class="se">\n</span><span class="s1">-------------</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">w</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;at position (m) </span><span class="se">\n</span><span class="s1">-------------</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">xnum</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">L</span><span class="p">)</span>
+<span class="n">w_an</span><span class="o">=-</span><span class="n">q</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="n">L</span><span class="o">**</span><span class="mi">3</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">L</span><span class="o">+</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">24</span><span class="o">/</span><span class="n">E</span><span class="o">/</span><span class="n">I</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xnum</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">w</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w_an</span><span class="o">*</span><span class="mi">1000</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>finite difference A:
+------------------
+[[ 5. -4.  1.  0.  0.  0.  0.  0.  0.  0.  0.]
+ [-4.  6. -4.  1.  0.  0.  0.  0.  0.  0.  0.]
+ [ 1. -4.  6. -4.  1.  0.  0.  0.  0.  0.  0.]
+ [ 0.  1. -4.  6. -4.  1.  0.  0.  0.  0.  0.]
+ [ 0.  0.  1. -4.  6. -4.  1.  0.  0.  0.  0.]
+ [ 0.  0.  0.  1. -4.  6. -4.  1.  0.  0.  0.]
+ [ 0.  0.  0.  0.  1. -4.  6. -4.  1.  0.  0.]
+ [ 0.  0.  0.  0.  0.  1. -4.  6. -4.  1.  0.]
+ [ 0.  0.  0.  0.  0.  0.  1. -4.  6. -4.  1.]
+ [ 0.  0.  0.  0.  0.  0.  0.  1. -4.  6. -4.]
+ [ 0.  0.  0.  0.  0.  0.  0.  0.  1. -4.  5.]]
+
+finite difference b:
+------------------
+[-2.89351852e-05 -2.89351852e-05 -2.89351852e-05 -2.89351852e-05
+ -2.89351852e-05 -2.89351852e-05 -2.89351852e-05 -2.89351852e-05
+ -2.89351852e-05 -2.89351852e-05 -2.89351852e-05]
+
+deflection of beam (mm)
+-------------
+ [-2.06886574 -3.97858796 -5.59895833 -6.8287037  -7.59548611 -7.85590278
+ -7.59548611 -6.8287037  -5.59895833 -3.97858796 -2.06886574]
+at position (m) 
+-------------
+ [0.08333333 0.16666667 0.25       0.33333333 0.41666667 0.5
+ 0.58333333 0.66666667 0.75       0.83333333 0.91666667]
+</pre></div>
+</div>
+<img alt="../_images/02_Keep_it_steady_14_1.png" src="../_images/02_Keep_it_steady_14_1.png" />
+</div>
+</div>
 </div>
 <div class="section" id="id2">
 <h3>Discussion<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>What is the convergence rate for this central difference method? <em>Hint: check the magnitude of round-off error for <a class="reference internal" href="01_Revisiting_derivatives.html"><span class="doc std std-doc">central difference methods</span></a>.</em></p>
+<p>The convergence rate is <span class="math notranslate nohighlight">\(h^2\)</span>.</p>
 </div>
 </div>
 <div class="section" id="what-you-ve-learned">
@@ -851,6 +1033,150 @@ at position (m)
 <p>b. Set up and solve the finite difference equations for <span class="math notranslate nohighlight">\(\Delta x=5~mm\)</span>, plot the resulting temperature <span class="math notranslate nohighlight">\(T(x)\)</span>.</p>
 <p>c. Set up and solve the finite difference equations for <span class="math notranslate nohighlight">\(\Delta x=1~mm\)</span>, plot the resulting temperature <span class="math notranslate nohighlight">\(T(x)\)</span>.</p>
 <p>d. Plot the heat flux through the fin, <span class="math notranslate nohighlight">\(-\kappa \frac{dT}{dx}\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a</span>
+<span class="n">h</span><span class="o">=</span><span class="mi">100</span> <span class="c1"># W/m/m/K</span>
+<span class="n">k</span><span class="o">=</span><span class="mi">200</span> <span class="c1"># W/m/K</span>
+<span class="n">R</span><span class="o">=</span><span class="mf">1E-3</span><span class="c1"># radius in m</span>
+<span class="n">L</span><span class="o">=</span><span class="mf">60E-3</span><span class="c1"># length in m</span>
+<span class="n">hp</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">h</span><span class="o">/</span><span class="n">k</span><span class="o">/</span><span class="n">R</span>
+<span class="n">N</span><span class="o">=</span><span class="mi">6</span>
+<span class="n">dx</span><span class="o">=</span><span class="n">L</span><span class="o">/</span><span class="n">N</span>
+
+
+<span class="n">diag_factor</span><span class="o">=</span><span class="mi">2</span><span class="o">+</span><span class="n">hp</span><span class="o">*</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># diagonal multiplying factor</span>
+<span class="n">Tinfty</span><span class="o">=</span><span class="mi">20</span>
+<span class="n">T0</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">Tsink</span> <span class="o">=</span> <span class="mi">25</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">diag_factor</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">hp</span><span class="o">*</span><span class="n">Tinfty</span><span class="o">*</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+=</span><span class="n">T0</span>
+<span class="n">b</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="n">Tsink</span>
+<span class="n">T</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+
+<span class="n">L</span><span class="o">=</span><span class="mf">60e-3</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">dx</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="s1">&#39;ro&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;finite difference&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;rs&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;base temperature&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="s1">&#39;bs&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;sink temperature&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;distance along fin (mm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Temperature (C)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 2.1 -1.   0.   0.   0. ]
+ [-1.   2.1 -1.   0.   0. ]
+ [ 0.  -1.   2.1 -1.   0. ]
+ [ 0.   0.  -1.   2.1 -1. ]
+ [ 0.   0.   0.  -1.   2.1]]
+[77.68519591 61.13891142 48.70651807 39.14477652 31.49751263]
+</pre></div>
+</div>
+<img alt="../_images/02_Keep_it_steady_18_1.png" src="../_images/02_Keep_it_steady_18_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part b</span>
+<span class="n">h</span><span class="o">=</span><span class="mi">100</span> <span class="c1"># W/m/m/K</span>
+<span class="n">k</span><span class="o">=</span><span class="mi">200</span> <span class="c1"># W/m/K</span>
+<span class="n">R</span><span class="o">=</span><span class="mf">1E-3</span><span class="c1"># radius in m</span>
+<span class="n">L</span><span class="o">=</span><span class="mf">60E-3</span><span class="c1"># length in m</span>
+<span class="n">hp</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">h</span><span class="o">/</span><span class="n">k</span><span class="o">/</span><span class="n">R</span>
+<span class="n">N</span><span class="o">=</span> <span class="mi">12</span>
+<span class="n">dx</span><span class="o">=</span><span class="n">L</span><span class="o">/</span><span class="n">N</span>
+
+
+<span class="n">diag_factor</span><span class="o">=</span><span class="mi">2</span><span class="o">+</span><span class="n">hp</span><span class="o">*</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># diagonal multiplying factor</span>
+<span class="n">Tinfty</span><span class="o">=</span><span class="mi">20</span>
+<span class="n">T0</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">Tsink</span> <span class="o">=</span> <span class="mi">25</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">diag_factor</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">hp</span><span class="o">*</span><span class="n">Tinfty</span><span class="o">*</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+=</span><span class="n">T0</span>
+<span class="n">b</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="n">Tsink</span>
+<span class="n">T</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+
+<span class="n">L</span><span class="o">=</span><span class="mf">60e-3</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">dx</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="s1">&#39;ro&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;finite difference&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;rs&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;base temperature&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="s1">&#39;bs&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;sink temperature&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;distance along fin (mm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Temperature (C)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02_Keep_it_steady_19_0.png" src="../_images/02_Keep_it_steady_19_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part c</span>
+<span class="n">h</span><span class="o">=</span><span class="mi">100</span> <span class="c1"># W/m/m/K</span>
+<span class="n">k</span><span class="o">=</span><span class="mi">200</span> <span class="c1"># W/m/K</span>
+<span class="n">R</span><span class="o">=</span><span class="mf">1E-3</span><span class="c1"># radius in m</span>
+<span class="n">L</span><span class="o">=</span><span class="mf">60E-3</span><span class="c1"># length in m</span>
+<span class="n">hp</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">h</span><span class="o">/</span><span class="n">k</span><span class="o">/</span><span class="n">R</span>
+<span class="n">N</span><span class="o">=</span><span class="mi">60</span>
+<span class="n">dx</span><span class="o">=</span><span class="n">L</span><span class="o">/</span><span class="n">N</span>
+
+
+<span class="n">diag_factor</span><span class="o">=</span><span class="mi">2</span><span class="o">+</span><span class="n">hp</span><span class="o">*</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># diagonal multiplying factor</span>
+<span class="n">Tinfty</span><span class="o">=</span><span class="mi">20</span>
+<span class="n">T0</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">Tsink</span> <span class="o">=</span> <span class="mi">25</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">diag_factor</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">hp</span><span class="o">*</span><span class="n">Tinfty</span><span class="o">*</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+=</span><span class="n">T0</span>
+<span class="n">b</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="n">Tsink</span>
+<span class="n">T</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+
+<span class="n">L</span><span class="o">=</span><span class="mf">60e-3</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">dx</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="s1">&#39;ro&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;finite difference&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;rs&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;base temperature&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="s1">&#39;bs&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;sink temperature&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;distance along fin (mm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Temperature (C)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02_Keep_it_steady_20_0.png" src="../_images/02_Keep_it_steady_20_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part d</span>
+<span class="n">dT_c</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">-</span><span class="n">T</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">flux</span> <span class="o">=</span> <span class="o">-</span><span class="n">k</span><span class="o">*</span><span class="n">dT_c</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">:],</span><span class="n">flux</span><span class="p">,</span><span class="s1">&#39;b-o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;distance along fin (mm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Heat Flux ($\frac</span><span class="si">{W}</span><span class="s1">{m^2}$)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02_Keep_it_steady_21_0.png" src="../_images/02_Keep_it_steady_21_0.png" />
+</div>
+</div>
 <ol class="simple">
 <li><p>Consider the encastre beam shown in the <strong>Static Beam deflections</strong> section. Use the following material and geometry (1-m steel rod 1-cm-by-1-cm) with 100 N/m load applied</p></li>
 </ol>
@@ -866,6 +1192,108 @@ at position (m)
 <p>a. Solve for the four integration constants using the boundary conditions shown in the <strong>Static Beam deflections</strong> section. <span class="math notranslate nohighlight">\(w(x)=\frac{q_0x^4}{24}+\frac{Ax^3}{6}+\frac{Bx^2}{2}+Cx+D\)</span></p>
 <p>b. Create a finite difference approximation with 10, 20, 30, and 40 segments.</p>
 <p>c. Plot the error between the maximum predicted numerical deflection (b) and the analytical deflection (a). What is the convergence rate of the finite difference approximation?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a; encastre beam </span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">E</span> <span class="o">=</span> <span class="mf">200e9</span>
+<span class="n">I</span> <span class="o">=</span> <span class="mf">0.01</span><span class="o">**</span><span class="mi">4</span><span class="o">/</span><span class="mi">12</span>
+<span class="n">q</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>\
+              <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">q</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="n">q</span><span class="o">/</span><span class="mi">24</span><span class="p">])</span>
+
+<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Integration constants: A = </span><span class="si">{}</span><span class="s1">, B = </span><span class="si">{:.2f}</span><span class="s1">, C=0, D=0&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">w</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Integration constants: A = -50.0, B = 8.33, C=0, D=0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part b</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">L</span><span class="p">)</span>
+<span class="n">w_a</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">q</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span><span class="o">/</span><span class="mi">24</span> <span class="o">-</span><span class="mi">50</span><span class="o">/</span><span class="mi">6</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">25</span><span class="o">/</span><span class="mi">6</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">I</span><span class="p">)</span>
+<span class="n">max_deflec</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">4</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">N</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">]:</span>
+    <span class="n">L</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">h</span><span class="o">=</span><span class="n">L</span><span class="o">/</span><span class="n">N</span>
+    <span class="n">E</span><span class="o">=</span><span class="mf">200e9</span>
+    <span class="n">I</span><span class="o">=</span><span class="mf">0.01</span><span class="o">**</span><span class="mi">4</span><span class="o">/</span><span class="mi">12</span>
+    <span class="n">q</span><span class="o">=</span><span class="mi">100</span>
+
+    <span class="n">A</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">6</span><span class="p">)</span>\
+    <span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*-</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>\
+    <span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*-</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>\
+    <span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">3</span><span class="p">),</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>\
+    <span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">3</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="n">A</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span>
+
+    <span class="n">b</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">q</span><span class="o">/</span><span class="n">E</span><span class="o">/</span><span class="n">I</span><span class="o">*</span><span class="n">h</span><span class="o">**</span><span class="mi">4</span>
+
+    <span class="n">w</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+    
+    <span class="n">max_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_deflec</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+    <span class="n">xnum</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">L</span><span class="o">+</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xnum</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">w</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span><span class="s1">&#39;s&#39;</span><span class="p">,</span><span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1"> segments&#39;</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w_a</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Analytical&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02_Keep_it_steady_24_0.png" src="../_images/02_Keep_it_steady_24_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part c</span>
+<span class="n">ana_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">w_a</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">N</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">]:</span>
+    <span class="n">L</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">h</span><span class="o">=</span><span class="n">L</span><span class="o">/</span><span class="n">N</span>
+    <span class="n">E</span><span class="o">=</span><span class="mf">200e9</span>
+    <span class="n">I</span><span class="o">=</span><span class="mf">0.01</span><span class="o">**</span><span class="mi">4</span><span class="o">/</span><span class="mi">12</span>
+    <span class="n">q</span><span class="o">=</span><span class="mi">100</span>
+
+    <span class="n">A</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">6</span><span class="p">)</span>\
+    <span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*-</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>\
+    <span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*-</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>\
+    <span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">3</span><span class="p">),</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>\
+    <span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">3</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="n">A</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span>
+
+    <span class="n">b</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">q</span><span class="o">/</span><span class="n">E</span><span class="o">/</span><span class="n">I</span><span class="o">*</span><span class="n">h</span><span class="o">**</span><span class="mi">4</span>
+
+    <span class="n">w</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+    
+    <span class="n">error</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">ana_max</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">w</span><span class="p">))</span><span class="o">/</span><span class="nb">abs</span><span class="p">(</span><span class="n">ana_max</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">error</span><span class="p">,</span><span class="s1">&#39;s&#39;</span><span class="p">,</span><span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Absolute error for </span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1"> segments&#39;</span><span class="p">)</span>
+    
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of Segments&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Absolute Error (%)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02_Keep_it_steady_25_0.png" src="../_images/02_Keep_it_steady_25_0.png" />
+</div>
+</div>
+<p>The convergence rate of the finite difference is exponential with increasing segments.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -891,36 +1319,27 @@ at position (m)
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="01_Revisiting_derivatives.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Revisiting Derivatives</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="01_Revisiting_derivatives.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Revisiting Derivatives</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="03_Good_Vibrations.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Good Vibrations</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="03_Good_Vibrations.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Good Vibrations</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         
@@ -936,8 +1355,7 @@ at position (m)
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

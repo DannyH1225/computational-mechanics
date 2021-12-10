@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CompMech04-Linear Algebra Project &#8212; Computational Mechanics</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -58,7 +58,10 @@
     <link rel="next" title="Computational Mechanics 5 - Boundary Value Problems" href="../module_05/README.html" />
     <link rel="prev" title="Linear Regression Algebra" href="../module_04/03_Linear-regression-algebra.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -74,6 +77,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../_static/comp-mech-logo.svg" class="logo" alt="logo">
       
@@ -495,6 +502,8 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">lu</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">solve_ivp</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -571,20 +580,22 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">K</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">K</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">13</span><span class="p">,</span><span class="mi">2</span><span class="p">:</span><span class="mi">13</span><span class="p">]))</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;expected error in x=solve(K,b) is </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="mi">16</span><span class="o">-</span><span class="mi">16</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;expected error in x=solve(K[2:13,2:13],b) is </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">-</span><span class="mi">16</span><span class="p">)))</span>
+<span class="c1">#part a and c</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;expected error in x=solve(K,b) is </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="mi">17</span><span class="o">-</span><span class="mi">16</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;expected error in x=solve(K[2:13,2:13],b) is </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">16</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.4577532625238035e+17
 52.23542514351006
-expected error in x=solve(K,b) is 1
-expected error in x=solve(K[2:13,2:13],b) is 1e-14
+expected error in x=solve(K,b) is 10
+expected error in x=solve(K[2:13,2:13],b) is 1e-15
 </pre></div>
 </div>
 </div>
 </div>
+<p>Part b: K is large because the problem is underconstrained. It describes stiffness of structure, but not the BC’s. So, we end up with sumF=0 and -sumF=0.</p>
 </div>
 <div class="section" id="apply-a-300-n-downward-force-to-the-central-top-node-n-4">
 <h3>2. Apply a 300-N downward force to the central top node (n 4)<a class="headerlink" href="#apply-a-300-n-downward-force-to-the-central-top-node-n-4" title="Permalink to this headline">¶</a></h3>
@@ -604,6 +615,191 @@ Including background information and the source code for this plot
 below.</p>
 </div></blockquote>
 <p><img alt="Deformed structure with loads applied" src="../_images/deformed_truss.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a</span>
+<span class="n">K1</span> <span class="o">=</span> <span class="n">K</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">13</span><span class="p">,</span><span class="mi">2</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span>
+<span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span><span class="o">=</span> <span class="n">lu</span><span class="p">(</span><span class="n">K1</span><span class="p">)</span>
+
+<span class="n">E_st</span> <span class="o">=</span> <span class="mf">200e3</span>
+<span class="n">E_al</span> <span class="o">=</span> <span class="mf">70e3</span>
+<span class="n">A</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">F</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">L</span><span class="p">))</span>
+<span class="n">F</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">=</span> <span class="o">-</span><span class="mi">300</span>
+<span class="n">F_st</span> <span class="o">=</span> <span class="n">F</span><span class="o">/</span><span class="p">(</span><span class="n">E_st</span><span class="o">*</span><span class="n">A</span><span class="p">)</span>
+<span class="n">F_al</span> <span class="o">=</span> <span class="n">F</span><span class="o">/</span><span class="p">(</span><span class="n">E_al</span><span class="o">*</span><span class="n">A</span><span class="p">)</span>
+
+<span class="c1">#part b</span>
+<span class="n">u1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">u2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span>
+
+<span class="n">y_st</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">F_st</span><span class="p">)</span>
+<span class="n">u_st</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">y_st</span><span class="p">)</span>
+<span class="n">u1</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span><span class="o">=</span><span class="n">u_st</span>
+
+<span class="n">y_al</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">F_al</span><span class="p">)</span>
+<span class="n">u_al</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">y_al</span><span class="p">)</span>
+<span class="n">u2</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span><span class="o">=</span><span class="n">u_al</span>
+
+<span class="c1">#part c</span>
+<span class="n">F_st1</span> <span class="o">=</span> <span class="n">E_st</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="n">K</span><span class="nd">@u1</span>
+<span class="n">F_al1</span> <span class="o">=</span> <span class="n">E_al</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="n">K</span><span class="nd">@u2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xy_st</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="s1">&#39;y&#39;</span><span class="p">}</span>
+<span class="n">xy_al</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="s1">&#39;y&#39;</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;displacements steel:</span><span class="se">\n</span><span class="s1">----------------&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">u1</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;u_</span><span class="si">{}{}</span><span class="s1">:</span><span class="si">{:.2f}</span><span class="s1"> mm&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">xy_st</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="k">2</span>],u1[i]))
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">forces steel:</span><span class="se">\n</span><span class="s1">----------------&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">F_st1</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;F_</span><span class="si">{}{}</span><span class="s1">:</span><span class="si">{:.2f}</span><span class="s1"> N&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">xy_st</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="k">2</span>],F_st1[i]))
+    
+    
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">displacements aluminum:</span><span class="se">\n</span><span class="s1">----------------&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">u2</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;u_</span><span class="si">{}{}</span><span class="s1">:</span><span class="si">{:.2f}</span><span class="s1"> mm&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">xy_al</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="k">2</span>],u2[i]))
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">forces aluminum:</span><span class="se">\n</span><span class="s1">----------------&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">F_st1</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;F_</span><span class="si">{}{}</span><span class="s1">:</span><span class="si">{:.2f}</span><span class="s1"> N&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">xy_al</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="k">2</span>],F_al1[i]))
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>displacements steel:
+----------------
+u_1x:0.00 mm
+u_1y:0.00 mm
+u_2x:5.85 mm
+u_2y:-6.37 mm
+u_3x:1.30 mm
+u_3y:-12.00 mm
+u_4x:3.25 mm
+u_4y:-16.12 mm
+u_5x:5.20 mm
+u_5y:-12.00 mm
+u_6x:0.65 mm
+u_6y:-6.37 mm
+u_7x:6.50 mm
+u_7y:0.00 mm
+
+forces steel:
+----------------
+F_1x:-0.00 N
+F_1y:150.00 N
+F_2x:0.00 N
+F_2y:0.00 N
+F_3x:0.00 N
+F_3y:-0.00 N
+F_4x:-0.00 N
+F_4y:-300.00 N
+F_5x:-0.00 N
+F_5y:-0.00 N
+F_6x:0.00 N
+F_6y:0.00 N
+F_7x:-0.00 N
+F_7y:150.00 N
+
+displacements aluminum:
+----------------
+u_1x:0.00 mm
+u_1y:0.00 mm
+u_2x:16.70 mm
+u_2y:-18.21 mm
+u_3x:3.71 mm
+u_3y:-34.29 mm
+u_4x:9.28 mm
+u_4y:-46.07 mm
+u_5x:14.85 mm
+u_5y:-34.29 mm
+u_6x:1.86 mm
+u_6y:-18.21 mm
+u_7x:18.56 mm
+u_7y:0.00 mm
+
+forces aluminum:
+----------------
+F_1x:-0.00 N
+F_1y:150.00 N
+F_2x:-0.00 N
+F_2y:0.00 N
+F_3x:0.00 N
+F_3y:-0.00 N
+F_4x:-0.00 N
+F_4y:-300.00 N
+F_5x:0.00 N
+F_5y:-0.00 N
+F_6x:-0.00 N
+F_6y:0.00 N
+F_7x:0.00 N
+F_7y:150.00 N
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part d</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interactive</span><span class="p">,</span> <span class="n">fixed</span><span class="p">,</span> <span class="n">interact_manual</span>
+<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+
+<span class="n">l</span><span class="o">=</span><span class="mi">300</span> <span class="c1"># mm</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">3</span><span class="o">**</span><span class="mf">0.5</span><span class="o">/</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">3</span><span class="o">**</span><span class="mf">0.5</span><span class="o">/</span><span class="mi">2</span><span class="p">],[</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">6</span><span class="p">,</span><span class="mf">2.5</span><span class="p">,</span><span class="mi">3</span><span class="o">**</span><span class="mf">0.5</span><span class="o">/</span><span class="mi">2</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">nodes</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">*=</span><span class="n">l</span>
+<span class="n">elems</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">9</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">],[</span><span class="mi">11</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]])</span>
+
+<span class="n">ix</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">)],[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">)],[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">)],[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">)]])</span>
+<span class="n">iy</span> <span class="o">=</span> <span class="n">ix</span><span class="o">+</span><span class="mi">1</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([</span><span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span><span class="n">r</span><span class="p">[</span><span class="n">iy</span><span class="p">],</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span><span class="o">+</span><span class="n">u1</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span><span class="o">*</span><span class="n">s</span><span class="p">,</span><span class="n">r</span><span class="p">[</span><span class="n">iy</span><span class="p">]</span><span class="o">+</span><span class="n">u1</span><span class="p">[</span><span class="n">iy</span><span class="p">]</span><span class="o">*</span><span class="n">s</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+        <span class="c1">#plt.quiver(r[ix],r[iy],u[ix],u[iy],color=(0,0,1,1),label=&#39;displacements&#39;)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span><span class="n">r</span><span class="p">[</span><span class="n">iy</span><span class="p">],</span><span class="n">F_st1</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span><span class="n">F_st1</span><span class="p">[</span><span class="n">iy</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;applied forces&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span><span class="n">r</span><span class="p">[</span><span class="n">iy</span><span class="p">],</span><span class="n">u1</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span><span class="n">u1</span><span class="p">[</span><span class="n">iy</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;displacements&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">l</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">3.5</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">2</span><span class="p">]))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x (mm)&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y (mm)&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Steel Deformation scale = </span><span class="si">{:.1f}</span><span class="s1">x&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span><span class="n">r</span><span class="p">[</span><span class="n">iy</span><span class="p">],</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span><span class="o">+</span><span class="n">u2</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span><span class="o">*</span><span class="n">s</span><span class="p">,</span><span class="n">r</span><span class="p">[</span><span class="n">iy</span><span class="p">]</span><span class="o">+</span><span class="n">u2</span><span class="p">[</span><span class="n">iy</span><span class="p">]</span><span class="o">*</span><span class="n">s</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+        <span class="c1">#plt.quiver(r[ix],r[iy],u[ix],u[iy],color=(0,0,1,1),label=&#39;displacements&#39;)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span><span class="n">r</span><span class="p">[</span><span class="n">iy</span><span class="p">],</span><span class="n">F_al1</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span><span class="n">F_al1</span><span class="p">[</span><span class="n">iy</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;applied forces&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span><span class="n">r</span><span class="p">[</span><span class="n">iy</span><span class="p">],</span><span class="n">u2</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span><span class="n">u2</span><span class="p">[</span><span class="n">iy</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;displacements&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">l</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">3.5</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">2</span><span class="p">]))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x (mm)&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y (mm)&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Aluminum Deformation scale = </span><span class="si">{:.1f}</span><span class="s1">x&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">))</span>
+
+<span class="n">f</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/04_Linear_Algebra-project_12_0.png" src="../_images/04_Linear_Algebra-project_12_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/04_Linear_Algebra-project_13_0.png" src="../_images/04_Linear_Algebra-project_13_0.png" />
+</div>
+</div>
 </div>
 <div class="section" id="determine-cross-sectional-area">
 <h3>3. Determine cross-sectional area<a class="headerlink" href="#determine-cross-sectional-area" title="Permalink to this headline">¶</a></h3>
@@ -611,6 +807,124 @@ below.</p>
 <p>b. Using steel, what is the minimum cross-sectional area to keep total y-deflections <span class="math notranslate nohighlight">\(&lt;0.2~mm\)</span>?</p>
 <p>c. What are the weights of the aluminum and steel trusses with the
 chosen cross-sectional areas?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a</span>
+<span class="k">def</span> <span class="nf">steel_deflec</span><span class="p">(</span><span class="n">Area</span><span class="p">):</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">Area</span>
+    <span class="n">E</span><span class="o">=</span><span class="mf">200e3</span>
+    <span class="n">Ff</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">Ff</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">=-</span><span class="mi">300</span>
+    <span class="c1"># step 1 solve for uf (the joints without constraints)</span>
+    <span class="n">uf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="n">K</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">13</span><span class="p">,</span><span class="mi">2</span><span class="p">:</span><span class="mi">13</span><span class="p">],</span><span class="n">Ff</span><span class="p">)</span>
+    <span class="n">u</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">))</span>
+    <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span><span class="o">=</span><span class="n">uf</span>
+    <span class="n">y_deflect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]))</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="mf">.2</span> <span class="o">-</span> <span class="n">y_deflect</span>
+    <span class="k">return</span> <span class="n">error</span>
+
+<span class="k">def</span> <span class="nf">aluminum_deflec</span><span class="p">(</span><span class="n">Area</span><span class="p">):</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">Area</span>
+    <span class="n">E</span><span class="o">=</span><span class="mf">70e3</span>
+    <span class="n">Ff</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">Ff</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">=-</span><span class="mi">300</span>
+    <span class="c1"># step 1 solve for uf (the joints without constraints)</span>
+    <span class="n">uf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="n">K</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">13</span><span class="p">,</span><span class="mi">2</span><span class="p">:</span><span class="mi">13</span><span class="p">],</span><span class="n">Ff</span><span class="p">)</span>
+    <span class="n">u</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">))</span>
+    <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span><span class="o">=</span><span class="n">uf</span>
+    <span class="n">y_deflect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]))</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="mf">.2</span> <span class="o">-</span> <span class="n">y_deflect</span>
+    <span class="k">return</span> <span class="n">error</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mod_secant</span><span class="p">(</span><span class="n">func</span><span class="p">,</span><span class="n">dx</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">es</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span><span class="n">maxit</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;mod_secant: Modified secant root location zeroes</span>
+<span class="sd">    root,[fx,ea,iter]=mod_secant(func,dfunc,xr,es,maxit,p1,p2,...):</span>
+<span class="sd">    uses modified secant method to find the root of func</span>
+<span class="sd">    arguments:</span>
+<span class="sd">    ----------</span>
+<span class="sd">    func = name of function</span>
+<span class="sd">    dx = perturbation fraction</span>
+<span class="sd">    xr = initial guess</span>
+<span class="sd">    es = desired relative error (default = 0.0001 )</span>
+<span class="sd">    maxit = maximum allowable iterations (default = 50)</span>
+<span class="sd">    p1,p2,... = additional parameters used by function</span>
+<span class="sd">    returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    root = real root</span>
+<span class="sd">    fx = func evaluated at root</span>
+<span class="sd">    ea = approximate relative error ( )</span>
+<span class="sd">    iter = number of iterations&#39;&#39;&#39;</span>
+
+    <span class="nb">iter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">xr</span><span class="o">=</span><span class="n">x0</span>
+    <span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">maxit</span><span class="p">):</span>
+        <span class="n">xrold</span> <span class="o">=</span> <span class="n">xr</span><span class="p">;</span>
+        <span class="n">dfunc</span><span class="o">=</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">xr</span><span class="o">+</span><span class="n">dx</span><span class="p">)</span><span class="o">-</span><span class="n">func</span><span class="p">(</span><span class="n">xr</span><span class="p">))</span><span class="o">/</span><span class="n">dx</span><span class="p">;</span>
+        <span class="n">xr</span> <span class="o">=</span> <span class="n">xr</span> <span class="o">-</span> <span class="n">func</span><span class="p">(</span><span class="n">xr</span><span class="p">)</span><span class="o">/</span><span class="n">dfunc</span><span class="p">;</span>
+        <span class="k">if</span> <span class="n">xr</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ea</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">((</span><span class="n">xr</span> <span class="o">-</span> <span class="n">xrold</span><span class="p">)</span><span class="o">/</span><span class="n">xr</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ea</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">((</span><span class="n">xr</span> <span class="o">-</span> <span class="n">xrold</span><span class="p">)</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">;</span>
+        <span class="k">if</span> <span class="n">ea</span> <span class="o">&lt;=</span> <span class="n">es</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">xr</span><span class="p">,[</span><span class="n">func</span><span class="p">(</span><span class="n">xr</span><span class="p">),</span><span class="n">ea</span><span class="p">,</span><span class="nb">iter</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a and b</span>
+<span class="n">step_size</span> <span class="o">=</span> <span class="mf">.00001</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">err_modsec1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="n">err_modsec2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+
+<span class="n">root1</span><span class="p">,</span><span class="n">out1</span> <span class="o">=</span> <span class="n">mod_secant</span><span class="p">(</span><span class="n">steel_deflec</span><span class="p">,</span><span class="n">step_size</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="n">es</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    
+<span class="n">root2</span><span class="p">,</span><span class="n">out2</span> <span class="o">=</span> <span class="n">mod_secant</span><span class="p">(</span><span class="n">aluminum_deflec</span><span class="p">,</span><span class="n">step_size</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="n">es</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Steel minimum cross-sectional area: </span><span class="si">{:.1f}</span><span class="s1"> mm^2&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">root1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Aluminum minimum cross-sectional area: </span><span class="si">{:.1f}</span><span class="s1"> mm^2&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">root2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Steel minimum cross-sectional area: 8.1 mm^2
+Aluminum minimum cross-sectional area: 23.0 mm^2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rho_st</span> <span class="o">=</span> <span class="mf">0.00805</span> <span class="c1">#g/mm^3</span>
+<span class="n">rho_al</span> <span class="o">=</span> <span class="mf">0.0027</span> <span class="c1">#g/mm^3</span>
+<span class="n">g</span> <span class="o">=</span> <span class="mf">9.81</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="n">v_st</span> <span class="o">=</span> <span class="n">root1</span><span class="o">*</span><span class="n">n</span><span class="o">*</span><span class="n">l</span>
+<span class="n">v_al</span> <span class="o">=</span> <span class="n">root2</span><span class="o">*</span><span class="n">n</span><span class="o">*</span><span class="n">l</span>
+
+<span class="n">st_weight</span> <span class="o">=</span> <span class="n">v_st</span><span class="o">*</span><span class="n">rho_st</span><span class="o">*</span><span class="n">g</span><span class="o">/</span><span class="mi">1000</span>
+<span class="n">al_weight</span> <span class="o">=</span> <span class="n">v_al</span><span class="o">*</span><span class="n">rho_al</span><span class="o">*</span><span class="n">g</span><span class="o">/</span><span class="mi">1000</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Weight of steel truss: </span><span class="si">{:.1f}</span><span class="s1"> Newtons&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">st_weight</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Weight of aluminum truss: </span><span class="si">{:.1f}</span><span class="s1"> Newtons&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">al_weight</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Weight of steel truss: 2.1 Newtons
+Weight of aluminum truss: 2.0 Newtons
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="references">
@@ -644,36 +958,27 @@ chosen cross-sectional areas?</p>
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="../module_04/03_Linear-regression-algebra.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Linear Regression Algebra</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../module_04/03_Linear-regression-algebra.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Linear Regression Algebra</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../module_05/README.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Computational Mechanics 5 - Boundary Value Problems</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="../module_05/README.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Computational Mechanics 5 - Boundary Value Problems</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         
@@ -689,8 +994,7 @@ chosen cross-sectional areas?</p>
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Step to the future &#8212; Computational Mechanics</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -58,7 +58,10 @@
     <link rel="next" title="Get with the oscillations" href="03_Get_Oscillations.html" />
     <link rel="prev" title="Catch things in motion" href="01_Catch_Motion.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -74,6 +77,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../_static/comp-mech-logo.svg" class="logo" alt="logo">
       
@@ -610,7 +617,7 @@ x(t_i+\Delta t)   \approx  x(t_i) + v(t_i) \Delta t
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># define number of time steps</span>
-<span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="n">N</span><span class="p">)</span> <span class="c1"># set values for time (our independent variable)</span>
+<span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="n">N</span><span class="p">)</span> <span class="c1"># set values for time (our independent variable)</span>
 <span class="n">dt</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span> <span class="c1"># initialize x</span>
 <span class="n">v</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span> <span class="c1"># initialize v</span>
@@ -659,17 +666,24 @@ columns, and plot number in a matrix of sub-plots.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span>  <span class="n">x</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#008367&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$x$ (m)&#39;</span><span class="p">);</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mi">1</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error= </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">((</span><span class="mf">12.47474747</span><span class="o">-</span><span class="mf">12.4</span><span class="p">)</span><span class="o">/</span><span class="mf">12.47474747</span><span class="o">*</span><span class="mi">100</span> <span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02_Step_Future_10_0.png" src="../_images/02_Step_Future_10_0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[12.47474747]
+Error= 0.5991902455721626
+</pre></div>
+</div>
+<img alt="../_images/02_Step_Future_10_1.png" src="../_images/02_Step_Future_10_1.png" />
 </div>
 </div>
 </div>
 <div class="section" id="exercise">
 <h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h2>
 <p>The initial height is 440 m, the height of the tip of the <a class="reference external" href="https://en.wikipedia.org/wiki/Empire_State_Building">Empire State Building</a>. How long would it take for the object to reach the ground from this height? How accurate is your estimation e.g. what is the error bar for your solution?</p>
+<p>It would take about 12.4 seconds to reach the ground from this height. The error was .6%</p>
 </div>
 <div class="section" id="euler-s-method">
 <h2>Euler’s method<a class="headerlink" href="#euler-s-method" title="Permalink to this headline">¶</a></h2>
@@ -852,7 +866,7 @@ number of time steps.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02_Step_Future_27_0.png" src="../_images/02_Step_Future_27_0.png" />
+<img alt="../_images/02_Step_Future_28_0.png" src="../_images/02_Step_Future_28_0.png" />
 </div>
 </div>
 <p>The two lines look very close… but let’s plot the difference to get understand the <a class="reference external" href="https://github.uconn.edu/rcc02007/CompMech01-Getting-started/blob/master/notebooks/03_Numerical_error.ipynb">error</a>.</p>
@@ -867,7 +881,7 @@ number of time steps.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02_Step_Future_29_0.png" src="../_images/02_Step_Future_29_0.png" />
+<img alt="../_images/02_Step_Future_30_0.png" src="../_images/02_Step_Future_30_0.png" />
 </div>
 </div>
 </div>
@@ -875,6 +889,32 @@ number of time steps.</p>
 <h2>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>Create a plot of the analytical solution for y-vs-t for an object that accelerates due to gravity, plot the difference between the analytical solution and the experimental data with the plot above.</p>
 <p><em>Hint: remember the kinematic equations for constant acceleration</em> <span class="math notranslate nohighlight">\(y(t) = y(0) + \dot{y}(0)t - \frac{gt^2}{2}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">y_ana</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">9.81</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y_ana</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Analytical Solution &amp; </span><span class="se">\n</span><span class="s1"> Difference between </span><span class="se">\n</span><span class="s1"> Analytical and </span><span class="se">\n</span><span class="s1"> Experimental Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y (m)&#39;</span><span class="p">)</span>
+
+<span class="n">diff</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_ana</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y (m)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;y (m)&#39;)
+</pre></div>
+</div>
+<img alt="../_images/02_Step_Future_32_1.png" src="../_images/02_Step_Future_32_1.png" />
+</div>
+</div>
 </div>
 <div class="section" id="air-resistance">
 <h2>Air resistance<a class="headerlink" href="#air-resistance" title="Permalink to this headline">¶</a></h2>
@@ -984,7 +1024,7 @@ range of <span class="math notranslate nohighlight">\(56.0\)</span>–<span clas
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02_Step_Future_41_0.png" src="../_images/02_Step_Future_41_0.png" />
+<img alt="../_images/02_Step_Future_43_0.png" src="../_images/02_Step_Future_43_0.png" />
 </div>
 </div>
 <p>All the lines look very close… but let’s plot the differences with the experimental data in both cases, to get an idea of the error.</p>
@@ -1001,7 +1041,7 @@ range of <span class="math notranslate nohighlight">\(56.0\)</span>–<span clas
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02_Step_Future_43_0.png" src="../_images/02_Step_Future_43_0.png" />
+<img alt="../_images/02_Step_Future_45_0.png" src="../_images/02_Step_Future_45_0.png" />
 </div>
 </div>
 </div>
@@ -1012,6 +1052,7 @@ range of <span class="math notranslate nohighlight">\(56.0\)</span>–<span clas
 <li><p>What do you see in the plot of the difference between the numerical solution and the experimental data?</p></li>
 <li><p>Is the error plotted above related to truncation error? Is it related to roundoff error?</p></li>
 </ul>
+<p>As time increases the error between numerical solution and experimental data increases. THe error plotted is related to truncation error.</p>
 </div>
 <div class="section" id="what-you-ve-learned">
 <h2>What you’ve learned<a class="headerlink" href="#what-you-ve-learned" title="Permalink to this headline">¶</a></h2>
@@ -1059,6 +1100,54 @@ range of <span class="math notranslate nohighlight">\(56.0\)</span>–<span clas
 </tbody>
 </table>
 <p>Is there a difference in the two solutions? At what times do the tennis ball and lacrosse balls reach the ground? Which was first?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y0</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># initial position</span>
+<span class="n">v0</span> <span class="o">=</span> <span class="mi">0</span>    <span class="c1"># initial velocity</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">600</span>   <span class="c1"># number of steps</span>
+
+<span class="c1"># initialize array</span>
+<span class="n">num_sol_drag_tennis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">N</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">num_sol_drag_lacross</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">N</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="c1"># Set intial conditions</span>
+<span class="n">num_sol_drag_tennis</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y0</span>
+<span class="n">num_sol_drag_tennis</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v0</span>
+
+<span class="n">num_sol_drag_lacross</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y0</span>
+<span class="n">num_sol_drag_lacross</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">num_sol_drag_tennis</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">eulerstep</span><span class="p">(</span><span class="n">num_sol_drag_tennis</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                                         <span class="k">lambda</span> <span class="n">state</span><span class="p">:</span> <span class="n">fall_drag</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">C_d</span><span class="o">=</span><span class="mf">0.47</span><span class="p">,</span><span class="n">m</span><span class="o">=</span><span class="mf">0.0577</span><span class="p">,</span><span class="n">R</span> <span class="o">=</span> <span class="mf">0.0661</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">dt</span><span class="p">)</span>
+    <span class="n">num_sol_drag_lacross</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">eulerstep</span><span class="p">(</span><span class="n">num_sol_drag_lacross</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                                          <span class="k">lambda</span> <span class="n">state</span><span class="p">:</span> <span class="n">fall_drag</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">C_d</span><span class="o">=</span><span class="mf">0.47</span><span class="p">,</span><span class="n">m</span><span class="o">=</span><span class="mf">0.1435</span><span class="p">,</span><span class="n">R</span> <span class="o">=</span> <span class="mf">0.0637</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">dt</span><span class="p">)</span>
+    
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="n">N</span><span class="p">],</span> <span class="n">num_sol_drag_tennis</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Tennis ball&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="n">N</span><span class="p">],</span> <span class="n">num_sol_drag_lacross</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Lacross ball&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Free fall  </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y$ [m]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+
+<span class="n">t_1k</span> <span class="o">=</span> <span class="n">t</span><span class="p">[:</span><span class="n">N</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t_1k</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">num_sol_drag_tennis</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">atol</span> <span class="o">=</span> <span class="mf">1e-02</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t_1k</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">num_sol_drag_lacross</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">atol</span> <span class="o">=</span> <span class="mf">1e-02</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.573 0.574 0.575 0.576]
+[0.572 0.573 0.574]
+</pre></div>
+</div>
+<img alt="../_images/02_Step_Future_51_1.png" src="../_images/02_Step_Future_51_1.png" />
+</div>
+</div>
+<p>There is a difference in the two solutions. The tennis reached the ground at about 0.573 s and the lacross ball reached the ground at about 0.572 s. The lacross ball reached the ground first.</p>
 <p><img alt="Projectile motion with drag" src="../_images/projectile.png" /></p>
 <p>The figure above shows the forces acting on a projectile object, like the <a class="reference external" href="https://en.wikipedia.org/wiki/Lacrosse_ball">lacrosse ball</a> from <a class="reference external" href="http://www.flippingphysics.com">Flipping Physics</a> that you analyzed in <a class="reference internal" href="01_Catch_Motion.html"><span class="doc std std-doc">lesson 01_Catch_Motion</span></a>. Consider the 2D motion of the <a class="reference external" href="https://en.wikipedia.org/wiki/Lacrosse_ball">lacrosse ball</a>, now the state vector has two extra variables,</p>
 <p>\begin{equation}
@@ -1089,18 +1178,21 @@ v_y \ g - cv_y^2
 <span class="sd">    </span>
 <span class="sd">    Arguments</span>
 <span class="sd">    ----------    </span>
-<span class="sd">    state : array of two dependent variables [y v]^T</span>
+<span class="sd">    state : array of 4 dependent variables [x v_x y v_y]^T</span>
 <span class="sd">    m : mass in kilograms default set to 0.143 kg (mass of lax ball source wiki)</span>
 <span class="sd">    C_d : drag coefficient for a sphere default set to 0.47 (no units)</span>
 <span class="sd">    R : radius of ball default in meters is 0.0661/2 m (tennis ball)</span>
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    derivs: array of four derivatives [?? ?? ?? ??]</span>
+<span class="sd">    derivs: array of four derivatives [v_x (-cv_x**2) v_y (g-cv_y**2)]</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     
     <span class="n">rho</span> <span class="o">=</span> <span class="mf">1.22</span>   <span class="c1"># air density kg/m^3</span>
     <span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
-
+    <span class="n">a_drag_x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">R</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">C_d</span> <span class="o">*</span> <span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">a_drag_y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">R</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">C_d</span> <span class="o">*</span> <span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">derivs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a_drag_x</span><span class="p">,</span> <span class="n">state</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="o">-</span><span class="mf">9.81</span> <span class="o">+</span> <span class="n">a_drag_y</span><span class="p">])</span>
+    
     <span class="k">return</span> <span class="n">derivs</span>
 </pre></div>
 </div>
@@ -1126,10 +1218,60 @@ y(0) \ v_y(0)
 <span class="n">t3</span><span class="o">=</span><span class="n">npz</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span>
 <span class="n">x3</span><span class="o">=</span><span class="n">npz</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span>
 <span class="n">y3</span><span class="o">=</span><span class="n">npz</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+
+<span class="c1">#initial conditions</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="mf">0.5610</span>
+<span class="n">vx_0</span> <span class="o">=</span> <span class="mf">2.6938</span>
+<span class="n">y_0</span> <span class="o">=</span> <span class="n">y3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">vy_0</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.0759</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">t3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">26</span> <span class="c1">#Number of steps</span>
+
+<span class="c1">#initialize array</span>
+<span class="n">num_sol_lacross</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">N</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+
+<span class="n">num_sol_lacross</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_0</span>
+<span class="n">num_sol_lacross</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">vx_0</span>
+<span class="n">num_sol_lacross</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_0</span>
+<span class="n">num_sol_lacross</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">vy_0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">num_sol_lacross</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">eulerstep</span><span class="p">(</span><span class="n">num_sol_lacross</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">projectile_drag</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t3</span><span class="p">,</span> <span class="n">num_sol_lacross</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;euler&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t3</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;experimental data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;x (m)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There is not a noticible effect of drag on the lacrosse ball in the x-direction.&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Both the Euler integration and experimental data are pretty much the same.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There is not a noticible effect of drag on the lacrosse ball in the x-direction.
+Both the Euler integration and experimental data are pretty much the same.
+</pre></div>
 </div>
+<img alt="../_images/02_Step_Future_57_1.png" src="../_images/02_Step_Future_57_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t3</span><span class="p">,</span> <span class="n">num_sol_lacross</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;euler&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t3</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;experimental data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y (m)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02_Step_Future_58_0.png" src="../_images/02_Step_Future_58_0.png" />
+</div>
+</div>
+<p>The euler integration for y is close at the beginning but starts to diverge as time increases. There is a noticable effect of drag on the lacrosse ball as the Euler integration does not math up with the experimental data.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -1155,36 +1297,27 @@ y(0) \ v_y(0)
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="01_Catch_Motion.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Catch things in motion</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="01_Catch_Motion.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Catch things in motion</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="03_Get_Oscillations.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Get with the oscillations</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="03_Get_Oscillations.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Get with the oscillations</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         
@@ -1200,8 +1333,7 @@ y(0) \ v_y(0)
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

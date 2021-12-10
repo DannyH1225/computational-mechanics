@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>02 - Working with Python &#8212; Computational Mechanics</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -58,7 +58,10 @@
     <link rel="next" title="03 - Numerical Error" href="03_Numerical_error.html" />
     <link rel="prev" title="01 - Interacting with Python" href="01_Interacting_with_Python.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -74,6 +77,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../_static/comp-mech-logo.svg" class="logo" alt="logo">
       
@@ -1034,7 +1041,7 @@ you can do more computations, like add or multiply them. For example:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_1753/2664324349.py:1: RuntimeWarning: invalid value encountered in true_divide
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_1820/2664324349.py:1: RuntimeWarning: invalid value encountered in true_divide
   x_array / y_array
 </pre></div>
 </div>
@@ -1396,8 +1403,8 @@ with no numbers repeated.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[50, 24, 6, 54, 90, 70, 23, 77, 31, 43]
-[49, 55, 9, 10, 60, 77, 80, 41, 25, 38]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[55, 87, 40, 54, 2, 83, 85, 53, 9, 49]
+[70, 30, 39, 15, 85, 28, 57, 14, 6, 7]
 </pre></div>
 </div>
 </div>
@@ -1417,8 +1424,8 @@ takes to execute all the code in that cell.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 22 µs, sys: 3 µs, total: 25 µs
-Wall time: 27.9 µs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 22 µs, sys: 5 µs, total: 27 µs
+Wall time: 29.6 µs
 </pre></div>
 </div>
 </div>
@@ -1430,7 +1437,7 @@ Wall time: 27.9 µs
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[99, 79, 15, 64, 150, 147, 103, 118, 56, 81]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[125, 117, 79, 69, 87, 111, 142, 67, 15, 56]
 </pre></div>
 </div>
 </div>
@@ -1464,8 +1471,8 @@ that the arrays and the lists are of the same length and type
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[66 44  9 76 70 17 12 82 31 89]
-[57 76 93 45 36 21 30  7 40 67]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[88 71  1 95 48 79 70 84 87 75]
+[85 46 18 81 52 94 51 38  9 59]
 </pre></div>
 </div>
 </div>
@@ -1479,8 +1486,8 @@ that the arrays and the lists are of the same length and type
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 7 µs, sys: 1 µs, total: 8 µs
-Wall time: 12.6 µs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 12 µs, sys: 2 µs, total: 14 µs
+Wall time: 17.2 µs
 </pre></div>
 </div>
 </div>
@@ -1564,7 +1571,7 @@ in the x-axis, you need to import the module <code class="docutils literal notra
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7ff51f4fee80&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7efe662af430&gt;
 </pre></div>
 </div>
 <img alt="../_images/02_Working_with_Python_104_1.png" src="../_images/02_Working_with_Python_104_1.png" />
@@ -1581,7 +1588,7 @@ in the x-axis, you need to import the module <code class="docutils literal notra
 <span class="c1">#Plot sqrt(x)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xarray</span><span class="p">,</span> <span class="n">pow_half</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$\sqrt</span><span class="si">{x}</span><span class="s1">$&#39;</span><span class="p">)</span>
 <span class="c1">#Plot the legends in the best location</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -1630,6 +1637,35 @@ but you will keep learning about the power of <strong>Matplotlib</strong> in the
 <p>b. Use your function to plot sin(x) and cos(x) for x=<span class="math notranslate nohighlight">\(0..2\pi\)</span></p>
 </li>
 </ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sincos</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Caculates the sin and cos of a inputted array and returns them&#39;&#39;&#39;</span>
+    <span class="n">sinx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">cosx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">sinx</span><span class="p">,</span> <span class="n">cosx</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="p">[</span><span class="n">sinx</span><span class="p">,</span> <span class="n">cosx</span><span class="p">]</span> <span class="o">=</span> <span class="n">sincos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1">#Plot sinx</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sinx</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$\sin x$&#39;</span><span class="p">)</span>
+<span class="c1">#Plot cosx</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">cosx</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$\cos x$&#39;</span><span class="p">)</span>
+<span class="c1">#plot legend</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="s1">&#39;best&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7efe66076580&gt;
+</pre></div>
+</div>
+<img alt="../_images/02_Working_with_Python_112_1.png" src="../_images/02_Working_with_Python_112_1.png" />
+</div>
+</div>
 <ol>
 <li><p>Use a for-loop to create a variable called <code class="docutils literal notranslate"><span class="pre">A_99</span></code>, where every element is the product
 of the two indices from 0 to 9 e.g. A_99[3,2]=6 and A_99[4,4]=16.</p>
@@ -1638,6 +1674,42 @@ of the two indices from 0 to 9 e.g. A_99[3,2]=6 and A_99[4,4]=16.</p>
 <p>c. Calculate the standard deviation of <code class="docutils literal notranslate"><span class="pre">A_99</span></code></p>
 </li>
 </ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">A_99</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rows</span><span class="p">)]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">columns</span><span class="p">)]</span>
+
+<span class="c1">#part a</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">columns</span><span class="p">):</span>
+        <span class="n">A_99</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">j</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A_99:&#39;</span><span class="p">,</span> <span class="n">A_99</span><span class="p">)</span>
+
+<span class="c1">#part b</span>
+<span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">A_99</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">rows</span> <span class="o">*</span> <span class="n">columns</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean is:&#39;</span><span class="p">,</span> <span class="n">mean</span><span class="p">)</span>
+
+<span class="c1">#part c</span>
+<span class="n">st_dv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">A_99</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Standard deviation is:&#39;</span><span class="p">,</span> <span class="n">st_dv</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A_99: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 2, 4, 6, 8, 10, 12, 14, 16, 18], [0, 3, 6, 9, 12, 15, 18, 21, 24, 27], [0, 4, 8, 12, 16, 20, 24, 28, 32, 36], [0, 5, 10, 15, 20, 25, 30, 35, 40, 45], [0, 6, 12, 18, 24, 30, 36, 42, 48, 54], [0, 7, 14, 21, 28, 35, 42, 49, 56, 63], [0, 8, 16, 24, 32, 40, 48, 56, 64, 72], [0, 9, 18, 27, 36, 45, 54, 63, 72, 81]]
+Mean is: 20.25
+Standard deviation is: 20.054612935681405
+CPU times: user 821 µs, sys: 0 ns, total: 821 µs
+Wall time: 1.24 ms
+</pre></div>
+</div>
+</div>
+</div>
 <ol>
 <li><p>Use the two arrays, X and Y, given below to create A_99 using numpy array math rather than a for-loop.</p>
 <p>a. time your script using <code class="docutils literal notranslate"><span class="pre">%%time</span></code></p>
@@ -1646,6 +1718,49 @@ of the two indices from 0 to 9 e.g. A_99[3,2]=6 and A_99[4,4]=16.</p>
 <p>d. create a filled contour plot of X, Y, A_99 <a class="reference external" href="https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.contourf.html">contourf plot documentation</a></p>
 </li>
 </ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="n">A_99</span> <span class="o">=</span> <span class="n">X</span> <span class="o">*</span> <span class="n">Y</span> 
+<span class="nb">print</span><span class="p">(</span><span class="n">A_99</span><span class="p">)</span>
+
+<span class="n">mean_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">A_99</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span> <span class="c1">#part b</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">mean_2</span><span class="p">)</span>
+
+<span class="n">st_dv_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">A_99</span><span class="p">)</span> <span class="c1">#part c</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">st_dv_2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">A_99</span><span class="p">)</span> <span class="c1">#part d</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 0  0  0  0  0  0  0  0  0  0]
+ [ 0  1  2  3  4  5  6  7  8  9]
+ [ 0  2  4  6  8 10 12 14 16 18]
+ [ 0  3  6  9 12 15 18 21 24 27]
+ [ 0  4  8 12 16 20 24 28 32 36]
+ [ 0  5 10 15 20 25 30 35 40 45]
+ [ 0  6 12 18 24 30 36 42 48 54]
+ [ 0  7 14 21 28 35 42 49 56 63]
+ [ 0  8 16 24 32 40 48 56 64 72]
+ [ 0  9 18 27 36 45 54 63 72 81]]
+20.25
+20.054612935681405
+CPU times: user 16.6 ms, sys: 3.83 ms, total: 20.4 ms
+Wall time: 20.6 ms
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.contour.QuadContourSet at 0x7efe66050c70&gt;
+</pre></div>
+</div>
+<img alt="../_images/02_Working_with_Python_116_2.png" src="../_images/02_Working_with_Python_116_2.png" />
+</div>
+</div>
 <ol class="simple">
 <li><p>The following linear interpolation function has an error. It is supposed to return y(x) given the the two points <span class="math notranslate nohighlight">\(p_1=[x_1,~y_1]\)</span> and <span class="math notranslate nohighlight">\(p_2=[x_2,~y_2]\)</span>. Currently, it just returns and error.</p></li>
 </ol>
@@ -1659,6 +1774,32 @@ of the two indices from 0 to 9 e.g. A_99[3,2]=6 and A_99[4,4]=16.</p>
     
     <span class="k">return</span> <span class="n">p1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">slope</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">linInterp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;linear interplation function</span>
+<span class="sd">    return y(x) given the two endpoints </span>
+<span class="sd">    p1=np.array([x1,y1])</span>
+<span class="sd">    and</span>
+<span class="sd">    p2=np.array([x2,y2])&#39;&#39;&#39;</span>
+    <span class="n">slope</span> <span class="o">=</span> <span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">slope</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">p1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="n">linInterp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.6666666666666665
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -1685,36 +1826,27 @@ of the two indices from 0 to 9 e.g. A_99[3,2]=6 and A_99[4,4]=16.</p>
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="01_Interacting_with_Python.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">01 - Interacting with Python</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="01_Interacting_with_Python.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">01 - Interacting with Python</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="03_Numerical_error.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">03 - Numerical Error</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="03_Numerical_error.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">03 - Numerical Error</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         
@@ -1730,8 +1862,7 @@ of the two indices from 0 to 9 e.g. A_99[3,2]=6 and A_99[4,4]=16.</p>
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

@@ -5,9 +5,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.10.3
+    jupytext_version: 1.11.4
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -192,7 +192,12 @@ plt.legend();
 The quadratic curve plotted should be smooth, but you Python is connected each (x,y)-location provided with straight lines. Plot the quadratic fit with 50 x-data points to make it smooth.
 
 ```{code-cell} ipython3
-
+x_fcn=np.linspace(min(x),max(x),50);
+plt.plot(x,y,'o',label='data')
+plt.plot(x,Z@a,label='quadratic fit')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.legend();
 ```
 
 ## General Coefficient of Determination
@@ -222,13 +227,32 @@ print('the correlation coefficient this fit is {}'.format(r))
 
 What is the highest possible coefficient of determination? If its maximized, is that a _good_ thing?
 
++++
+
+The highest coefficient of determination is 1. If it is maximized that is a not always a good thing because the model can be over-fitted.
+
++++
+
 ### Exercise
 
 Compare the coefficient of determination for a straight line _(you have to do a fit)_ to the quadratic fit _(done above)_. Which one is a better fit?
 
 ```{code-cell} ipython3
+Z2=np.block([[x**0],[x]]).T
+a2 = np.linalg.solve(Z2.T@Z2,Z2.T@y)
+St2=np.std(y)
+Sr2=np.std(y-Z2@a2)
 
+r2_2=1-Sr2/St2;
+r_2=np.sqrt(r2_2);
+
+print('the coefficient of determination for this fit is {}'.format(r2_2))
+print('the correlation coefficient this fit is {}'.format(r_2))
 ```
+
+The quadratic is the better fit.
+
++++
 
 ## Overfitting Warning 
 **Coefficient of determination reduction does not always mean a better fit**
@@ -388,6 +412,71 @@ Use the `../data/xy_data.csv` data set to create polynomial fits from order 1-7.
 xy_data = np.loadtxt('../data/xy_data.csv',delimiter=',')
 x=xy_data[:,0];
 y=xy_data[:,1];
+print(x)
+print(y)
+```
+
+```{code-cell} ipython3
+# randomize testing/training indices
+np.random.seed(103)
+i_rand=np.random.randint(0,len(x),size=len(x))
+# choose the first half of data as training
+train_per=0.7
+x_train=x[i_rand[:int(len(x)*train_per)]]
+y_train=y[i_rand[:int(len(x)*train_per)]]
+
+# choose the second half of data as testing
+x_test=x[i_rand[int(len(x)*train_per):]]
+y_test=y[i_rand[int(len(x)*train_per):]]
+```
+
+```{code-cell} ipython3
+Z=np.block([[x_train**0]]).T
+Z_test=np.block([[x_test**0]]).T
+#np.append(Z,np.array([d**2]),axis=0)
+max_N=8
+SSE_train=np.zeros(max_N)
+SSE_test=np.zeros(max_N)
+for i in range(1,max_N):
+    Z=np.hstack((Z,x_train.reshape(-1,1)**i))
+    Z_test=np.hstack((Z_test,x_test.reshape(-1,1)**i))
+    A = np.linalg.solve(Z.T@Z,Z.T@y_train)
+    St=np.std(y_train)
+    Sr=np.std(y_train-Z@A)
+    r2=1-Sr/St
+    if (i)%5==0:
+        print('---- n={:d} -------'.format(i))
+        print('the coefficient of determination for this fit is {:.3f}'.format(r2))
+        print('the correlation coefficient this fit is {:.3f}'.format(r2**0.5))
+    if (i) <=7 or i==29: plt.plot(x_train,y_train-Z@A,'o',label='order {:d}'.format(i))
+    SSE_train[i]=np.sum((y_train-Z@A)**2)/len(y_train)
+    SSE_test[i]=np.sum((y_test-Z_test@A)**2)/len(y_test)
+    
+#plt.plot(d,F)
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5));
+plt.title('Error in predicted vs measured values')
+plt.xlabel('dx')
+plt.ylabel('error\ny-Z@A');
+```
+
+```{code-cell} ipython3
+x_ext=np.linspace(0,20)
+Z_ext=np.block([[x_ext**0],[x_ext**1]]).T
+Z=np.block([[x**0],[x**1]]).T
+max_N=7
+for i in range(2,max_N+1):
+    Z=np.hstack((Z,x.reshape(-1,1)**i))
+    Z_ext=np.hstack((Z_ext,x_ext.reshape(-1,1)**i))
+    A = np.linalg.solve(Z.T@Z,Z.T@y)
+    if i==7:# or i==20: 
+        plt.plot(x_ext,Z_ext@A,label='order {:d}'.format(i))
+
+        
+plt.plot(x,y,'.',label='xy-data')
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5));
+plt.title('xy-Plot')
+plt.xlabel('x')
+plt.ylabel('y')
 ```
 
 ### Beyond polynomials
@@ -497,7 +586,96 @@ e. Repeat b-d for orders 2,3,4,...,10
 f. Plot the error in __testing-training__ error vs the order of the polynomial fit
 
 ```{code-cell} ipython3
+fname = '../data/land_global_temperature_anomaly-1880-2016.csv'
 
+temp_data = pd.read_csv(fname,skiprows=4)
+
+t = (temp_data['Year'].values-1880)/len(temp_data)
+T = temp_data['Value'].values
+```
+
+```{code-cell} ipython3
+#part a
+# randomize testing/training indices
+np.random.seed(103)
+i_rand=np.random.randint(0,len(t),size=len(t))
+# choose the first half of data as training
+train_per=0.7
+t_train=t[i_rand[:int(len(t)*train_per)]]
+T_train=T[i_rand[:int(len(t)*train_per)]]
+# choose the second half of data as testing
+t_test=t[i_rand[int(len(t)*train_per):]]
+T_test=T[i_rand[int(len(t)*train_per):]]
+```
+
+```{code-cell} ipython3
+Z=np.block([[t_train**0]]).T
+Z_test=np.block([[t_test**0]]).T
+#np.append(Z,np.array([d**2]),axis=0)
+max_N=11
+SSE_train=np.zeros(max_N)
+SSE_test=np.zeros(max_N)
+for i in range(1,max_N):
+    Z=np.hstack((Z,t_train.reshape(-1,1)**i))
+    Z_test=np.hstack((Z_test,t_test.reshape(-1,1)**i))
+    A = np.linalg.solve(Z.T@Z,Z.T@T_train) #part c
+    St=np.std(T_train)
+    Sr=np.std(T_train-Z@A)
+    r2=1-Sr/St
+    if (i)%1==0:
+        print('---- n={:d} -------'.format(i))
+        print('the coefficient of determination for this fit is {:.3f}'.format(r2))
+        print('the correlation coefficient this fit is {:.3f}'.format(r2**0.5))
+    if (i) <=10: plt.plot(t_train,T_train-Z@A,'o',label='order {:d}'.format(i))
+    SSE_train[i]=np.sum((T_train-Z@A)**2)/len(T_train) #part d
+    SSE_test[i]=np.sum((T_test-Z_test@A)**2)/len(T_test) #part d
+    
+#plt.plot(t,T)
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5));
+plt.title('Error in predicted vs measured values')
+plt.xlabel('Normalized Year')
+plt.ylabel('error\ny-Z@A (\N{DEGREE SIGN}C)');
+```
+
+```{code-cell} ipython3
+f, (ax1,ax2)=plt.subplots(1,2,figsize=(12,4),tight_layout=True)
+ax1.semilogy(np.arange(2,max_N),SSE_train[2:],label='training error')
+ax1.semilogy(np.arange(2,max_N),SSE_test[2:],label='testing error')
+f.suptitle('Reduction in error with higher order fits')
+ax1.legend();
+ax1.set_xlabel('polynomial order')
+ax1.set_ylabel('total sum of square error');
+ax2.plot(t_train,Z@A+100,'o',label='train order {:d}'.format(i-1))
+ax2.plot(t_test,Z_test@A-100,'s',label='test order {:d}'.format(i-1))
+ax2.plot(t,T,'d',label='AFM data')
+ax2.legend();
+ax2.set_ylabel('Temp-Offset for Clarity (\N{DEGREE SIGN}C)')
+ax2.set_xlabel('Normalized Year');
+```
+
+```{code-cell} ipython3
+Z=np.block([[t_train**0]]).T
+Z_test=np.block([[t_test**0]]).T
+#np.append(Z,np.array([d**2]),axis=0)
+max_N=11
+SSE_train=np.zeros(max_N)
+SSE_test=np.zeros(max_N)
+for i in range(1,max_N):
+    Z=np.hstack((Z,t_train.reshape(-1,1)**i))
+    Z_test=np.hstack((Z_test,t_test.reshape(-1,1)**i))
+    A = np.linalg.solve(Z.T@Z,Z.T@T_train) #part c
+    St=np.std(T_train)
+    Sr=np.std(T_train-Z@A)
+    r2=1-Sr/St
+    if (i) <=10: plt.plot(t_train,Z@A,'o',label='order {:d}'.format(i))
+    SSE_train[i]=np.sum((T_train-Z@A)**2)/len(T_train) #part d
+    SSE_test[i]=np.sum((T_test-Z_test@A)**2)/len(T_test) #part d
+    
+#plt.plot(t,T)
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5));
+plt.title('Fitted Data')
+plt.xlabel('Normalized Year')
+plt.ylabel('Predicted Temperature (\N{DEGREE SIGN}C)');
 ```
 
 <img src="../images/prony-series.png" style="width: 300px;"/> <img src="../images/stress_relax_wheat.png" style="width: 400px;"/> 
@@ -519,7 +697,28 @@ c. Solve for the constants, $a_1,~a_2,~a_3,~a_4~,a_5$
 d. Plot the best-fit function and the data from `../data/stress_relax.dat` _Use at least 50 points in time to get a smooth best-fit line._
 
 ```{code-cell} ipython3
+#part a
+data = '../data/stress_relax.dat'
 
+stress_data = pd.read_csv(data)
+
+time = stress_data['time (sec)'].values
+stress = stress_data['stress (MPa)'].values
+
+#part b
+Z= np.block([[np.exp(-time/1.78)],[np.exp(-time/11)], [np.exp(-time/53)],[np.exp(-time/411)],[time**0]]).T
+
+#part c
+a = np.linalg.solve(Z.T@Z,Z.T@stress)
+
+#part d
+plt.plot(time,stress,'o',label='data')
+plt.plot(time, Z@a,'-',label='poly fit')
+plt.xlabel('time (s)')
+plt.ylabel('stress (MPa)')
+plt.legend();
+
+print('a constants 1-5 respectively are: {:.3f}, {:.3f}, {:.3f}, {:.3f}, {:.3f}'.format(*a))
 ```
 
 3. Load the '../data/primary-energy-consumption-by-region.csv' that has the energy consumption of different regions of the world from 1965 until 2018 [Our world in Data](https://ourworldindata.org/energy). 
@@ -531,6 +730,40 @@ a. Use a piecewise least-squares regression to find a function for the energy co
 energy consumed = $f(t) = At+B+C(t-1970)H(t-1970)$
 
 c. What is your prediction for US energy use in 2025? How about European energy use in 2025?
+
+```{code-cell} ipython3
+energy = pd.read_csv('../data/primary-energy-consumption-by-region.csv')
+
+USA = energy[energy['Entity']== 'United States']
+EUR = energy[energy['Entity']== 'Europe']
+
+USA_yrs = USA['Year'].values
+USA_energy = USA['Primary Energy Consumption (terawatt-hours)'].values
+EUR_yrs = EUR['Year'].values
+EUR_energy = EUR['Primary Energy Consumption (terawatt-hours)'].values
+
+Z= np.block([[USA_yrs],[USA_yrs**0],[(USA_yrs-1970)*(USA_yrs>=1970)]]).T
+Z2 = np.block([[EUR_yrs],[EUR_yrs**0],[(EUR_yrs-1970)*(EUR_yrs>=1970)]]).T
+
+USA_fit = np.linalg.solve(Z.T@Z,Z.T@USA_energy)
+EUR_fit = np.linalg.solve(Z2.T@Z2,Z2.T@EUR_energy)
+
+plt.plot(USA_yrs,USA_energy,'o-',label='USA measured')
+plt.plot(EUR_yrs,EUR_energy,'o-',label='EUR measured')
+plt.plot(USA_yrs,Z@USA_fit,label='USA piece-wise best-fit')
+plt.plot(EUR_yrs,Z2@EUR_fit,label='EUR piece-wise best-fit')
+plt.title('Piecewise fit to Energy Consumption')
+plt.xlabel('Year')
+plt.ylabel('Energy Consumption (TW-hrs)')
+plt.legend();
+```
+
+```{code-cell} ipython3
+USA_2050 = USA_fit[0]*2050 + USA_fit[1] + (2050-1970)*USA_fit[2]
+EUR_2050 = EUR_fit[0]*2050 + EUR_fit[1] + (2050-1970)*EUR_fit[2]
+print('Predicted USA energy use in 2050: {:.3f} TW-hrs'.format(USA_2050))
+print('Predicted USA energy use in 2050: {:.3f} TW-hrs'.format(EUR_2050))
+```
 
 ```{code-cell} ipython3
 

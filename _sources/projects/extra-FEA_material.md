@@ -5,9 +5,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.10.3
+    jupytext_version: 1.11.4
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -239,6 +239,7 @@ plt.quiver(r0[ix],r0[iy],F[ix],F[iy],color=(1,0,0,1),label='applied forces')
 plt.axis([-100,1200,-100,1000])
 plt.legend(loc='center left', bbox_to_anchor=(1,0.5));
 plt.title('original and deformed structure\nscale = {}x'.format(scale));
+print(F)
 ```
 
 ## Project Matrix creation
@@ -440,7 +441,7 @@ is what we see, since our the sum of the reaction forces is equal to the
 applied force.
 
 > __Note__: Run this in Jupyter to interact with the scale of
-> deformation.  
+> deformation.
 
 ```{code-cell} ipython3
 from __future__ import print_function
@@ -459,4 +460,8 @@ def f(s):
     plt.title('Deformation scale = {:.1f}x'.format(s))
     plt.legend(bbox_to_anchor=(1,0.5))
 interact(f,s=(0,10,1));
+```
+
+```{code-cell} ipython3
+
 ```

@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Initial Value Problems - Project &#8212; Computational Mechanics</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -58,7 +58,10 @@
     <link rel="next" title="Computational Mechanics 4 - Linear Algebra" href="../module_04/README.html" />
     <link rel="prev" title="Roots of Nonlinear functions" href="../module_03/04_Getting_to_the_root.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -74,6 +77,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../_static/comp-mech-logo.svg" class="logo" alt="logo">
       
@@ -506,7 +513,7 @@ and the Tsiolkovsky analytical value.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simplerocket</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="n">dmdt</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">u</span><span class="o">=</span><span class="mi">250</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simplerocket</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="n">dmdt</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">u</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">0.18e-3</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Computes the right-hand side of the differential equation</span>
 <span class="sd">    for the acceleration of a rocket, without drag or gravity, in SI units.</span>
 <span class="sd">    </span>
@@ -518,12 +525,62 @@ and the Tsiolkovsky analytical value.</p>
 <span class="sd">    </span>
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    derivs: array of three derivatives [v (u/m*dmdt-g-c/mv^2) -dmdt]^T</span>
+<span class="sd">    derivs: array of three derivatives [v (u/m*dmdt) -dmdt]^T</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    
-    <span class="n">dstate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">state</span><span class="p">))</span>
-    <span class="c1"># your work</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="mf">9.81</span>
+    <span class="c1">#dstate = np.zeros(np.shape(state))</span>
+    <span class="n">dstate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="n">u</span><span class="o">/</span><span class="n">state</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">dmdt</span><span class="p">),</span> <span class="o">-</span><span class="n">dmdt</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">dstate</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">heun_step</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="n">rhs</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="n">etol</span><span class="o">=</span><span class="mf">0.000001</span><span class="p">,</span><span class="n">maxiters</span> <span class="o">=</span> <span class="mi">100</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Update a state to the next time increment using the implicit Heun&#39;s method.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    state : array of dependent variables</span>
+<span class="sd">    rhs   : function that computes the RHS of the DiffEq</span>
+<span class="sd">    dt    : float, time increment</span>
+<span class="sd">    etol  : tolerance in error for each time step corrector</span>
+<span class="sd">    maxiters: maximum number of iterations each time step can take</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    next_state : array, updated after one time increment&#39;&#39;&#39;</span>
+    <span class="n">e</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">eps</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span>
+    <span class="n">next_state</span> <span class="o">=</span> <span class="n">state</span> <span class="o">+</span> <span class="n">rhs</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span>
+    <span class="c1">################### New iterative correction #########################</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">maxiters</span><span class="p">):</span>
+        <span class="n">next_state_old</span> <span class="o">=</span> <span class="n">next_state</span>
+        <span class="n">next_state</span> <span class="o">=</span> <span class="n">state</span> <span class="o">+</span> <span class="p">(</span><span class="n">rhs</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">+</span><span class="n">rhs</span><span class="p">(</span><span class="n">next_state</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">dt</span>
+        <span class="n">e</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">next_state</span><span class="o">-</span><span class="n">next_state_old</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">next_state</span><span class="o">+</span><span class="n">eps</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">&lt;</span><span class="n">etol</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="c1">############### end of iterative correction #########################</span>
+    <span class="k">return</span> <span class="n">next_state</span>
+
+<span class="k">def</span> <span class="nf">rk2_step</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Update a state to the next time increment using modified Euler&#39;s method.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    state : array of dependent variables</span>
+<span class="sd">    rhs   : function that computes the RHS of the DiffEq</span>
+<span class="sd">    dt    : float, time increment</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    next_state : array, updated after one time increment&#39;&#39;&#39;</span>
+    
+    <span class="n">mid_state</span> <span class="o">=</span> <span class="n">state</span> <span class="o">+</span> <span class="n">rhs</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span><span class="o">*</span><span class="mf">0.5</span>    
+    <span class="n">next_state</span> <span class="o">=</span> <span class="n">state</span> <span class="o">+</span> <span class="n">rhs</span><span class="p">(</span><span class="n">mid_state</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span>
+ 
+    <span class="k">return</span> <span class="n">next_state</span>
 </pre></div>
 </div>
 </div>
@@ -533,12 +590,39 @@ and the Tsiolkovsky analytical value.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m0</span><span class="o">=</span><span class="mf">0.25</span>
 <span class="n">mf</span><span class="o">=</span><span class="mf">0.05</span>
 <span class="n">dm</span><span class="o">=</span><span class="mf">0.05</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="n">m0</span><span class="o">-</span><span class="n">mf</span><span class="p">)</span><span class="o">/</span><span class="n">dm</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">v0</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">500</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="n">m0</span><span class="o">-</span><span class="n">mf</span><span class="p">)</span><span class="o">/</span><span class="n">dm</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
 <span class="n">dt</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">num_heun</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">N</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="n">num_heun</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y0</span>
+<span class="n">num_heun</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v0</span>
+<span class="n">num_heun</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">m0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">num_heun</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">heun_step</span><span class="p">(</span><span class="n">num_heun</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">simplerocket</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">num_heun</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">m0</span><span class="p">,</span><span class="n">num_heun</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;implicit Heun&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">num_heun</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">m0</span><span class="p">,</span> <span class="o">-</span><span class="mi">250</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">num_heun</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">m0</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span> <span class="s1">&#39;Tsiolkovsky analytical value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$m_f/m_0$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;velocity (m/s)&#39;</span><span class="p">);</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;max height: </span><span class="si">{:.2f}</span><span class="s1"> m&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_heun</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>max height: 597.64 m
+</pre></div>
 </div>
+<img alt="../_images/03_IVP-project_6_1.png" src="../_images/03_IVP-project_6_1.png" />
+</div>
+</div>
+<p>Looking at the graph above the solution converges to the Tsiolkovsky equation.</p>
 <p><strong>2.</strong> You should have a converged solution for integrating <code class="docutils literal notranslate"><span class="pre">simplerocket</span></code>. Now, create a more relastic function, <code class="docutils literal notranslate"><span class="pre">rocket</span></code> that incorporates gravity and drag and returns the velocity, <span class="math notranslate nohighlight">\(v\)</span>, the acceleration, <span class="math notranslate nohighlight">\(a\)</span>, and the mass rate change <span class="math notranslate nohighlight">\(\frac{dm}{dt}\)</span>, as a function of the <span class="math notranslate nohighlight">\(state = [position,~velocity,~mass] = [y,~v,~m]\)</span> using eqn (1). Where the mass rate change <span class="math notranslate nohighlight">\(\frac{dm}{dt}\)</span> and the propellent speed <span class="math notranslate nohighlight">\(u\)</span> are constants. The average velocity of gun powder propellent used in firework rockets is <span class="math notranslate nohighlight">\(u=250\)</span> m/s [3,4].</p>
 <p><span class="math notranslate nohighlight">\(\frac{d~state}{dt} = f(state)\)</span></p>
 <p><span class="math notranslate nohighlight">\(\left[\begin{array}{c} v\\a\\ \frac{dm}{dt} \end{array}\right] = 
@@ -563,13 +647,52 @@ and the Tsiolkovsky analytical value.</p>
 <span class="sd">    derivs: array of three derivatives [v (u/m*dmdt-g-c/mv^2) -dmdt]^T</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">g</span><span class="o">=</span><span class="mf">9.81</span>
-    <span class="n">dstate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">state</span><span class="p">))</span>
-    <span class="c1"># your work</span>
+    <span class="c1">#dstate = np.zeros(np.shape(state))</span>
+    <span class="n">dstate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="n">u</span><span class="o">/</span><span class="n">state</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">dmdt</span> <span class="o">-</span><span class="n">g</span> <span class="o">-</span> <span class="n">c</span><span class="o">/</span><span class="n">state</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="o">-</span><span class="n">dmdt</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">dstate</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m0</span><span class="o">=</span><span class="mf">0.25</span>
+<span class="n">mf</span><span class="o">=</span><span class="mf">0.05</span>
+<span class="n">dm</span><span class="o">=</span><span class="mf">0.05</span>
+<span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">v0</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="n">m0</span><span class="o">-</span><span class="n">mf</span><span class="p">)</span><span class="o">/</span><span class="n">dm</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="n">dt</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">num_rk2</span> <span class="o">=</span> <span class="n">num_heun2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">N</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="n">num_rk2</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">num_heun2</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y0</span>
+<span class="n">num_rk2</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">num_heun2</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v0</span>
+<span class="n">num_rk2</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">num_heun2</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">m0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">num_heun2</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">heun_step</span><span class="p">(</span><span class="n">num_heun2</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">rocket</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+    <span class="n">num_rk2</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">rk2_step</span><span class="p">(</span><span class="n">num_rk2</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">rocket</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">num_heun2</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">m0</span><span class="p">,</span> <span class="n">num_heun2</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;implicit Heun&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">num_rk2</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">m0</span><span class="p">,</span> <span class="n">num_rk2</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;explicit RK2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">num_heun</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">m0</span><span class="p">,</span> <span class="o">-</span><span class="mi">250</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">num_heun</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">m0</span><span class="p">),</span><span class="n">label</span><span class="o">=</span> <span class="s1">&#39;Tsiolkovsky analytical value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$m_f/m_0$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;velocity (m/s)&#39;</span><span class="p">);</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;max height: </span><span class="si">{:.2f}</span><span class="s1"> m&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_heun2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>max height: 425.44 m
+</pre></div>
+</div>
+<img alt="../_images/03_IVP-project_10_1.png" src="../_images/03_IVP-project_10_1.png" />
+</div>
+</div>
+<p>The solutions between the simple rocket and rocket are not similar. The max height reached with simple rocket is 597.64 m as opposed to 425.44 m with rocket. The difference is about 28.8% (simple rocket - rocket)/ simple rocket *100.</p>
 <p><strong>3.</strong> Solve for the mass change rate that results in detonation at a height of 300 meters. Create a function <code class="docutils literal notranslate"><span class="pre">f_dm</span></code> that returns the final height of the firework when it reaches <span class="math notranslate nohighlight">\(m_{f}=0.05~kg\)</span>. The inputs should be</p>
 <p><span class="math notranslate nohighlight">\(f_{m}= f_{m}(\frac{dm}{dt},~parameters)\)</span></p>
 <p>where <span class="math notranslate nohighlight">\(\frac{dm}{dt}\)</span> is the variable you are using to find a root and <span class="math notranslate nohighlight">\(parameters\)</span> are the known values, <code class="docutils literal notranslate"><span class="pre">m0=0.25,</span> <span class="pre">c=0.18e-3,</span> <span class="pre">u=250</span></code>. When <span class="math notranslate nohighlight">\(f_{m}(\frac{dm}{dt}) = 0\)</span>, you have found the correct root.</p>
@@ -601,7 +724,24 @@ the function.</p>
 <span class="sd">    error: the difference between height_desired and height_predicted[-1]</span>
 <span class="sd">        when f_dm(dmdt) = 0, the correct mass change rate was chosen</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="c1"># your work</span>
+    <span class="n">mf</span> <span class="o">=</span> <span class="mf">0.05</span>
+    <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">v0</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="n">m0</span><span class="o">-</span><span class="n">mf</span><span class="p">)</span><span class="o">/</span><span class="n">dmdt</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+    <span class="n">dt</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        
+    <span class="c1">#initialize array</span>
+    <span class="n">num_sol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">N</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+
+    <span class="n">num_sol</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y0</span>
+    <span class="n">num_sol</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v0</span>
+    <span class="n">num_sol</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">m0</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">num_sol</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">rk2_step</span><span class="p">(</span><span class="n">num_sol</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">rocket</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+        
+    <span class="n">error</span> <span class="o">=</span> <span class="mi">300</span> <span class="o">-</span> <span class="n">num_sol</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">error</span>
 </pre></div>
 </div>
@@ -641,8 +781,108 @@ the function.</p>
         <span class="k">if</span> <span class="n">ea</span> <span class="o">&lt;=</span> <span class="n">es</span><span class="p">:</span>
             <span class="k">break</span>
     <span class="k">return</span> <span class="n">xr</span><span class="p">,[</span><span class="n">func</span><span class="p">(</span><span class="n">xr</span><span class="p">),</span><span class="n">ea</span><span class="p">,</span><span class="nb">iter</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">incsearch</span><span class="p">(</span><span class="n">func</span><span class="p">,</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">,</span><span class="n">ns</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;incsearch: incremental search root locator</span>
+<span class="sd">    xb = incsearch(func,xmin,xmax,ns):</span>
+<span class="sd">      finds brackets of x that contain sign changes</span>
+<span class="sd">      of a function on an interval</span>
+<span class="sd">    arguments:</span>
+<span class="sd">    ---------</span>
+<span class="sd">    func = name of function</span>
+<span class="sd">    xmin, xmax = endpoints of interval</span>
+<span class="sd">    ns = number of subintervals (default = 50)</span>
+<span class="sd">    returns:</span>
+<span class="sd">    ---------</span>
+<span class="sd">    xb(k,1) is the lower bound of the kth sign change</span>
+<span class="sd">    xb(k,2) is the upper bound of the kth sign change</span>
+<span class="sd">    If no brackets found, xb = [].&#39;&#39;&#39;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">,</span><span class="n">ns</span><span class="p">)</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">func</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span> <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span>
+    <span class="n">sign_f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">delta_sign_f</span> <span class="o">=</span> <span class="n">sign_f</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">-</span><span class="n">sign_f</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">i_zeros</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">delta_sign_f</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">nb</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">i_zeros</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">xb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[</span> <span class="n">x</span><span class="p">[</span><span class="n">i_zeros</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">]],[</span><span class="n">x</span><span class="p">[</span><span class="n">i_zeros</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="p">]]</span> <span class="p">)</span>
+
+    
+    <span class="k">if</span> <span class="n">nb</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;no brackets found</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;check interval or increase ns</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;number of brackets:  </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nb</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">xb</span>
 </pre></div>
 </div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f_dm</span><span class="p">(</span><span class="mf">.05</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-125.44324175030181
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part a</span>
+<span class="n">dm</span> <span class="o">=</span> <span class="n">incsearch</span><span class="p">(</span><span class="n">f_dm</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">ns</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Upper bound on rate = </span><span class="si">{:.5f}</span><span class="s1"> kg/s&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">dm</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Lower bound on rate = </span><span class="si">{:.5f}</span><span class="s1"> kg/s&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">dm</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]))</span>
+
+<span class="c1">#part b</span>
+<span class="n">dm</span><span class="p">,</span><span class="n">out</span> <span class="o">=</span> <span class="n">mod_secant</span><span class="p">(</span><span class="n">f_dm</span><span class="p">,</span><span class="mf">0.0001</span><span class="p">,</span><span class="mf">.05</span><span class="p">,</span><span class="n">es</span><span class="o">=</span><span class="mf">0.000001</span><span class="p">)</span> <span class="c1"># &lt;-- solution line</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dm</span><span class="p">,</span> <span class="s1">&#39;kg/s is the correct mass rate change to match the height of 300 m&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;the solve took &#39;</span><span class="p">,</span><span class="n">out</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39; iterations&#39;</span><span class="p">)</span>
+
+<span class="n">m0</span><span class="o">=</span><span class="mf">0.25</span>
+<span class="n">mf</span><span class="o">=</span><span class="mf">0.05</span>
+<span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">v0</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="n">m0</span><span class="o">-</span><span class="n">mf</span><span class="p">)</span><span class="o">/</span><span class="n">dm</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="n">dt</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">num_heun2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">N</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="n">num_heun2</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y0</span>
+<span class="n">num_heun2</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v0</span>
+<span class="n">num_heun2</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">m0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">num_heun2</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">heun_step</span><span class="p">(</span><span class="n">num_heun2</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">rocket</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>number of brackets:  1
+
+Upper bound on rate = 0.05893 kg/s
+Lower bound on rate = 0.05875 kg/s
+0.058764849432739 kg/s is the correct mass rate change to match the height of 300 m
+the solve took  4  iterations
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#part c</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">num_heun2</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">num_heun2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;*&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Height (m)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Height vs. Time&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_IVP-project_17_0.png" src="../_images/03_IVP-project_17_0.png" />
 </div>
 </div>
 <div class="section" id="references">
@@ -679,36 +919,27 @@ the function.</p>
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="../module_03/04_Getting_to_the_root.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Roots of Nonlinear functions</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../module_03/04_Getting_to_the_root.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Roots of Nonlinear functions</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../module_04/README.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Computational Mechanics 4 - Linear Algebra</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="../module_04/README.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Computational Mechanics 4 - Linear Algebra</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         
@@ -724,8 +955,7 @@ the function.</p>
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

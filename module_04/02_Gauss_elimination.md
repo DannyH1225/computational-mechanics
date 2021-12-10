@@ -5,9 +5,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.10.3
+    jupytext_version: 1.11.4
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -110,6 +110,12 @@ plt.legend(loc='center left', bbox_to_anchor=(1, 0.5));
 
 The intersection between the equations lines 1 and 2 seems to occur everywhere. Why is there still a __single__ solution?
 
++++
+
+There is still a single solution due to the addition of $\delta$ added to to the coefficient of x and y.
+
++++
+
 ## 3 Degrees of Freedom
 
 For a $3\times3$ matrix, the solution is the intersection of the 3 planes.
@@ -162,16 +168,16 @@ Create a set of 3 equations and 3 unknowns where two of the equations are multip
 ```{code-cell} ipython3
 X,Y = np.meshgrid(np.linspace(-1,1,10),np.linspace(0,3,10))
 # Define your Z1,Z2,Z3 based upon your chosen equations
-# Z1
-# Z2
-# Z3
+Z1 = 1 - 5*X - 2*Y
+Z2 = 2 - 10*X - 4*Y
+Z3 = 3 - 4*X - 6*Y
 fig = plt.figure(figsize=(7,6))
 ax = fig.add_subplot(111, projection='3d')
 
 ax.plot_wireframe(X,Y,Z1,color='g',alpha=0.5)
 ax.plot_wireframe(X,Y,Z2,color='b',alpha=0.5)
 ax.plot_wireframe(X,Y,Z3,color='r',alpha=0.5)
-x=np.linalg.solve(np.array([[10,2, 1],[2,1, 1],[ 1, 2, 10]]),np.array([1,1,1]));
+x=np.linalg.solve(np.array([[5,2, 1],[10,4, 2],[ 4, 6, 1]]),np.array([1,2,3]));
 ax.scatter(x[0],x[1],x[2],s=600,c='k',marker='x')
 ax.set_xlabel(' x1')
 ax.set_ylabel('x2')
@@ -499,10 +505,10 @@ U=np.array([[-7,3,0],[0,-16,12],[0,0,-9]])
 
 Use the `@`-symbol to confirm LU = A. 
 
-`L@U` 
+`L@U`
 
 ```{code-cell} ipython3
-
+L@U == A
 ```
 
 Now, you can rewrite our problem $\mathbf{Ax} = \mathbf{b}$ as $\mathbf{LUx} = \mathbf{b}$. This may not see helpful at first, but take a look at the new system of equations that you can solve
@@ -549,7 +555,7 @@ y_{1} \\
 y_{2} \\
 y_{3}\end{array}\right]$
 
-You can solve these equations without Gauss elimination. You just need to use a __forward substitution__ for $\mathbf{Ly}=\mathbf{b}$ and a __backward substitution__ for $\mathbf{Ux}=\mathbf{y}$. 
+You can solve these equations without Gauss elimination. You just need to use a __forward substitution__ for $\mathbf{Ly}=\mathbf{b}$ and a __backward substitution__ for $\mathbf{Ux}=\mathbf{y}$.
 
 ```{code-cell} ipython3
 def solveLU(L,U,b):
@@ -614,7 +620,6 @@ In the last two comparisons, it is not always immediately obvious that the LU-de
 * $x_1=[0...50]~mg/m^3$
 
 * $x_2=[0...50]~mg/m^3$
-
 
 ```{code-cell} ipython3
 N=51 # meshgrid is NxN
@@ -689,7 +694,7 @@ $\mathbf{U}=\left[ \begin{array}{cc}
 300-3/4\cdot400 & -450+3/4\cdot300  \end{array} \right]=
 \left[ \begin{array}{cc}
 -400 & 300 \\
-0 & -300  \end{array} \right]$
+0 & -225  \end{array} \right]$
 
 The lower matrix stores this factor, $-3/4$ in the second row, first column
 
@@ -706,14 +711,17 @@ $\mathbf{LU}=\mathbf{A}=\left[ \begin{array}{cc}
 1 & 0 \\
 -3/4 & 1  \end{array} \right]\left[ \begin{array}{cc}
 -400 & 300 \\
-0 & -300  \end{array} \right]=
+0 & -225  \end{array} \right]=
 \left[ \begin{array}{cc}
 -400 & 300 \\
 300 & -450  \end{array} \right]
 $
 
 ```{code-cell} ipython3
-
+L = np.array([[1,0],[-3/4,1]])
+U = np.array([[-400, 300],[0,-225]])
+A = np.array([[-400, 300],[300, -450]])
+L@U == A
 ```
 
 ## Create LU decomposition function
@@ -774,7 +782,18 @@ Use the `LUNaive` function to create $\mathbf{L}$ and $\mathbf{U}$ matrices from
 0 & 2 & 4 & -12 \end{array} \right]$
 
 ```{code-cell} ipython3
+A1 = np.array([[18, -2],[-2,10]])
+A2 = np.array([[10,3,1],[4,5,2],[2,1,6]])
+A3 = np.array([[-7,3,1,1],[3,-19,12,0],[7,5,-10,0],[0,2,4,-12]])
 
+L1, U1 = LUNaive(A1)
+L2, U2 = LUNaive(A2)
+L3, U3 = LUNaive(A3)
+
+
+print(L1@U1 == A1)
+print(L2@U2 == A2)
+print(L3@U3 == A3)
 ```
 
 ### Problem (Diagonal element is zero)
@@ -850,7 +869,7 @@ a. $\left[ \begin{array}{cccc}
 2/3 \end{array} \right]\neq
 \left[ \begin{array}{c}
 2 \\
-1 \end{array} \right]$ 
+1 \end{array} \right]$
 
 ```{code-cell} ipython3
 Aa@np.array([0,2/3])
@@ -868,7 +887,7 @@ x_{2} \end{array} \right]=
 1.0000 \\
 2 \end{array} \right]$
 
-and the solution changes to $x_1=1/3$ and $x_2=2/3$. This solution satisfies our initial equations. 
+and the solution changes to $x_1=1/3$ and $x_2=2/3$. This solution satisfies our initial equations.
 
 ```{code-cell} ipython3
 Aa = np.array([[1,1],[1e-19,3]])
@@ -905,10 +924,17 @@ print(aug_b)
 
 ## Exercise
 
-Swap row 1 with either row 2 or row 3. What is the solution for `x_b` now? Show that if you plug in the solution for $[x_1,~x_2,~x_3]$ into the unpivoted $\mathbf{A}$ that the result is $[8,~-3,~5]$. 
+Swap row 1 with either row 2 or row 3. What is the solution for `x_b` now? Show that if you plug in the solution for $[x_1,~x_2,~x_3]$ into the unpivoted $\mathbf{A}$ that the result is $[8,~-3,~5]$.
 
 ```{code-cell} ipython3
+Ab = np.array([[4,6,7],[2,-3,6],[0,2,3]])
+bb = np.array([-3,5,8])
 
+x_b, aug_b = GaussNaive(Ab,bb)
+print(x_b)
+print(aug_b)
+
+Ab@x_b == bb
 ```
 
 ## Existing [linear algebra functions in Python](https://docs.scipy.org/doc/numpy/reference/routines.linalg.html)
@@ -1010,7 +1036,20 @@ m_{3}g \\
 m_{4}g \end{array} \right]$
 
 ```{code-cell} ipython3
+m1 = 1
+m2 = 2
+m3 = 3
+m4 = 4
+k = 100
+g = 9.81
+A4 = np.array([[2*k,-k,0,0],[-k,2*k,-k,0],[0,-k,2*k,-k],[0,0,-k,k]])
+y4 = np.array([m1*g,\
+               m2*g,\
+               m3*g,\
+               m4*g])
 
+x4 = np.linalg.solve(A4,y4)
+print('x1={:.3f} m\nx2={:.3f} m\nx3={:.3f} m\nx4={:.3f} m'.format(*x4))
 ```
 
 ![Triangular truss](../images/truss.png)
@@ -1037,10 +1076,45 @@ a. Create the system of equations, $\mathbf{Ax}=\mathbf{b}$, when $\alpha=35^o$,
 
 b. Solve for the $\mathbf{LU}$ decomposition of $\mathbf{A}$. 
 
-c. Use the $\mathbf{LU}$ solution to solve for the tension in bar 1 $(P_1)$ every 10 N values of force, F, between 100 N and 1100 N. Plot $P_1~vs~F$. 
+c. Use the $\mathbf{LU}$ solution to solve for the tension in bar 1 $(P_1)$ every 10 N values of force, F, between 100 N and 1100 N. Plot $P_1~vs~F$.
 
 ```{code-cell} ipython3
+#part a
+alpha = np.rad2deg(35)
+beta = np.rad2deg(40)
+F = 1000
+At = np.array([[1, np.cos(alpha), 0],\
+               [0, -2*np.cos(beta/2), 0],\
+               [0, np.sin(alpha), 1]])
+bt = np.array([0, F, 0])
 
+xt, Aug = GaussNaive(At, bt)
+print('x=', xt, "\n",'Augmented Matrix =\n',Aug)
+```
+
+```{code-cell} ipython3
+#part b
+P, L, U = lu(At)
+print('L= {}'.format(L))
+print('U= {}'.format(U))
+L@U == At
+```
+
+```{code-cell} ipython3
+#part c
+Fs = np.arange(100,1110,10)
+
+bs = np.zeros([len(Fs), 3])
+xs = np.zeros([len(Fs), 3])
+
+for i in range(len(Fs)):
+    bs[i] = np.array([0, Fs[i],0])
+    xs[i] = solveLU(L,U,P.T@bs[i])
+    
+plt.plot(Fs, xs[:,0])
+plt.xlabel('F (N)')
+plt.ylabel('$\mathrm{P_1}$ (N)')
+plt.title('$\mathrm{P_1}$ vs. F')
 ```
 
 3. Using the same truss as shown above, let's calculate the tension in bar 1, $P_1$, when $\theta=[0...90^o]$ and $F=[100...1100]~kN$. When $\theta\neq 0$, the resulting 6 equations and 6 unknowns are given in the following matrix
@@ -1072,7 +1146,52 @@ a. Create the system of equations, $\mathbf{Ax}=\mathbf{b}$, when $\alpha=35^o$,
 
 b. Solve for the $\mathbf{PLU}$ decomposition of $\mathbf{A}$. 
 
-c. Use the $\mathbf{PLU}$ solution to solve for the tension in bar 1 $(P_1)$ every 10 N values of force, F, between 100 N and 1100 N. Plot $P_1~vs~F$. 
+c. Use the $\mathbf{PLU}$ solution to solve for the tension in bar 1 $(P_1)$ every 10 N values of force, F, between 100 N and 1100 N. Plot $P_1~vs~F$.
+
+```{code-cell} ipython3
+#part a
+alpha1 = np.deg2rad(35)
+beta1 = np.deg2rad(40)
+theta = np.deg2rad(45)
+F1 = 1000
+At2 = np.array([[1,np.cos(alpha1),0,0,1,0],\
+                [0,np.sin(alpha1),0,1,0,0],\
+                [0,np.cos(beta1/2),np.cos(beta/2),0,0,0],\
+                [0,-np.sin(beta1/2),np.sin(beta/2),0,0,0],\
+                [-1,0,np.cos(alpha1),0,0,0],\
+                [0,0,np.sin(alpha1),0,0,1]])
+
+bt2 = np.array([0,0,F1*np.cos(theta),-F1*np.sin(theta),0,0])
+
+x2, Aug1 = GaussNaive(At2, bt2)
+print('x = {}'.format(x2))
+print('Augmented matrix={}'.format(Aug1))
+```
+
+```{code-cell} ipython3
+#part b
+P1,L1,U1 = lu(At2)
+
+print('P= {}\nL={}\nU={}'.format(P1, L1, U1))
+print(P1@L1@U1 ==At2)
+```
+
+```{code-cell} ipython3
+#part c
+Fs = np.arange(100,1110,10)
+
+bs = np.zeros([len(Fs), 6])
+xs = np.zeros([len(Fs), 6])
+
+for i in range(len(Fs)):
+    bs[i] = np.array([0,0,Fs[i]*np.cos(theta),-Fs[i]*np.sin(theta),0,0])
+    xs[i] = solveLU(L1,U1,P1.T@bs[i])
+    
+plt.plot(Fs, xs[:,1])
+plt.xlabel('F (N)')
+plt.ylabel('$\mathrm{P_1}$ (N)')
+plt.title('$\mathrm{P_1}$ vs. F')
+```
 
 ```{code-cell} ipython3
 

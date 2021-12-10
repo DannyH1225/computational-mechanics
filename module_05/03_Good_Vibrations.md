@@ -4,10 +4,10 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
-    format_version: 0.12
-    jupytext_version: 1.6.0
+    format_version: 0.13
+    jupytext_version: 1.11.4
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -153,8 +153,28 @@ print('2nd natural frequency is %1.2f Hz, \
 Increase the stiffness of the springs, $k_1,~k_2,~and~k_3=2000~N/m.$ What are the natural frequencies? The stiffness increased $\times 4,$ how much did the natural frequencies change?
 
 ```{code-cell} ipython3
+m1=m2=0.1 # 0.2 kg
+k1=k2=k3=2000 # 500 N/m
 
+M=np.array([[m1,0],[0,m2]])
+K=np.array([[k1+k2,-k2],[-k2,k2+k3]])
+
+e,v=linalg.eig(K,M)
+w1=np.sqrt(e[0].real)/2/np.pi
+v1=v[:,0]/max(v[:,0])
+
+w2=np.sqrt(e[1].real)/2/np.pi
+v2=v[:,1]/max(v[:,1])
+
+print('1st natural frequency is %1.2f Hz, \
+     mode shape: %1.0f*x1(t)=%1.0f*x2(t)'%(w1,v1[0],v1[1]))
+print('2nd natural frequency is %1.2f Hz, \
+    mode shape: %1.0f*x1(t)=%1.0f*x2(t)'%(w2,v2[0],v2[1]))
 ```
+
+The natural frequencies about doubled when the stiffness increased by 4.
+
++++
 
 ### Linear Algebra: $\mathbf{Ax=b}$ vs $\mathbf{Ax}=\lambda\mathbf{x}$
 
@@ -350,8 +370,38 @@ e.g. `z[:,0]=np.array([0,0,2,2])` for eigenvector 1.
 How does it change the plots for "Eigenvector 1" and "Eigenvector 2"?
 
 ```{code-cell} ipython3
+T=2*1/w1 # 2 x longest period
+dt=1/w2/10 # shortest period
+t=np.arange(0,T,dt)
+state_e1=np.zeros((4,len(t)))
+state_e1[:,0]=np.array([0,0,2,2]) # set initial conditions eigenv 1
+state_e2=np.zeros((4,len(t)))
+state_e2[:,0]=np.array([2,-2,0,0]) # set initial conditions eigenv 2
 
+for i in range(0,len(t)-1):
+    state_e1[:,i+1]=heun_step(state_e1[:,i],spring_mass,dt)
+    state_e2[:,i+1]=heun_step(state_e2[:,i],spring_mass,dt)
+    
+
+plt.figure(figsize=(9,5))
+plt.subplot(2,1,1)
+plt.title('Eigenvector 1')
+plt.plot(t,state_e1[0,:]*100,'rs-',label='x_1')
+plt.plot(t,state_e1[1,:]*100,'b-',label='x_2')
+plt.ylabel('position\n (cm)')
+plt.subplot(2,1,2)
+plt.title('Eigenvector 2')
+plt.plot(t,state_e2[0,:]*100,'rs-',label='x_1')
+plt.plot(t,state_e2[1,:]*100,'b-',label='x_2')
+plt.xlabel('time (s)')
+plt.ylabel('position\n (cm)')
+plt.tight_layout()
+plt.legend(loc='center left',bbox_to_anchor=(1,1.2));
 ```
+
+Eigenvector 1 graph is shifted over and its amplitude changes. Eigenvector 2 graph is not changed but its amplitude changed.
+
++++
 
 ## Back to your Guitar String
 
@@ -473,6 +523,10 @@ _Fun fact: guitar string vibration modes take the form $\sin\left(\frac{n\pi x}{
 
 ```{code-cell} ipython3
 ymodes=np.pad(v,((1,1),(0,0))) # add a 0 to the first row and last row, but add nothing to columns 
+plt.plot(v[:,0],label='eigenvector 1');
+plt.plot(v[:,1],label='eigenvector 2');
+plt.plot(v[:,2],label='eigenvector 3');
+plt.legend(bbox_to_anchor=(1.05,1))
 ```
 
 ## Creating your solution for y(x,t)
@@ -599,8 +653,8 @@ for i in range(0,N):
 plt.legend(bbox_to_anchor=(1,0.5),loc='center left')
 plt.xlabel('time(s)')
 plt.ylabel('y-position (m)')
-plt.title('Plotting rows of y(x,t)\neach line is one point along x-axis')
-##plt.plot(np.arange(0,tsteps)*dt,y[50,:]);
+plt.title('Plotting rows of y(x,t)\neach line is one point along x-axis');
+#plt.plot(np.arange(0,tsteps)*dt,y[50,:]);
 ```
 
 ```{code-cell} ipython3
@@ -609,7 +663,7 @@ plt.plot(x*100,ybcs[:,0::10]*100,c=(1,0,0,0.1));
 plt.plot(x[[0,-1]]*100,[0,0],'o')
 plt.xlabel('x-position (cm)')
 plt.ylabel('y-position (cm)')
-plt.title('Plotting columns of y(x,t)\neach line is one point in time')
+plt.title('Plotting columns of y(x,t)\neach line is one point in time');
 ```
 
 #### Fancy 3D plot to see the whole y(x,t) stretched out over the time and space axes
@@ -681,8 +735,15 @@ print('\nLongest time period ={:1.3f} ms\nshortest time period ={:1.3f} ms'.form
 Plot the first 3 vibration modes as you did for the 6-node guitar string. What is different? How would you describe the _convergence_?
 
 ```{code-cell} ipython3
-
+plt.plot(v[:,0],label='eigenvector 1');
+plt.plot(v[:,1],label='eigenvector 2');
+plt.plot(v[:,2],label='eigenvector 3');
+plt.legend(bbox_to_anchor=(1.05,1));
 ```
+
+The natural frequencies are more smooth rather than the blocky lines from the 6 element string. The convergence is also more accurate as it spans the full length of the string
+
++++
 
 ### Increase length of simulation
 
@@ -712,7 +773,7 @@ for i in range(0,int(N/2)+1,5):
 plt.legend(bbox_to_anchor=(1,0.5),loc='center left')
 plt.xlabel('time(s)')
 plt.ylabel('y-position (m)')
-plt.title('Plotting half the rows of y(x,t)\neach line is one point along x-axis')
+plt.title('Plotting half the rows of y(x,t)\neach line is one point along x-axis');
 ##plt.plot(np.arange(0,tsteps)*dt,y[50,:]);
 ```
 
@@ -722,7 +783,7 @@ plt.plot(x*100,ybcs[:,0::50]*100,c=(1,0,0,0.1));
 plt.plot(x[[0,-1]]*100,[0,0],'o')
 plt.xlabel('x-position (cm)')
 plt.ylabel('y-position (cm)')
-plt.title('Plotting columns of y(x,t)\neach line is one point in time')
+plt.title('Plotting columns of y(x,t)\neach line is one point in time');
 ```
 
 ### Visualizing the motion
@@ -824,7 +885,9 @@ Audio(data=100*np.sin(110*2*np.pi*tsig),rate=r)
 Create a 1-second audio clip of the 440-Hz A note.
 
 ```{code-cell} ipython3
-
+r=20000
+tsig=np.arange(0,1,1/r)
+Audio(data=100*np.sin(440*2*np.pi*tsig),rate=r)
 ```
 
 ### Listen to your simulated Guitar
@@ -841,7 +904,7 @@ Audio(data=out_file,rate=samplerate)
 plt.plot(range(0,len(out_file))*dt*1000,out_file)
 plt.xlim((0,200))
 plt.xlabel('time (ms)')
-plt.ylabel('input signal (a.u.)')
+plt.ylabel('input signal (a.u.)');
 ```
 
 ### Discussion
@@ -879,7 +942,82 @@ a. Calculate the natural frequencies and mode shapes _(eigenvectors)_.
 b. Plot the position of $x_1~and~x_2$ if the masses are at rest when mass 2 is given an initial velocity of 2 m/s.
 
 ```{code-cell} ipython3
+def spring_mass(state,k1=1000,k2=500,k3=1000,m1=0.1,m2=0.1):
+    ''' Define right-hand-side of 2-DOF spring-mass system
+    |                      |
+    |--\/--m1--\/--m2--\/--|
+    |  k1      k2      k3  |
+    |                      |
+    Arguments
+    ---------
+    state : array of dependent variables (x1,x2,v1,v2)
+    k1 : stiffness in first spring
+    k2 : stiffness in second spring
+    k3 : stiffness in third spring
+    m1 : mass of first mass
+    m2 : mass of second mass
+    
+    Returns
+    -------
+    dstate : the derivative of the state, (v1,v2,a1,a2)
+    
+    '''
+    A=np.zeros((len(state),len(state)))
+    A[0:2,2:4]=np.eye(2)
+    A[2:4,0:2]=np.array([[-(k1+k2)/m1,k2/m1],[k2/m2,-(k2+k3)/m2]])
+    dstate = A@state
+    return dstate
+```
 
+```{code-cell} ipython3
+#part a
+m1=m2=0.1 # 0.2 kg
+k1=k3 =1000 # 1000 N/m
+k2 = 500 # 500 N/m
+M=np.array([[m1,0],[0,m2]])
+K=np.array([[k1+k2,-k2],[-k2,k2+k3]])
+
+e,v=linalg.eig(K,M)
+w1=np.sqrt(e[0].real)/2/np.pi
+v1=v[:,0]/max(v[:,0])
+
+w2=np.sqrt(e[1].real)/2/np.pi
+v2=v[:,1]/max(v[:,1])
+
+print('1st natural frequency is %1.2f Hz, \
+     mode shape: %1.0f*x1(t)=%1.0f*x2(t)'%(w1,v1[0],v1[1]))
+print('2nd natural frequency is %1.2f Hz, \
+    mode shape: %1.0f*x1(t)=%1.0f*x2(t)'%(w2,v2[0],v2[1]))
+```
+
+```{code-cell} ipython3
+T=2*1/w1 # 2 x longest period
+dt=1/w2/10 # shortest period
+t=np.arange(0,T,dt)
+state_e1=np.zeros((4,len(t)))
+state_e1[:,0]=np.array([0,0,.02,.02]) # set initial conditions eigenv 1
+state_e2=np.zeros((4,len(t)))
+state_e2[:,0]=np.array([-.02,.02,0,0]) # set initial conditions eigenv 2
+
+for i in range(0,len(t)-1):
+    state_e1[:,i+1]=heun_step(state_e1[:,i],spring_mass,dt)
+    state_e2[:,i+1]=heun_step(state_e2[:,i],spring_mass,dt)
+    
+
+plt.figure(figsize=(9,5))
+plt.subplot(2,1,1)
+plt.title('Eigenvector 1')
+plt.plot(t,state_e1[0,:]*100,'rs-',label='x_1')
+plt.plot(t,state_e1[1,:]*100,'b-',label='x_2')
+plt.ylabel('position\n (cm)')
+plt.subplot(2,1,2)
+plt.title('Eigenvector 2')
+plt.plot(t,state_e2[0,:]*100,'rs-',label='x_1')
+plt.plot(t,state_e2[1,:]*100,'b-',label='x_2')
+plt.xlabel('time (s)')
+plt.ylabel('position\n (cm)')
+plt.tight_layout()
+plt.legend(loc='center left',bbox_to_anchor=(1,1.2));
 ```
 
 2. Consider the G-string on the guitar, L=0.64 m, $\mu=1.14~g/m,$ and T=71.81 N [1]. 
@@ -889,16 +1027,102 @@ __Guitar string equation:__ $\mu\frac{\partial^2 y}{\partial t^2}=T\frac{\partia
 a. Calculate the first and second natural frequencies using 6, 30, 45, and 60 nodes. Plot the mode shapes to demonstrate convergence.
 
 ```{code-cell} ipython3
+L=0.64 # 64-cm guitar string
+T=71.81 # 7.32kg*9.81 m/s/s # N
+mu=1.14e-3 # kg/m
 
+for i in [6,30,45,60]:
+    N = i
+    dx=L/(N+1)
+
+    k = T/dx**2/mu
+
+    A = k*(np.diag(np.ones(N)*2)\
+           -np.diag(np.ones(N-1),-1)\
+           -np.diag(np.ones(N-1),1))
+    
+    e,v=linalg.eig(A)
+    isort = np.argsort(e.real)
+    e=e.real[isort]
+    v=v.real[:,isort]
+    
+    plt.plot(v[:,0],label='{} nodes eigenvector 1'.format(i));
+    plt.plot(v[:,1],label='{} nodes eigenvector 2'.format(i));
+    plt.legend(bbox_to_anchor=(1.05,1));
 ```
 
 b. Use 60 nodes to create an animation using the following initial condition, $y(x,0)=0$ and $\dot{y}(L/2,0)=2~m/s.$ e.g. `dy[30,0]=2`.
 
 ```{code-cell} ipython3
+L=0.64 # 64-cm guitar string
+T=71.81 # 7.32kg*9.81 m/s/s # N
+mu=1.14e-3 # kg/m
 
+N = 60
+dx=L/(N+1)
+
+k = T/dx**2/mu
+
+A = k*(np.diag(np.ones(N)*2)\
+        -np.diag(np.ones(N-1),-1)\
+        -np.diag(np.ones(N-1),1))
+    
+e,v=linalg.eig(A)
+isort = np.argsort(e.real)
+e=e.real[isort]
+v=v.real[:,isort]
+f1=np.sqrt(e.real[0])/2/np.pi
+fn=np.sqrt(e.real[-1])/2/np.pi
+
+fig, ax = plt.subplots()
+
+ax.set_xlim(( 0, L))
+ax.set_ylim((-0.003, 0.003))
+ax.set_xlabel('x-position (m)')
+ax.set_ylabel('y-position (m)')
+ax.plot(x[[0,-1]],[0,0],'o')
+
+line, = ax.plot([], [], lw=2)
+
+T1 = 10/f1 
+dt=1/fn/10
+t=np.arange(0,T1,dt)
+tsteps=len(t)
+x=np.linspace(0,L,N+2)
+y=np.zeros((N,tsteps))
+y[:,0]=0
+dy=np.zeros((N,tsteps))
+dy[30,0] =2
+for i in range(0,tsteps-1):
+    state = np.block([y[:,i],dy[:,i]]) # set z=[y,dy]
+    next_state = heun_step(state,wave_equation,dt) # get next state
+    y[:,i+1]=next_state[0:N] # save the postions
+    dy[:,i+1]=next_state[N:] # save the velocities
+
+ybcs = np.pad(y,((1,1),(0,0)))
+
+anim = animation.FuncAnimation(fig, animate, init_func=init,
+                               frames=range(0,tsteps,10), interval=10, 
+                               blit=True)
+print('Animation of String from t=0-{:.1f} ms every {:.2f} ms'.format(t[-1]*1000,t[10]*1000))
+
+HTML(anim.to_html5_video())
 ```
 
 c. Use 60 nodes to create an audio display using the following initial condition, $y(x,0)=0$ and $\dot{y}(L/2,0)=2~m/s.$ e.g. `dy[30,0]=2`.
+
+```{code-cell} ipython3
+samplerate = int(1/dt)
+out_file=100*np.array([dy[0,:] for i in range(30)]).reshape(-1,)
+Audio(data=out_file,rate=samplerate)
+```
+
+```{code-cell} ipython3
+plt.plot(range(0,len(out_file))*dt*1000,out_file)
+plt.xlim((0,200))
+plt.xlabel('time (ms)')
+plt.ylabel('input signal (a.u.)');
+```
 
 ```{code-cell} ipython3
 

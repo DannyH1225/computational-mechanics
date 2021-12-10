@@ -5,9 +5,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.10.3
+    jupytext_version: 1.11.4
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -59,7 +59,7 @@ Your first objective is to integrate a numerical model that converges to
 equation (2.b), the Tsiolkovsky equation. Next, you will add drag and
 gravity and compare the results _between equations (1) and (2)_.
 Finally, you will vary the mass change rate to achieve the desired
-detonation height. 
+detonation height.
 
 +++
 
@@ -99,7 +99,7 @@ plt.style.use('fivethirtyeight')
 ```
 
 ```{code-cell} ipython3
-def simplerocket(state,dmdt=0.05, u=250):
+def simplerocket(state,dmdt=0.05, u=250, c=0.18e-3):
     '''Computes the right-hand side of the differential equation
     for the acceleration of a rocket, without drag or gravity, in SI units.
     
@@ -111,21 +111,92 @@ def simplerocket(state,dmdt=0.05, u=250):
     
     Returns
     -------
-    derivs: array of three derivatives [v (u/m*dmdt-g-c/mv^2) -dmdt]^T
+    derivs: array of three derivatives [v (u/m*dmdt) -dmdt]^T
     '''
-    
-    dstate = np.zeros(np.shape(state))
-    # your work
+    g = 9.81
+    #dstate = np.zeros(np.shape(state))
+    dstate = np.array([state[1], (u/state[2]*dmdt), -dmdt])
     return dstate
+```
+
+```{code-cell} ipython3
+def heun_step(state,rhs,dt,etol=0.000001,maxiters = 100):
+    '''Update a state to the next time increment using the implicit Heun's method.
+    
+    Arguments
+    ---------
+    state : array of dependent variables
+    rhs   : function that computes the RHS of the DiffEq
+    dt    : float, time increment
+    etol  : tolerance in error for each time step corrector
+    maxiters: maximum number of iterations each time step can take
+    
+    Returns
+    -------
+    next_state : array, updated after one time increment'''
+    e=1
+    eps=np.finfo('float64').eps
+    next_state = state + rhs(state)*dt
+    ################### New iterative correction #########################
+    for n in range(0,maxiters):
+        next_state_old = next_state
+        next_state = state + (rhs(state)+rhs(next_state))/2*dt
+        e=np.sum(np.abs(next_state-next_state_old)/np.abs(next_state+eps))
+        if e<etol:
+            break
+    ############### end of iterative correction #########################
+    return next_state
+
+def rk2_step(state, rhs, dt):
+    '''Update a state to the next time increment using modified Euler's method.
+    
+    Arguments
+    ---------
+    state : array of dependent variables
+    rhs   : function that computes the RHS of the DiffEq
+    dt    : float, time increment
+    
+    Returns
+    -------
+    next_state : array, updated after one time increment'''
+    
+    mid_state = state + rhs(state) * dt*0.5    
+    next_state = state + rhs(mid_state)*dt
+ 
+    return next_state
 ```
 
 ```{code-cell} ipython3
 m0=0.25
 mf=0.05
 dm=0.05
-t = np.linspace(0,(m0-mf)/dm,500)
+y0 = 0
+v0 = 0
+N = 500
+
+t = np.linspace(0,(m0-mf)/dm,N)
 dt=t[1]-t[0]
+
+num_heun = np.zeros([N,3])
+
+num_heun[0,0] = y0
+num_heun[0,1] = v0
+num_heun[0,2] = m0
+
+for i in range(N-1):
+    num_heun[i+1] = heun_step(num_heun[i], simplerocket, dt)
+    
+plt.plot(num_heun[:,2]/m0,num_heun[:,1],'-',label='implicit Heun')
+plt.plot(num_heun[:,2]/m0, -250*np.log(num_heun[:,2]/m0), label= 'Tsiolkovsky analytical value')
+plt.legend(bbox_to_anchor=(1, 1), loc='upper left', ncol=1)
+plt.xlabel('$m_f/m_0$')
+plt.ylabel('velocity (m/s)');
+print('max height: {:.2f} m'.format(num_heun[-1,0]))
 ```
+
+Looking at the graph above the solution converges to the Tsiolkovsky equation.
+
++++
 
 __2.__ You should have a converged solution for integrating `simplerocket`. Now, create a more relastic function, `rocket` that incorporates gravity and drag and returns the velocity, $v$, the acceleration, $a$, and the mass rate change $\frac{dm}{dt}$, as a function of the $state = [position,~velocity,~mass] = [y,~v,~m]$ using eqn (1). Where the mass rate change $\frac{dm}{dt}$ and the propellent speed $u$ are constants. The average velocity of gun powder propellent used in firework rockets is $u=250$ m/s [3,4]. 
 
@@ -156,10 +227,43 @@ def rocket(state,dmdt=0.05, u=250,c=0.18e-3):
     derivs: array of three derivatives [v (u/m*dmdt-g-c/mv^2) -dmdt]^T
     '''
     g=9.81
-    dstate = np.zeros(np.shape(state))
-    # your work
+    #dstate = np.zeros(np.shape(state))
+    dstate = np.array([state[1], (u/state[2]*dmdt -g - c/state[2] * state[1]**2), -dmdt])
     return dstate
 ```
+
+```{code-cell} ipython3
+m0=0.25
+mf=0.05
+dm=0.05
+y0 = 0
+v0 = 0
+N = 500
+t = np.linspace(0,(m0-mf)/dm,N)
+dt=t[1]-t[0]
+
+num_rk2 = num_heun2 = np.zeros([N,3])
+
+num_rk2[0,0] = num_heun2[0,0] = y0
+num_rk2[0,1] = num_heun2[0,1] = v0
+num_rk2[0,2] = num_heun2[0,2] = m0
+
+for i in range(N-1):
+    num_heun2[i+1] = heun_step(num_heun2[i], rocket, dt)
+    num_rk2[i+1] = rk2_step(num_rk2[i], rocket, dt)
+    
+plt.plot(num_heun2[:,2]/m0, num_heun2[:,1],'-',label='implicit Heun')
+plt.plot(num_rk2[:,2]/m0, num_rk2[:,1],'-',label='explicit RK2')
+plt.plot(num_heun[:,2]/m0, -250*np.log(num_heun[:,2]/m0),label= 'Tsiolkovsky analytical value')
+plt.legend(bbox_to_anchor=(1, 1), loc='upper left', ncol=1)
+plt.xlabel('$m_f/m_0$')
+plt.ylabel('velocity (m/s)');
+print('max height: {:.2f} m'.format(num_heun2[-1,0]))
+```
+
+The solutions between the simple rocket and rocket are not similar. The max height reached with simple rocket is 597.64 m as opposed to 425.44 m with rocket. The difference is about 28.8% (simple rocket - rocket)/ simple rocket *100.
+
++++
 
 __3.__ Solve for the mass change rate that results in detonation at a height of 300 meters. Create a function `f_dm` that returns the final height of the firework when it reaches $m_{f}=0.05~kg$. The inputs should be 
 
@@ -199,7 +303,24 @@ def f_dm(dmdt, m0 = 0.25, c = 0.18e-3, u = 250):
     error: the difference between height_desired and height_predicted[-1]
         when f_dm(dmdt) = 0, the correct mass change rate was chosen
     '''
-    # your work
+    mf = 0.05
+    y0 = 0
+    v0 = 0
+    N = 1000
+    t = np.linspace(0,(m0-mf)/dmdt,N)
+    dt=t[1]-t[0]
+        
+    #initialize array
+    num_sol = np.zeros([N,3])
+
+    num_sol[0,0] = y0
+    num_sol[0,1] = v0
+    num_sol[0,2] = m0
+    
+    for i in range(N-1):
+        num_sol[i+1] = rk2_step(num_sol[i],rocket, dt)
+        
+    error = 300 - num_sol[-1,0]
     return error
 ```
 
@@ -236,6 +357,79 @@ def mod_secant(func,dx,x0,es=0.0001,maxit=50):
         if ea <= es:
             break
     return xr,[func(xr),ea,iter]
+
+def incsearch(func,xmin,xmax,ns=50):
+    '''incsearch: incremental search root locator
+    xb = incsearch(func,xmin,xmax,ns):
+      finds brackets of x that contain sign changes
+      of a function on an interval
+    arguments:
+    ---------
+    func = name of function
+    xmin, xmax = endpoints of interval
+    ns = number of subintervals (default = 50)
+    returns:
+    ---------
+    xb(k,1) is the lower bound of the kth sign change
+    xb(k,2) is the upper bound of the kth sign change
+    If no brackets found, xb = [].'''
+    x = np.linspace(xmin,xmax,ns)
+    f = np.array([func(xi) for xi in x])
+    sign_f = np.sign(f)
+    delta_sign_f = sign_f[1:]-sign_f[0:-1]
+    i_zeros = np.nonzero(delta_sign_f!=0)
+    nb = len(i_zeros[0])
+    xb = np.block([[ x[i_zeros[0]+1]],[x[i_zeros[0]] ]] )
+
+    
+    if nb==0:
+      print('no brackets found\n')
+      print('check interval or increase ns\n')
+    else:
+      print('number of brackets:  {}\n'.format(nb))
+    return xb
+```
+
+```{code-cell} ipython3
+f_dm(.05)
+```
+
+```{code-cell} ipython3
+#part a
+dm = incsearch(f_dm, 0.05, 0.4, ns=2000)
+print('Upper bound on rate = {:.5f} kg/s'.format(*dm[0,:]))
+print('Lower bound on rate = {:.5f} kg/s'.format(*dm[1,:]))
+
+#part b
+dm,out = mod_secant(f_dm,0.0001,.05,es=0.000001) # <-- solution line
+print(dm, 'kg/s is the correct mass rate change to match the height of 300 m')
+print('the solve took ',out[2],' iterations')
+
+m0=0.25
+mf=0.05
+y0 = 0
+v0 = 0
+N = 500
+t = np.linspace(0,(m0-mf)/dm,N)
+dt=t[1]-t[0]
+
+num_heun2 = np.zeros([N,3])
+
+num_heun2[0,0] = y0
+num_heun2[0,1] = v0
+num_heun2[0,2] = m0
+
+for i in range(N-1):
+    num_heun2[i+1] = heun_step(num_heun2[i], rocket, dt)
+```
+
+```{code-cell} ipython3
+#part c
+plt.plot(t,num_heun2[:,0])
+plt.plot(t[-1], num_heun2[-1,0],'*')
+plt.xlabel('Time (s)')
+plt.ylabel('Height (m)')
+plt.title('Height vs. Time');
 ```
 
 ## References

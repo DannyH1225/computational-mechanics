@@ -5,9 +5,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.10.3
+    jupytext_version: 1.11.4
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -140,6 +140,7 @@ def onclick(event):
 ```{code-cell} ipython3
 fig = plt.figure()
 plt.imshow(image, interpolation='nearest')
+
 
 coords = []
 connectId = fig.canvas.mpl_connect('button_press_event', onclick)
@@ -437,6 +438,10 @@ np.savez('../data/projectile_coords.npz',t=t,x=x,y=-y)
 
 +++
 
+I got 11.04 m/s for y-accel and 1.95 m/s for x-accel. Yes, the results make sense. There is some error in the estimation of both x and y accelerations but this is expected.
+
++++
+
 ## Numerical derivatives
 
 You just computed the average velocity between two captured ball positions using _numerical derivative_. The velocity is the _derivative_ of position with respect to time, and you can approximate its instantaneous value with the average velocity between two close instants in time:
@@ -463,14 +468,14 @@ You're in luck! Physics professor Anders Malthe-Sørenssen of Norway has some hi
 
 ```{code-cell} ipython3
 filename = '../data/fallingtennisball02.txt'
-t, y = np.loadtxt(filename, usecols=[0,1], unpack=True)
+t_1, y_1 = np.loadtxt(filename, usecols=[0,1], unpack=True)
 ```
 
 Okay! You should have two new arrays with the time and position data. Let's get a plot of the ball's vertical position.
 
 ```{code-cell} ipython3
 fig = plt.figure(figsize=(6,4))
-plt.plot(t,y);
+plt.plot(t_1,y_1);
 ```
 
 Neat. The ball bounced 3 times during motion capture. Let's compute the
@@ -509,6 +514,10 @@ plt.plot(ay);
 
 * What do you see in the plot of acceleration computed from the high-resolution data?
 * Can you explain it? What do you think is causing this?
+
++++
+
+The plot shows that absolute acceleration is decresing over time. This might be explained by the ball experiencing air resistance which causes the ball to slow down when it is acceleration
 
 +++
 
@@ -555,8 +564,95 @@ plt.plot(ay);
     d. Plot the polyfit lines for velocity and position (2 figures) with the finite difference velocity data points and positions. Which lines look like better e.g. which line fits the data?
 
 ```{code-cell} ipython3
+#part a
+my_coords = np.array(
+[[302.8746408045977, 120.0926888564536],
+ [323.5642959770115, 117.79383828174093],
+ [346.5528017241379, 120.0926888564536],
+ [369.5413074712643, 124.69039000587884],
+ [399.4263649425287, 131.58694173001675],
+ [417.8171695402299, 140.78234402886733],
+ [440.8056752873563, 147.67889575300524],
+ [466.09303160919546, 161.47199920128116],
+ [489.08153735632186, 170.66740150013175],
+ [512.0700431034483, 184.46050494840756],
+ [535.0585488505748, 198.2536083966835],
+ [560.3459051724138, 218.9432635690972],
+ [583.3344109195402, 235.0352175920857],
+ [608.6217672413793, 253.42602218978686],
+ [629.3114224137931, 276.41452793691326],
+ [650.0010775862069, 294.8053325346144],
+ [675.2884339080459, 320.0926888564535],
+ [700.5757902298851, 345.38004517829256],
+ [721.2654454022988, 372.9662520748443],
+ [746.5528017241379, 400.55245897139605],
+ [769.5413074712644, 432.736367017373],
+ [794.8286637931035, 462.6214244886374],
+ [817.8171695402299, 497.10418310932704],
+ [840.8056752873563, 533.8857923047294],
+ [863.7941810344828, 568.368550925419],
+ [891.3803879310345, 605.1501601208213]])
 
+gap_lines = 53.10344827586206
+x = np.array(my_coords)[:,0] *0.1 / gap_lines
+y = np.array(my_coords)[:,1] *0.1 / gap_lines
+
+t = np.arange(0,len(y))/60
+
+delta_x = (x[1:26] - x[:25])
+delta_y = (y[1:26] - y[:25])
+dt = t[1]-t[0]
+
+vx = delta_x / dt
+vy = delta_y / dt
+
+first_order_x = np.polyfit(t[:25], vx, 1)
+first_order_y = np.polyfit(t[:25], vy, 1)
+second_order_x = np.polyfit(t[:26], x, 2)
+second_order_y = np.polyfit(t, y, 2)
+
+#part b
+print('Finite difference vx: {:.3f} m/s^2'.format(first_order_x[0]))
+print('Finite difference vy: {:.3f} m/s^2'.format(first_order_y[0]))
 ```
+
+```{code-cell} ipython3
+#part c
+second_order_x = np.polyfit(t, x, 2)
+second_order_y = np.polyfit(t, y, 2)
+
+print('Second order x-acceleration: {:.3f} m/s^2'.format(second_order_x[0]))
+print('Second order x-acceleration: {:.3f} m/s^2'.format(second_order_y[0]*2))
+```
+
+```{code-cell} ipython3
+#part d
+poly2nd = np.poly1d(first_order_y)
+y_fit = -poly2nd(t)
+plt.plot(t[:25],-vy, '-o',label='Finite difference')
+plt.plot(t, y_fit, label='First order polyfit')
+
+plt.xlabel('time (s)')
+plt.ylabel('velocity (m/s)')
+plt.legend();
+```
+
+```{code-cell} ipython3
+#part d
+poly2nd = np.poly1d(second_order_y)
+y_fit = -poly2nd(t)
+
+plt.plot(t,-y,'-o', label='Collected Data')
+plt.plot(t, y_fit, label='Second order polyfit')
+
+plt.xlabel('time (s)')
+plt.ylabel('position (m)')
+plt.legend();
+```
+
+Part d: Looking at both graphs above, the second order polyfit line looks better. It is a better at approximating the acceleration due to gravity.
+
++++
 
 2. Not only can you measure acceleration of objects that you track, you can look at other physical constants like [coefficient of restitution](https://en.wikipedia.org/wiki/Coefficient_of_restitution), $e$ . 
 
@@ -571,6 +667,40 @@ plt.plot(ay);
      b. Find the locations when $v_y$ changes rapidly i.e. the impact locations. Get the maximum and minimum velocities closest to the impact location. _Hint: this can be a little tricky. Try slicing the data to include one collision at a time before using  the `np.min` and `np.max` commands._
      
      c. Calculate the $e$ for each of the three collisions
+
+```{code-cell} ipython3
+#part a
+filename = '../data/fallingtennisball02.txt'
+t_1, y_1 = np.loadtxt(filename, usecols=[0,1], unpack=True)
+
+delta_y = (y_1[1:2500] - y_1[:2499])
+dt_1 = t_1[1]-t_1[0]
+vy_1 = delta_y / dt
+plt.plot(t_1[:2499], vy_1)
+plt.xlabel('Time (s)')
+plt.ylabel('Velocity (m/s)');
+```
+
+```{code-cell} ipython3
+#part b and c
+before_1 = np.min(vy_1)
+after_1 = np.max(vy_1)
+
+e_1 = -after_1/before_1
+print('Coefficient of restitution for first bounce {:.3f}'.format(e_1))
+
+before_2 = np.min(vy_1[1400:])
+after_2 = np.max(vy_1[1400:])
+
+e_2 = -after_2/before_2
+print('Coefficient of restitution for second bounce {:.3f}'.format(e_2))
+
+before_3 = np.min(vy_1[1900:])
+after_3 = np.max(vy_1[1900:])
+
+e_3 = -after_3/before_3
+print('Coefficient of restitution for third bounce {:.3f}'.format(e_3))
+```
 
 ```{code-cell} ipython3
 

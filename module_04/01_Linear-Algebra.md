@@ -5,9 +5,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.10.3
+    jupytext_version: 1.11.4
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -48,6 +48,13 @@ Solve for $x_1,~x_2,~and~x_3.$ How did you approach the problem? Did you use Lin
 
 Highlight for answers: <font color="white">x1 = 20, x2 = -33, x3 = 16</font>
 
++++
+
+Multiplying by the inverse of $\mathbf{A}$ on both sides of the equation we get $\mathbf{x}$ to be $\left[\begin{array}{c} 
+20 \\ 
+-33 \\
+16\end{array}\right]$. I did use linear algebra.
+
 ```{code-cell} ipython3
 import numpy as np
 ```
@@ -56,7 +63,7 @@ import numpy as np
 A=np.array([[-7,3,0],[7,-19,12],[0,4,-12]])
 b=np.array([-20,0,-8])
 
-np.linalg.solve(A,b)
+x = np.linalg.solve(A,b)
 for i in range(0,3):
     print('[{:5.1f} {:5.1f} {:5.1f}] {} [{:3.1f}] {} [{:5.1f}]'.format(*A[i],'*',x[i],'=',b[i]))
 ```
@@ -117,11 +124,11 @@ c_{3}\end{array}\right]=\left[\begin{array}{c}
 
 $\mathbf{Ax}=\mathbf{b}$
 
-Now, let's use some numpy linear algebra to solve for $c_2$. First, define $\mathbf{A}$ and $\mathbf{b}$ your known constants. 
+Now, let's use some numpy linear algebra to solve for $c_2$. First, define $\mathbf{A}$ and $\mathbf{b}$ your known constants.
 
 ```{code-cell} ipython3
 A=np.array([[-7,3,0],[7,-19,12],[0,4,-12]])
-b=np.array([-5,0,-8])
+b=np.array([-20,0,-8])
 print('matrix A:\t vector b:')
 for i in range(0,3):
     print(A[i],'\t',b[i])
@@ -136,7 +143,7 @@ we just want to understand the inputs and outputs
 x = np.linalg.solve(A,b)
 ```
 
-In the next cell, you run this line of code. The inputs are the matrix $\mathbf{A}$ and vector $\mathbf{b}$, as defined above as `A` and `b`. The output is your unknown vector $\mathbf{x}=[c_1,~c_2,~c_3]$. If you plug in the values of `x` into your mass balance equations you will see that mass is conserved. 
+In the next cell, you run this line of code. The inputs are the matrix $\mathbf{A}$ and vector $\mathbf{b}$, as defined above as `A` and `b`. The output is your unknown vector $\mathbf{x}=[c_1,~c_2,~c_3]$. If you plug in the values of `x` into your mass balance equations you will see that mass is conserved.
 
 ```{code-cell} ipython3
 x = np.linalg.solve(A,b)
@@ -145,10 +152,12 @@ print('c1 = {:.2f} mg/m^3,\nc2 = {:.2f} mg/m^3,\nc3 = {:.2f} mg/mm^3'.format(*x)
 
 ## Exercise
 
-Show that $\mathbf{Ax} = \mathbf{b}$ in the previous mixing container example. Plug the values of `x` into the three equations and show that mass is conserved. 
+Show that $\mathbf{Ax} = \mathbf{b}$ in the previous mixing container example. Plug the values of `x` into the three equations and show that mass is conserved.
 
 ```{code-cell} ipython3
-
+b1 = A*x
+if b1.all() == b.all():
+    print('Mass is conserved')
 ```
 
 ## Vectors 
@@ -159,7 +168,7 @@ You use vectors to represent unknown variables or known outputs. In numpy, a vec
 y = np.array([1,2,3])
 ```
 
-If you ask for the `shape` of `y`, you get an output of `(3,)`, which means it is a one dimensional vector. 
+If you ask for the `shape` of `y`, you get an output of `(3,)`, which means it is a one dimensional vector.
 
 ```{code-cell} ipython3
 y=np.array([1,2,3])
@@ -191,7 +200,7 @@ equations, the vector could be a set of known or unknown values. This is
 closer to how vectors are treated in computer science and data science,
 vectors are often multi-dimensional, that is, they have many components.
 They contain a set of ordered variables in a data model, like for
-example: the age, youight, daily hours of sleep, youekly hours of
+example: the age, your height, daily hours of sleep, your weekly hours of
 exercise, and blood pressure of an individual (five dimensions).
 
 ## Adding and subtracting scaled vectors
@@ -258,7 +267,7 @@ Using the variables defined above you describe the two main types of linear alge
 
 1. linear system solutions where $\mathbf{Ax} = \mathbf{b}$
 
-2. eigenvalue soslutions where $\mathbf{Ax} = \lambda \mathbf{x}$
+2. eigenvalue solutions where $\mathbf{Ax} = \lambda \mathbf{x}$
 
 You saw an example of the first type, in the mixing example. Eigenvalue
 problems come up in a number of engineering and science applications.
@@ -347,8 +356,6 @@ x2 = np.linalg.solve(A2,y2)
 print('a={:.2f} m/s/s\nT1={:.1f} N\nT2={:.1f} N\nT3={:.1f} N'.format(*x2))
 ```
 
-
-
 ## Exercise
 
 1. Plug in the values that you solved into the original 4 equations. Show that your values for accelerations and tensions satisfy your initial equations. 
@@ -356,8 +363,33 @@ print('a={:.2f} m/s/s\nT1={:.1f} N\nT2={:.1f} N\nT3={:.1f} N'.format(*x2))
 2. Create a new vector `y3` where the coefficient of friction is $\mu=0.5$ what is the new acceleration? Do the tensions increase or decrease when tension increases?
 
 ```{code-cell} ipython3
+#1
+satisfy = A2*x2
+print(satisfy)
+print(y2)
+if satisfy.all() == y2.all():
+    print('My values for accelerations and tensions satisfy my initial equations')
+    
+#2
+mu = 0.5
+m1=m2=m3=2
+m4=1
+g =9.81
+a = np.pi/4
 
+A2 = np.array([[-m1,-1,0,0],[-m2,1,-1,0],[-m3,0,1,-1],[m4,0,0,-1]])
+y3 = np.array([mu*m1*g*np.cos(a)-m1*g*np.sin(a),\
+               mu*m2*g*np.cos(a)-m2*g*np.sin(a),\
+               mu*m3*g*np.cos(a)-m3*g*np.sin(a),\
+               -m4*g])
+x3 = np.linalg.solve(A2,y3)
+print('a={:.2f} m/s/s\nT1={:.1f} N\nT2={:.1f} N\nT3={:.1f} N'.format(*x3))
 ```
+
+1. The sum of the rows from 'satisfy' do equal the respective column from y2. 'satisfy' does satisfy the intial conditions.
+2. The new acceleration is 1.57 m/s/s. The tensions decreased when friction increased.
+
++++
 
 ## Pause and ponder
 
@@ -372,7 +404,6 @@ The specification of _independent equations_ is best illustrated using _dependen
 1. $x+y = 3$
 
 2. $2x+2y=6$
-
 
 ```{code-cell} ipython3
 A_sing = np.array([[1,1],[2,2]])
@@ -428,7 +459,7 @@ Luckily, __ill-conditioned__ matrices come up often enough that there is a stand
 
 ## Matrix norms
 
-The Euclidean norm of a vector is measure of the magnitude (in 3D this would be: $|x|=\sqrt{x_{1}^{2}+x_{2}^{2}+x_{3}^{2}}$) in general the equation is:
+The Euclidean norm of a vector is measure of the magnitude (in 3D this would be: $|x|=\sqrt{x_{1}^{2}+x_{2}^{2}+x_{3}^{2}}$ in general the equation is:
 
 $||x||_{e}=\sqrt{\sum_{i=1}^{n}x_{i}^{2}}$
 
@@ -481,7 +512,7 @@ $10^{15-15} = 1$
 
 and if you look at the values you calculated when you changed $\delta$, the values youre within a range of $\approx 1$. 
 
-The __key idea__ here is that the condition of the matrix is directly related to the accuracy of your solutions. 
+The __key idea__ here is that the condition of the matrix is directly related to the accuracy of your solutions.
 
 ```{code-cell} ipython3
 print('{:e}'.format(np.linalg.cond(A_ill)))
@@ -510,6 +541,7 @@ for i in range(0,N):
     for j in range(0,N):
         H[i,j]=1/(i+j+1)
 print(H[-3:,-3:])
+print('{:e}'.format(np.linalg.cond(H)))
 from scipy.linalg import lu
 ```
 
@@ -573,7 +605,20 @@ m_{3}g \\
 m_{4}g \end{array} \right]$
 
 ```{code-cell} ipython3
+m1 = 1
+m2 = 2
+m3 = 3
+m4 = 4
+k = 1000
+g = 9.81
+A4 = np.array([[2*k,-k,0,0],[-k,2*k,-k,0],[0,-k,2*k,-k],[0,0,-k,k]])
+y4 = np.array([m1*g,\
+               m2*g,\
+               m3*g,\
+               m4*g])
 
+x4 = np.linalg.solve(A4,y4)
+print('x1={:.3f} m\nx2={:.3f} m\nx3={:.3f} m\nx4={:.3f} m'.format(*x4))
 ```
 
 ![HVAC diagram showing the flow rates and connections between floors](../images/hvac.png)
@@ -582,7 +627,7 @@ m_{4}g \end{array} \right]$
 
 * $\dot{m}_1=0.1~kg/s$
 * $\dot{m}_2=0.15~kg/s$
-* $\dot{m}_3=0.17~kg/s$
+* $\dot{m}_3=0.12~kg/s$
 * $\dot{m}_4=0.15~kg/s$
 * $\dot{m}_5=0.02~kg/s$
 * $\dot{m}_6=0.05~kg/s$
@@ -609,8 +654,34 @@ c. Solve for the unknown variables, $\mathbf{x}$
 d. What are the warmest and coldest rooms? What are their temperatures?
 
 ```{code-cell} ipython3
+mdot1 = 0.1
+mdot2 = 0.15
+mdot3 = 0.12
+mdot4 = 0.1
+mdot5 = 0.02
+mdot6 = 0.05
+cp = 1000
+qdot = 500
+T_in = 15
 
+#part a
+A5 = np.array([[-mdot2*cp, mdot6*cp, 0],\
+               [mdot2*cp,-mdot3*cp -mdot6*cp, mdot5*cp],\
+               [0, mdot3*cp, -mdot5*cp - mdot4*cp]])
+#part b
+b5 = np.array([-mdot1*cp*T_in - qdot,\
+               -qdot,\
+               -qdot])
+
+#part c
+x5 = np.linalg.solve(A5,b5)
+
+print('T1={:.2f} \N{DEGREE SIGN}C\nT2={:.2f} \N{DEGREE SIGN}C\nT3={:.2f} \N{DEGREE SIGN}C'.format(*x5))
 ```
+
+part d. The warmest room is room 3 at 30.00$^{\circ}$C. The coldest room is room 1 at 21.94$^{\circ}$C.
+
++++
 
 3. The [Hilbert Matrix](https://en.wikipedia.org/wiki/Hilbert_matrix) has a high condition number and as the matrix increases dimensions, the condition number increases. Find the condition number of a 
 
@@ -624,7 +695,67 @@ d. $15 \times 15$ Hilbert matrix
 
 e. $20 \times 20$ Hilbert matrix
 
-If the accuracy of each matrix element is $\approx 10^{-16}$, what is the expected rounding error in the solution $\mathbf{Ax} = \mathbf{b}$, where $\mathbf{A}$ is the Hilbert matrix. 
+If the accuracy of each matrix element is $\approx 10^{-16}$, what is the expected rounding error in the solution $\mathbf{Ax} = \mathbf{b}$, where $\mathbf{A}$ is the Hilbert matrix.
+
+```{code-cell} ipython3
+#part a
+N=1
+H=np.zeros((N,N))
+for i in range(0,N):
+    for j in range(0,N):
+        H[i,j]=1/(i+j+1)
+        
+print('condition: {:e}'.format(np.linalg.cond(H)))
+print('expected rounding error {:e}'.format(10**(0-16)))
+```
+
+```{code-cell} ipython3
+#part b
+N=5
+H=np.zeros((N,N))
+for i in range(0,N):
+    for j in range(0,N):
+        H[i,j]=1/(i+j+1)
+        
+print('condition: {:e}'.format(np.linalg.cond(H)))
+print('expected rounding error {:e}'.format(10**(5-16)))
+```
+
+```{code-cell} ipython3
+#part c
+N=10
+H=np.zeros((N,N))
+for i in range(0,N):
+    for j in range(0,N):
+        H[i,j]=1/(i+j+1)
+        
+print('condition: {:e}'.format(np.linalg.cond(H)))
+print('expected rounding error {:e}'.format(10**(13-16)))
+```
+
+```{code-cell} ipython3
+#part d
+N=15
+H=np.zeros((N,N))
+for i in range(0,N):
+    for j in range(0,N):
+        H[i,j]=1/(i+j+1)
+        
+print('condition: {:e}'.format(np.linalg.cond(H)))
+print('expected rounding error {:e}'.format(10**(17-16)))
+```
+
+```{code-cell} ipython3
+#part d
+N=20
+H=np.zeros((N,N))
+for i in range(0,N):
+    for j in range(0,N):
+        H[i,j]=1/(i+j+1)
+        
+print('condition: {:e}'.format(np.linalg.cond(H)))
+print('expected rounding error {:e}'.format(10**(18-16)))
+```
 
 ```{code-cell} ipython3
 

@@ -98,24 +98,17 @@ T_10_ana, T_f10_num = cooling_law(T_i, T_a, K, t_10)
 
 T_50_ana, T_f50_num = cooling_law(T_i, T_a, K, t_50)
 
-plt.plot(t_10, T_f10_num, '-o', label= '10 time steps')
-plt.plot(t_10, T_10_ana, '-', label= 'analytical 10 steps')
+plt.plot(t_10, T_f10_num, 'b-o', label= '10 time steps')
+plt.plot(t_10, T_10_ana, 'r-', label= 'analytical 10 steps')
 plt.title('Cooling for First 5 Hours')
 plt.xlabel('time (hr)')
 plt.ylabel('Temp \N{DEGREE SIGN}F')
+plt.plot(t_50, T_f50_num, 'g-o', label= '50 time steps')
+plt.plot(t_50, T_50_ana, 'r-', label= 'analytical 50 steps')
 plt.legend();
 ```
 
-```{code-cell} ipython3
-plt.plot(t_50, T_f50_num, '-o', label= '50 time steps')
-plt.plot(t_50, T_50_ana, '-', label= 'analytical 50 steps')
-plt.title('Cooling for First 5 Hours')
-plt.xlabel('time (hr)')
-plt.ylabel('Temp \N{DEGREE SIGN}F')
-plt.legend();
-```
-
-Part a: Looking at the both graphs, it can be shown that as the time step decreases the Euler integration approaches the analytical solution.
+Part a: Looking at the both graphs, it can be shown that as the time step decreases the Euler integration approaches the analytical solution. There is little difference between the analytical solution at 10 time steps vs 50 time steps, so that is why they are the same line.
 
 +++
 
@@ -150,7 +143,7 @@ ambient temperature is not constant i.e. T_a=f(t). We can use the weather to imp
     |noon|75|
     |1pm|80|
 
-    a. Create a function that returns the current temperature based upon the time (0 hours=11am, 65$^{o}$F) 
+    a. Create a function that returns the current temperature based upon the time (0 hours=11am, 75$^{o}$F) 
     *Plot the function $T_a$ vs time. Does it look correct? Is there a better way to get $T_a(t)$?
 
     b. Modify the Euler approximation solution to account for changes in temperature at each hour. 
@@ -161,42 +154,97 @@ ambient temperature is not constant i.e. T_a=f(t). We can use the weather to imp
 #part a
 
 def ambient_temp(time):
+    temp = np.array([50, 51, 55, 60, 65, 70, 75, 80])
     if 0<= time < 1:
-        temp = 5*time + 70
-        print(f'Ambient temp is {temp} \N{DEGREE SIGN}F')
+        return temp[5]
     elif -1<= time < 0:
-        temp = 5*time + 70
-        print(f'Ambient temp is {temp} \N{DEGREE SIGN} F')
+        return temp[4]
     elif -2<= time < -1:
-        temp = 5*time + 70
-        print(f'Ambient temp is {temp} \N{DEGREE SIGN} F')
+        return temp[3]
     elif -3<= time < -2:
-        temp = 5*time + 70
-        print(f'Ambient temp is {temp} \N{DEGREE SIGN} F')
+        return temp[2]
     elif -4<= time < -3:
-        temp = 5*time + 70
-        print(f'Ambient temp is {temp} \N{DEGREE SIGN} F')
-    elif -5<= time < -5:
-        print(f'Ambient temp is {temp} \N{DEGREE SIGN} F')
+        return temp[1]
+    elif -5<= time < -4:
+        return temp[0]
+    elif -5> time:
+        return temp[0]
     elif 1<= time < 2:
-        print(f'Ambient temp is {temp} \N{DEGREE SIGN} F')
+        return temp[6]
     elif 2<= time:
-        temp = 5*time + 70
-        print(f'Ambient temp is {temp} \N{DEGREE SIGN} F')
-        
-        
-ambient_temp(2)
+        return temp[7]
+
+t = np.linspace(-5, 2)
+temps = np.array([ambient_temp(t[i]) for i in range(len(t))])
+    
+plt.plot(t, temps)
+plt.ylabel('Ambient Temp \N{DEGREE SIGN}F')
+plt.xlabel('Time (hr)')
+plt.title('Ambient Temperatures');
 ```
 
 ```{code-cell} ipython3
-time = np.array([-5,-4,-3,-2,-1,0,1,2])
-ambient_temps = np.array([50,51,55,60,65,70,75,80])
-m, b = np.polyfit(time, ambient_temps, deg=1)
+def cooling_law_changing_ambient(T_i, K, t):
+    T_a = np.array([ambient_temp(t[i]) for i in range(len(t))])
+    T_f_num = np.zeros(len(t))
+    T_f_ana = np.zeros(len(t))
+    T_f_num[0] = T_i
+    T_f_ana = 65 + (T_i - 65) * np.exp(-K*t)
+    for i in range(1,len(t)):
+        T_f_num[i] = -K*(T_f_num[i-1] - T_a[i])*(t[i]-t[i-1]) + T_f_num[i-1]
+    
+    return T_f_ana, T_f_num, T_a
 
-plt.plot(time, m*time + b, '-', label = f'Line of best fit: {m:.2f}t + {b:.2f}')
-plt.plot(time, ambient_temps, 'o')
-plt.title('Ambient Temperature ')
-plt.xlabel('Time starting at 11 am(hr)')
-plt.ylabel('Temp \N{DEGREE SIGN} F')
-plt.legend();
+T_f = 74
+T_i = 85
+T_a = 65
+dt = 2
+dT_dt = (T_f - T_i)/ dt
+
+K = - dT_dt / (T_f - T_a)
+
+t_10 = np.linspace(0, 5,1000)
+
+T_ana, T_num, T_a = cooling_law_changing_ambient(T_i, K, t_10)
+
+plt.title('Body Temp vs. Time')
+plt.plot(t_10[:-1], T_ana[:-1])
+plt.plot(t_10[:-1], T_num[:-1], '-o')
+```
+
+The new non-linear Euler approximation is very different from the linear analytical method even with 1000 time steps. The models do not noverge at all.
+
+```{code-cell} ipython3
+def cooling_law_changing_ambient_ana(T_i, K, t):
+    T_a = np.array([ambient_temp(t[i]) for i in range(len(t))])
+    T_f_num = np.zeros(len(t))
+    T_f_ana = np.zeros(len(t))
+    T_f_num[0] = T_i
+    for i in range(1,len(t)):
+        T_f_ana[i-1] = T_a[i-1] + (T_i - T_a[i-1]) * np.exp(-K*t[i])
+        T_f_num[i] = -K*(T_f_num[i-1] - T_a[i])*(t[i]-t[i-1]) + T_f_num[i-1]
+    
+    return T_f_ana, T_f_num, T_a
+
+T_f = 74
+T_i = 85
+T_a = 65
+dt = 2
+dT_dt = (T_f - T_i)/ dt
+
+K = - dT_dt / (T_f - T_a)
+
+t_10 = np.linspace(-5, 5,1000)
+T_ana, T_num, T_a = cooling_law_changing_ambient_ana(T_i, K, t_10)
+plt.plot(t_10[:-1], T_ana[:-1])
+plt.plot(t_10[:-1], T_num[:-1], '-o')
+plt.title('Body Temp vs. Time')
+
+np.isclose(T_10_ana, [98.6], atol=1e-04)
+print(t_10[np.isclose(T_ana, 98.6, rtol=1e-3)])
+print('Time of death is about 10:09 am')
+```
+
+```{code-cell} ipython3
+
 ```

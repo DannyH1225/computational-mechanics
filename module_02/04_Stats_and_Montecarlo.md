@@ -5,9 +5,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.10.3
+    jupytext_version: 1.11.4
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -15,7 +15,7 @@ kernelspec:
 > __Content created under Creative Commons Attribution license CC-BY
 > 4.0, code under BSD 3-Clause License © 2020 R.C. Cooper__
 
-+++ 
++++
 
 # 04 - Statistics and Monte-Carlo Models
 
@@ -47,7 +47,6 @@ The call to `rng.random(20)` created 20 uniformly random numbers between
 0 and 1 saved as the variable `x`. Next, you can plot the histogram of
 `x`.
 
-
 ```{code-cell} ipython3
 import matplotlib.pyplot as plt
 plt.style.use('fivethirtyeight')
@@ -60,7 +59,7 @@ plt.hist(x, bins = 5,
             edgecolor = 'w')
 ```
 
-The pyplot function `hist` displays a histogram of these randomly generated numbers. 
+The pyplot function `hist` displays a histogram of these randomly generated numbers.
 
 +++
 
@@ -70,11 +69,14 @@ Try generating more random numbers and plotting histograms of the results i.e. i
 
 What should the histogram of `x` look like if Python is generating truly random numbers?
 
-
 ```{code-cell} ipython3
 x=np.random.rand(10000)
 plt.hist(x);
 ```
+
+Histogram of x should look like a rectangle if Python is generating truly random numbers.
+
++++
 
 ## Examples of Monte Carlo models:
 
@@ -176,14 +178,23 @@ of $\pi$ (you can use `np.pi` as a true value)? Plot the convergence as
 we did in [03-Numerical_error](../module_01/03-Numerical_error)
 
 ```{code-cell} ipython3
-test_pi=np.zeros(100)
-for i in range(0,100):
-    test_pi[i]=montecarlopi(1000);
+test_pi=np.zeros(1000)
+pi = np.zeros_like(test_pi)+ np.pi
+for i in range(0,1000):
+    test_pi[i]=montecarlopi(10000);
 
 print('mean value for pi = %f'%np.mean(test_pi))
 print('standard deviation is %f'%np.std(test_pi))
 print('actual pi is %f'%np.pi)
+
+plt.plot(test_pi)
+plt.plot(pi)
 ```
+
+1. There is a standard deviation because we are taking averages of estimates of pi and so the standard deviation shows the distribution of these estimates from the mean. The value of the standard deviation depends on the number of random points.\
+2. The function converges to within 4 digits with 10000 points.
+
++++
 
 Compare the above 100 `test_pi` cases each 1000 points. 
 
@@ -226,9 +237,9 @@ a description of how large particles move and vibrate in fluids that
 have no buld motion. The atoms from the fluid bounce off the suspended
 particles to jiggle them randomly left and right. Take a look at [Up and
 Atom's video](https://www.youtube.com/channel/UCSIvk78tK2TiviLQn4fSHaw)
-for more information in the physics and history of the phenomenon. 
+for more information in the physics and history of the phenomenon.
 
-```{code-cell} ipyhon3
+```{code-cell} ipython3
 from IPython.display import YouTubeVideo
 YouTubeVideo('5jBVYvHeG2c')
 ```
@@ -257,7 +268,7 @@ $Delta x$ and $\Delta y$.
 the location at each step
 4. plot the results
 
-Here, you create the 100 random numbers and shift them by 0.5. 
+Here, you create the 100 random numbers and shift them by 0.5.
 
 ```{code-cell} ipython3
 rng = default_rng()
@@ -265,7 +276,8 @@ N_steps = 100
 dx = rng.random(N_steps) - 0.5
 dy = rng.random(N_steps) - 0.5
 ```
-Next, create the positions at each step. 
+
+Next, create the positions at each step.
 
 ```{code-cell} ipython3
 r = np.zeros((N_steps, 2))
@@ -273,7 +285,7 @@ r = np.zeros((N_steps, 2))
 
 Now, use
 [`np.cumsum`](https://numpy.org/doc/stable/reference/generated/numpy.cumsum.html)
-to find the final position after each step is taken. 
+to find the final position after each step is taken.
 
 ```{code-cell} ipython3
 r[:, 0] = np.cumsum(dx) # final rx position
@@ -281,7 +293,7 @@ r[:, 1] = np.cumsum(dy) # final ry position
 ```
 
 Finally, you can plot the path the particle took as it moved along its
-100 steps and its final location. 
+100 steps and its final location.
 
 ```{code-cell} ipython3
 plt.plot(r[:, 0 ], r[:, 1])
@@ -294,7 +306,7 @@ A curious result, even though we prescribed random motion, the final
 location did not end up back at the origin, where it started. __What if
 you looked at 50 particles?__ How many would end up back at the origin?
 Use a for-loop to calculate the position of 50 particles taking 100
-steps each. 
+steps each.
 
 ```{code-cell} ipython3
 num_particles = 50
@@ -318,7 +330,8 @@ Calculate the average location of the particles. What is the standard
 deviation?
 
 ```{code-cell} ipython3
-
+print(np.mean(r_final[:, 0]), np.mean(r_final[:, 1]))
+print(np.std(r_final[:, 0]), np.std(r_final[:, 1]))
 ```
 
 ## Exercise
@@ -330,6 +343,10 @@ Make a scaling equation to get uniformly random numbers between 10 and 20.
 _The scaling keeps the bin heights constant, but it changes the width and location of the bins in the histogram. Scaling to 10-20 shows a more extreme example._
 
 ```{code-cell} ipython3
+x = rng.random(20)
+x_scaled = x*10 + 10
+plt.hist(x)
+plt.hist(x_scaled);
 ```
 
 ### Example 3: Determine uncertainty in failure load based on geometry uncertainty
@@ -413,7 +430,7 @@ factors = np.random.rand(10000,10)-1/2 # each row represents a part and each col
 
 Now, we have created 10,000 parts with 10 uniformly random effects between -1/2-1/2. 
 
-We sum the effects and look at the final part distribution. The x-axis is labeled "A.U." for arbitrary units, we are just assuming an effect of -1/2-1/2 for each of the 10 factors.  
+We sum the effects and look at the final part distribution. The x-axis is labeled "A.U." for arbitrary units, we are just assuming an effect of -1/2-1/2 for each of the 10 factors.
 
 ```{code-cell} ipython3
 dims = np.sum(factors,axis=1)
@@ -475,7 +492,7 @@ crossing line 0.
 __a.__ Generate 100 random `x` and `theta` values _remember_ $\theta =
 [0,~2\pi]$
 
-__b.__ Calculate the x locations of the 100 needle ends e.g. $x_end = x
+__b.__ Calculate the x locations of the 100 needle ends e.g. $x_{end} = x
 \pm \cos\theta$ _since length is unit 1. 
 
 __c.__ Use 
@@ -508,6 +525,18 @@ __b.__ What length, L, should the beams be so that only 2.5% will
 reach the critical buckling load?
 
 ```{code-cell} ipython3
+#question 1
+
+x = rng.random(1000000)
+theta = rng.random(1000000)*2*np.pi
+x_end_max = x + np.cos(theta)
+x_end_min = x - np.cos(theta)
+pi_estimate = len(x)/np.sum(np.logical_and(x_end_max < 0, x_end_min>0))
+print('Estimate of pi:',pi_estimate)
+```
+
+```{code-cell} ipython3
+#question 2
 def montecarlo_buckle(E,r_mean,r_std,L,N=100):
     '''Generate N rods of length L with radii of r=r_mean+/-r_std
     then calculate the mean and std of the buckling loads in for the
@@ -524,8 +553,38 @@ def montecarlo_buckle(E,r_mean,r_std,L,N=100):
     mean_buckle_load: mean buckling load of N rods under 1000*9.81/N-Newton load
     std_buckle_load: std dev buckling load of N rods under 1000*9.81/N-Newton load
     '''
+    r = np.random.normal(r_mean,r_std,size=N)
+    P_cr = np.pi**3 * E * r**4 / (16*L**2)
     
-    return mean_buckle_load, std_buckle_load
+    mean_buckle_load = np.mean(P_cr)
+    std_buckle_load = np.std(P_cr)
+    percent_buckle = np.sum(np.less_equal(P_cr, 1000*9.81/N))/ float(len(P_cr)) *100
+    return mean_buckle_load, std_buckle_load, percent_buckle, r
+
+#part a
+E = 200*10**9
+r_mean = 0.01
+r_std = 0.001
+L = 5
+mean, std, percent_buckle,r = montecarlo_buckle(E, r_mean, r_std,L)
+print('The mean_buckle_load and std_buckle_load for L=5 m is: {:.3f} N and {:.3f} N respectively'.format(mean, std))
+```
+
+```{code-cell} ipython3
+#question 2
+
+#part b
+L_vals = np.linspace(0.00001,20, 1000)
+l = []
+for i in L_vals:
+    mean, std, percent_buckle,r  = montecarlo_buckle(E,r_mean,r_std,i)
+    if round(percent_buckle,1) == 3.0:
+        l.append(i)
+    elif round(percent_buckle,1) == 2.0:
+        l.append(i)
+
+mean = np.mean(np.array(l))
+print('Length the beams should be so that only 2.5% will reach the critical buckling load is:', round(mean,3))
 ```
 
 __3.__ Generate your own normal distribution using uniformly random numbers between -1/2 and 1/2. 
@@ -539,5 +598,12 @@ __b.__ What is the effect of changing the number of samples?
 __c.__ How would you change the mean in your generated distribution?
 
 ```{code-cell} ipython3
-
+#part a, b
+rand = np.random.rand(10000,10)-1/2
+dims = np.sum(rand, axis=1)
+plt.hist(dims,30);
 ```
+
+- Part a: Changing the number of factors make the distribution approach the normal distribution.
+- Part b: Changing the number of factors changes the frequency in the bins.
+- Part c: Changing the range of the numbers when generating the random numbers will change the mean in the distibution.
